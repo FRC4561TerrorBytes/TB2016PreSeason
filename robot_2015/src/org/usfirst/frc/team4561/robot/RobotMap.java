@@ -25,6 +25,8 @@ public class RobotMap {
 	public static final int DRIVE_JOYSTICK = 2;
 	public static final int ROTATION_JOYSTICK = 1;
 	public static final int ROBOT_RELATIVE_BUTTON = 1;
+	public static final int ROBOT_STRIFE_RIGHT_BUTTON = 5;
+	public static final int ROBOT_STRIFE_LEFT_BUTTON = 4;
 	
 	/*
 	 * DriveTrain actuator mappings.

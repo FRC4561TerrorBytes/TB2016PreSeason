@@ -43,6 +43,8 @@ public class OI {
 	private Joystick rotationStick = new Joystick(RobotMap.ROTATION_JOYSTICK);
 	private JoystickButton robotRelativeButton = new JoystickButton(driveStick,
 			RobotMap.ROBOT_RELATIVE_BUTTON);
+	private JoystickButton strifingRightButton = new JoystickButton(driveStick,RobotMap.ROBOT_STRIFE_RIGHT_BUTTON);
+	private JoystickButton strifingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_STRIFE_LEFT_BUTTON);
 
 	/**
 	 * Returns true if driving should be robot relative (vs field relative).
@@ -83,4 +85,5 @@ public class OI {
 		return rotationStick.getX();
 	}
 
+	
 }
