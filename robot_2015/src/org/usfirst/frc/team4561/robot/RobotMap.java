@@ -89,15 +89,5 @@ public class RobotMap {
 	 * ENCODING_TYPE = EncodingType.k4X, count is multiplied by 4
 	 */
 	public static final EncodingType ENCODING_TYPE = EncodingType.k1X;
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

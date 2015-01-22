@@ -42,6 +42,7 @@ public class DriveTrain extends Subsystem {
 //			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
 //	 private Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL, RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL, 
 //			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
+
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
