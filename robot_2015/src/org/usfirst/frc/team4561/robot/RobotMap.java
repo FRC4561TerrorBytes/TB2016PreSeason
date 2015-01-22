@@ -28,8 +28,35 @@ public class RobotMap {
 	public static final int ROBOT_STRIFE_RIGHT_BUTTON = 5;
 	public static final int ROBOT_STRIFE_LEFT_BUTTON = 4;
 	
+
+	public static final int FRONT_LEFT_MOTOR_BUTTON = 6;
+	public static final int REAR_LEFT_MOTOR_BUTTON = 7;
+	public static final int FRONT_RIGHT_MOTOR_BUTTON = 11;
+	public static final int REAR_RIGHT_MOTOR_BUTTON = 10;
 	/*
-	 * DriveTrain actuator mappings.
+	 * XBox Controller button mappings.
+	 */
+	public static final int A_BUTTON = 1;
+	public static final int B_BUTTON = 2;
+	public static final int X_BUTTON = 3;
+	public static final int Y_BUTTON = 4;
+	public static final int LEFT_BUMPER = 5;
+	public static final int RIGHT_BUMPER = 6;
+	public static final int BACK_BUTTON = 7;
+	public static final int START_BUTTON = 8;
+	public static final int LEFT_STICK = 9;
+	public static final int RIGHT_STICK = 10;
+	/*
+	 * XBox Controller axis mappings.
+	 */
+	public static final int LEFT_STICK_X = 1;  //left: -, right, +
+	public static final int LEFT_STICK_Y = 2;  //up: -, down, +
+	public static final int TRIGGERS = 3;     //left: +, right, -
+	public static final int RIGHT_STICK_X = 4; //left: -, right, +
+	public static final int RIGHT_STICK_Y = 5; //up: -, down, +
+	public static final int DPAD = 6;          //RECOMMENDED: DO NOT USE. EXTREMLY buggy.
+	/*
+	 * DriveTrain Talon mappings.
 	 */
 	public static final int REAR_LEFT_MOTOR = 0;
 	public static final int FRONT_LEFT_MOTOR = 1;
@@ -39,21 +66,21 @@ public class RobotMap {
 	 * Drivetrain TalonSRX mappings.
 	 */
 	public static final int REAR_LEFT_MOTOR_CAN = 1;   //change device ID
-	public static final int FRONT_LEFT_MOTOR_CAN = 2;  //change device ID
+	public static final int FRONT_LEFT_MOTOR_CAN = 4;  //change device ID
 	public static final int REAR_RIGHT_MOTOR_CAN = 3;  //change device ID
-	public static final int FRONT_RIGHT_MOTOR_CAN = 4; //change device ID
+	public static final int FRONT_RIGHT_MOTOR_CAN = 2; //change device ID
 	
 	/* 
 	 * Drivetrain Encoder mappings.
 	 */
-	public static final int REAR_LEFT_ENCODER_A_CHANNEL = 0;   //change port #
-	public static final int FRONT_LEFT_ENCODER_A_CHANNEL = 0;  //change port #
-	public static final int REAR_RIGHT_ENCODER_A_CHANNEL = 0;  //change port #
-	public static final int FRONT_RIGHT_ENCODER_A_CHANNEL = 0; //change port #
-	public static final int REAR_LEFT_ENCODER_B_CHANNEL = 0;   //change port #
-	public static final int FRONT_LEFT_ENCODER_B_CHANNEL = 0;  //change port #
-	public static final int REAR_RIGHT_ENCODER_B_CHANNEL = 0;  //change port #
-	public static final int FRONT_RIGHT_ENCODER_B_CHANNEL = 0; //change port #
+//	public static final int REAR_LEFT_ENCODER_A_CHANNEL = 0;   //change port #
+//	public static final int FRONT_LEFT_ENCODER_A_CHANNEL = 0;  //change port #
+//	public static final int REAR_RIGHT_ENCODER_A_CHANNEL = 0;  //change port #
+//	public static final int FRONT_RIGHT_ENCODER_A_CHANNEL = 0; //change port #
+//	public static final int REAR_LEFT_ENCODER_B_CHANNEL = 0;   //change port #
+//	public static final int FRONT_LEFT_ENCODER_B_CHANNEL = 0;  //change port #
+//	public static final int REAR_RIGHT_ENCODER_B_CHANNEL = 0;  //change port #
+//	public static final int FRONT_RIGHT_ENCODER_B_CHANNEL = 0; //change port #
 	/*
 	 * Reverse encoder direction
 	 * i.e. REVERSE_DIRECTION = True, then forward = "+", backward = "-"

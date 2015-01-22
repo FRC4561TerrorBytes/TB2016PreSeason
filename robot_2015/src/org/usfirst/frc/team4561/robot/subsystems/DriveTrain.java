@@ -34,21 +34,22 @@ public class DriveTrain extends Subsystem {
 			rightFront, rightRear);
 	 
 	 //Encoders
-	 private Encoder leftFrontEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL, RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL,
-			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
-	 private Encoder rearLeftEncoder = new Encoder(RobotMap.REAR_LEFT_ENCODER_A_CHANNEL, RobotMap.REAR_LEFT_ENCODER_B_CHANNEL,
-			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
-	 private Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL, RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL, 
-			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
-	 private Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL, RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL, 
-			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
+//	 private Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL, RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL,
+//			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
+//	 private Encoder rearLeftEncoder = new Encoder(RobotMap.REAR_LEFT_ENCODER_A_CHANNEL, RobotMap.REAR_LEFT_ENCODER_B_CHANNEL,
+//			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
+//	 private Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL, RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL, 
+//			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
+//	 private Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL, RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL, 
+//			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
+
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 		setDefaultCommand(new MecanumDrive());
 
 	}
-
+	
 	public void driveRobotRelative(double x_v, double y_v, double rot) {
 		robotDrive.mecanumDrive_Cartesian(x_v, y_v, rot, 0.0);
 	}
@@ -63,4 +64,40 @@ public class DriveTrain extends Subsystem {
 	public void stop() {
 		robotDrive.mecanumDrive_Cartesian(0.0, 0.0, 0.0, 0.0);
 	}
+	
+	public void testSingleMotor(int motorID) {
+		if(motorID == RobotMap.FRONT_LEFT_MOTOR_CAN) {
+			leftFront.set(0.5);
+		}
+		else if(motorID == RobotMap.REAR_LEFT_MOTOR_CAN) {
+			leftRear.set(0.5);
+		}
+		else if(motorID == RobotMap.FRONT_RIGHT_MOTOR_CAN) {
+			rightFront.set(0.5);
+		}
+		else if(motorID == RobotMap.REAR_RIGHT_MOTOR_CAN) {
+			rightRear.set(0.5);
+		}
+	}
+//	public int[] getDriveEncoderCount() {
+//		int[] encoderCount;
+//		encoderCount = new int[4];
+//		encoderCount[0] = frontLeftEncoder.get();
+//		encoderCount[1] = rearLeftEncoder.get();
+//		encoderCount[2] = frontRightEncoder.get();
+//		encoderCount[3] = rearRightEncoder.get();
+//		return encoderCount;
+//	}
+//	public void printDriveEncoderCount() {
+//		//TEMPORARY. For testing purposes only.
+//		int[] encoderCount;
+//		encoderCount = new int[4];
+//		encoderCount[0] = frontLeftEncoder.get();
+//		encoderCount[1] = rearLeftEncoder.get();
+//		encoderCount[2] = frontRightEncoder.get();
+//		encoderCount[3] = rearRightEncoder.get();
+//	    for(int a = 0;a < 4; a++) {
+//	    	System.out.print(encoderCount[a] + " ");
+//	    }
+//	}
 }
