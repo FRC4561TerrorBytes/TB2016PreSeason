@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4561.robot;
 
+import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -43,7 +45,17 @@ public class OI {
 	private Joystick rotationStick = new Joystick(RobotMap.ROTATION_JOYSTICK);
 	private JoystickButton robotRelativeButton = new JoystickButton(driveStick,
 			RobotMap.ROBOT_RELATIVE_BUTTON);
-
+	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
+			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
+	private JoystickButton driveRearLeft = new JoystickButton(driveStick,
+			RobotMap.REAR_LEFT_MOTOR_BUTTON);
+	private JoystickButton driveFrontRight = new JoystickButton(driveStick,
+			RobotMap.FRONT_RIGHT_MOTOR_BUTTON);
+	private JoystickButton driveRearRight = new JoystickButton(driveStick,
+			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
+	
+	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
+	// private Joystick xBoxRotaryStick = new Joystick(RobotMap.RIGHT_STICK);
 	/**
 	 * Returns true if driving should be robot relative (vs field relative).
 	 * 
@@ -52,7 +64,12 @@ public class OI {
 	public boolean isRobotRelative() {
 		return robotRelativeButton.get();
 	}
-
+	public OI() {
+		driveFrontLeft.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_LEFT_MOTOR_CAN));
+		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
+		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
+		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
+	}
 	/**
 	 * Returns the drive stick Y axis magnitude [-1..1] where negative is
 	 * forward and backward is positive.
@@ -61,6 +78,7 @@ public class OI {
 	 */
 	public double getDriveY() {
 		return driveStick.getY();
+		// return xBoxDriveStick.getY();
 	}
 
 	/**
@@ -71,6 +89,7 @@ public class OI {
 	 */
 	public double getDriveX() {
 		return driveStick.getX();
+		// return xBoxDriveStick.getX();
 	}
 
 	/**
@@ -81,6 +100,6 @@ public class OI {
 	 */
 	public double getRotationX() {
 		return rotationStick.getX();
+		// return xBoxRotaryStick.getX();
 	}
-
 }
