@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot.subsystems;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.MecanumDrive;
 
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Talon;
@@ -33,6 +34,7 @@ public class DriveTrain extends Subsystem {
 	 private CANTalon rightRear = new CANTalon(RobotMap.REAR_RIGHT_MOTOR_CAN);	
 	 private RobotDrive robotDrive = new RobotDrive(leftFront, leftRear,
 			rightFront, rightRear);
+	 private Gyro gyro = new Gyro(RobotMap.GYRO_IN);
 	 
 	 //Encoders
 //	 private Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL, RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL,
@@ -61,10 +63,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void driveFieldRelative(double x_v, double y_v, double rot) {
-		robotDrive.mecanumDrive_Cartesian(x_v, y_v, rot, 0.0 /*
-															 * Replace with gyro
-															 * reading
-															 */);
+		robotDrive.mecanumDrive_Cartesian(x_v, y_v, rot, gyro.getAngle());
 	}
 
 	public void stop() {
