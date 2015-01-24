@@ -25,6 +25,10 @@ public class RobotMap {
 	public static final int DRIVE_JOYSTICK = 2;
 	public static final int ROTATION_JOYSTICK = 1;
 	public static final int ROBOT_RELATIVE_BUTTON = 1;
+
+	public static final int ROBOT_JOG_RIGHT_BUTTON = 5;
+	public static final int ROBOT_JOG_LEFT_BUTTON = 4;
+	
 	public static final int ROBOT_STRIFE_RIGHT_BUTTON = 5;
 	public static final int ROBOT_STRIFE_LEFT_BUTTON = 4;
 	// Dead zone thresholds
@@ -48,6 +52,13 @@ public class RobotMap {
 	public static final int START_BUTTON = 8;
 	public static final int LEFT_STICK = 9;
 	public static final int RIGHT_STICK = 10;
+	
+	/*
+	 * gyro stuff
+	 */
+	
+	public static final int GYRO_IN = 0; //analog 0
+	
 	/*
 	 * XBox Controller axis mappings.
 	 */
