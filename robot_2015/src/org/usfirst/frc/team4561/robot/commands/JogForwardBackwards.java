@@ -1,23 +1,23 @@
 package org.usfirst.frc.team4561.robot.commands;
 
-
 import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+
 /**
  *
  */
-public class JogSideways extends Command {
-private boolean left;
-	
-    public JogSideways(boolean left) {
+public class JogForwardBackwards extends Command {
+private boolean forward;
+
+    public JogForwardBackwards(boolean foward) {
+    	requires(Robot.driveTrain);
+    	this.forward = forward;
+    	setTimeout(0.5);
+    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	
-    	requires(Robot.driveTrain);
-    	this.left = left;
-    	setTimeout(0.5);
     }
 
     // Called just before this Command runs the first time
@@ -26,10 +26,8 @@ private boolean left;
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveRobotRelative(left? -0.3:0.3 , 0.0, 0.0);
-    			
+    	Robot.driveTrain.driveRobotRelative(0,forward? -3.0:3.0 , 0);
     }
-    	
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

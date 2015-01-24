@@ -2,6 +2,8 @@ package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.JogSideways;
+import org.usfirst.frc.team4561.robot.triggers.JogBackwardTrigger;
+import org.usfirst.frc.team4561.robot.triggers.JogForwardTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogLeftTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogRightTrigger;
 
@@ -51,7 +53,9 @@ public class OI {
 
 	public JoystickButton joggingRightButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_RIGHT_BUTTON);
 	public JoystickButton joggingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_LEFT_BUTTON);
-
+	public JoystickButton joggingForwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_FORWARD_BUTTON);
+	public JoystickButton joggingBackwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_BACKWARD_BUTTON);
+	
 	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
 			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
 	private JoystickButton driveRearLeft = new JoystickButton(driveStick,
@@ -63,6 +67,9 @@ public class OI {
 	
 	private JogLeftTrigger jogLeftTrigger = new JogLeftTrigger();
 	private JogRightTrigger jogRightTrigger = new JogRightTrigger();
+	private JogForwardTrigger jogForwardTrigger = new JogForwardTrigger();
+	private JogBackwardTrigger jogBackwardsTrigger = new JogBackwardTrigger();
+	
 	
 	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
 	// private Joystick xBoxRotaryStick = new Joystick(RobotMap.RIGHT_STICK);
