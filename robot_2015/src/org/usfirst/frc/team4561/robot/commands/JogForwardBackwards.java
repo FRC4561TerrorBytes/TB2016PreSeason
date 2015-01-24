@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class JogForwardBackwards extends Command {
 private boolean forward;
 
-    public JogForwardBackwards(boolean foward) {
+    public JogForwardBackwards(boolean forward) {
     	requires(Robot.driveTrain);
     	this.forward = forward;
     	setTimeout(0.5);
