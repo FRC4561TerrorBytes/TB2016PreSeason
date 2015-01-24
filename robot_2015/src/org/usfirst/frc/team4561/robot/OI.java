@@ -1,6 +1,9 @@
 package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
+import org.usfirst.frc.team4561.robot.commands.JogSideways;
+import org.usfirst.frc.team4561.robot.triggers.JogLeftTrigger;
+import org.usfirst.frc.team4561.robot.triggers.JogRightTrigger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -46,8 +49,8 @@ public class OI {
 	private JoystickButton robotRelativeButton = new JoystickButton(driveStick,
 			RobotMap.ROBOT_RELATIVE_BUTTON);
 
-	private JoystickButton strifingRightButton = new JoystickButton(driveStick,RobotMap.ROBOT_STRIFE_RIGHT_BUTTON);
-	private JoystickButton strifingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_STRIFE_LEFT_BUTTON);
+	public JoystickButton joggingRightButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_RIGHT_BUTTON);
+	public JoystickButton joggingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_LEFT_BUTTON);
 
 	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
 			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
@@ -57,6 +60,9 @@ public class OI {
 			RobotMap.FRONT_RIGHT_MOTOR_BUTTON);
 	private JoystickButton driveRearRight = new JoystickButton(driveStick,
 			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
+	
+	private JogLeftTrigger jogLeftTrigger = new JogLeftTrigger();
+	private JogRightTrigger jogRightTrigger = new JogRightTrigger();
 	
 	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
 	// private Joystick xBoxRotaryStick = new Joystick(RobotMap.RIGHT_STICK);
@@ -74,6 +80,9 @@ public class OI {
 		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
 		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
 		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
+		
+		jogLeftTrigger.whenActive(new JogSideways(true));
+		jogRightTrigger.whenActive(new JogSideways(false));
 	}
 	/**
 	 * Returns the drive stick Y axis magnitude [-1..1] where negative is
