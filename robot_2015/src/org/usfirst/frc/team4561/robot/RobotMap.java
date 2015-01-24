@@ -52,6 +52,13 @@ public class RobotMap {
 	public static final int START_BUTTON = 8;
 	public static final int LEFT_STICK = 9;
 	public static final int RIGHT_STICK = 10;
+	
+	/*
+	 * gyro stuff
+	 */
+	
+	public static final int GYRO_IN = 0; //analog 0
+	
 	/*
 	 * XBox Controller axis mappings.
 	 */
