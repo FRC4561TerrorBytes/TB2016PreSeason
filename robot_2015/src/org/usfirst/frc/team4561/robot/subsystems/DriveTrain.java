@@ -36,6 +36,7 @@ public class DriveTrain extends Subsystem {
 			rightFront, rightRear);
 	 private Gyro gyro = new Gyro(RobotMap.GYRO_IN);
 	 
+	 
 	 //Encoders
 //	 private Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL, RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL,
 //			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
@@ -48,7 +49,8 @@ public class DriveTrain extends Subsystem {
 	
 	public DriveTrain() {
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-		robotDrive.setInvertedMotor(MotorType.kRearRight, true);;
+		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+		gyro.initGyro();
 	}
 	 
 	public void initDefaultCommand() {
