@@ -131,4 +131,7 @@ public class OI {
 		return rotationStickX;
 		// return xBoxRotaryStick.getX();
 	}
+	public double getRotationDegrees() {
+		return rotationStick.getDirectionDegrees();
+	}
 }
