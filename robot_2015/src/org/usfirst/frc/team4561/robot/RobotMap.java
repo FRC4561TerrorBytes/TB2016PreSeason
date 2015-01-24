@@ -68,10 +68,10 @@ public class RobotMap {
 	/*
 	 * Drivetrain TalonSRX mappings.
 	 */
-	public static final int REAR_LEFT_MOTOR_CAN = 1; // change device ID
-	public static final int FRONT_LEFT_MOTOR_CAN = 4; // change device ID
-	public static final int REAR_RIGHT_MOTOR_CAN = 3; // change device ID
-	public static final int FRONT_RIGHT_MOTOR_CAN = 2; // change device ID
+	public static final int REAR_LEFT_MOTOR_CAN = 1; 
+	public static final int FRONT_LEFT_MOTOR_CAN = 4;
+	public static final int REAR_RIGHT_MOTOR_CAN = 3;
+	public static final int FRONT_RIGHT_MOTOR_CAN = 2; 
 	public static final int ELEVATOR_MOTOR_CAN = 5;
 
 	/*
@@ -98,5 +98,11 @@ public class RobotMap {
 	 * ENCODING_TYPE = EncodingType.k4X, count is multiplied by 4
 	 */
 	public static final EncodingType ENCODING_TYPE = EncodingType.k1X;
+	
+	//Elevator Set Height Points (inches)
+	public static final double RECYCLING_CAN_ON_GROUND = 9;
+	public static final double TOTE_ON_GROUND = 9;
+	public static final double RECYCLING_CAN_ON_PLATFORM = 11;
+	public static final double TOTE_ON_PLATFORM = 11;
 
 }
