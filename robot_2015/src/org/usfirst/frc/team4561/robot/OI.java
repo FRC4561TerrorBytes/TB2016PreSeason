@@ -82,7 +82,12 @@ public class OI {
 	 * @return the drive stick Y axis magnitude
 	 */
 	public double getDriveY() {
-		return driveStick.getY();
+		// Dead zone management
+		double driveStickY = driveStick.getY();
+		if(Math.abs(driveStickY) < RobotMap.DRIVE_DEAD_ZONE) {
+			driveStickY = 0;
+		}
+		return driveStickY;
 		// return xBoxDriveStick.getY();
 	}
 
@@ -93,7 +98,12 @@ public class OI {
 	 * @return the drive stick X axis magnitude
 	 */
 	public double getDriveX() {
-		return driveStick.getX();
+		// Dead zone management
+		double driveStickX = driveStick.getX();
+		if(Math.abs(driveStickX) < RobotMap.DRIVE_DEAD_ZONE) {
+			driveStickX = 0;
+		}
+		return driveStickX;
 		// return xBoxDriveStick.getX();
 	}
 
@@ -104,7 +114,12 @@ public class OI {
 	 * @return the rotation stick X axis magnitude
 	 */
 	public double getRotationX() {
-		return rotationStick.getX();
+		// Dead zone management
+		double rotationStickX = rotationStick.getX();
+		if(Math.abs(rotationStickX) < RobotMap.ROTATION_DEAD_ZONE) {
+			rotationStickX = 0;
+		}
+		return rotationStickX;
 		// return xBoxRotaryStick.getX();
 	}
 }
