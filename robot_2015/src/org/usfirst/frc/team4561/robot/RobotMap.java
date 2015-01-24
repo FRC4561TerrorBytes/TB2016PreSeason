@@ -57,7 +57,8 @@ public class RobotMap {
 	 * gyro stuff
 	 */
 	
-	public static final int GYRO_IN = 0; //analog 0
+	public static final int GYRO_IN 
+	= 0; //analog 0
 	
 	/*
 	 * XBox Controller axis mappings.
@@ -115,5 +116,5 @@ public class RobotMap {
 	public static final double TOTE_ON_GROUND = 9;
 	public static final double RECYCLING_CAN_ON_PLATFORM = 11;
 	public static final double TOTE_ON_PLATFORM = 11;
-
+	
 }
