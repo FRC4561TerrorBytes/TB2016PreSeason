@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
+import org.usfirst.frc.team4561.robot.commands.JogForwardBackwards;
 import org.usfirst.frc.team4561.robot.commands.JogSideways;
 import org.usfirst.frc.team4561.robot.triggers.JogBackwardTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogForwardTrigger;
@@ -90,6 +91,10 @@ public class OI {
 		
 		jogLeftTrigger.whenActive(new JogSideways(true));
 		jogRightTrigger.whenActive(new JogSideways(false));
+		
+		jogBackwardsTrigger.whenActive(new JogForwardBackwards(false));
+		jogForwardTrigger.whenActive(new JogForwardBackwards(true));
+		
 	}
 	/**
 	 * Returns the drive stick Y axis magnitude [-1..1] where negative is
