@@ -55,6 +55,9 @@ public class OI {
 	public JoystickButton joggingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_LEFT_BUTTON);
 	public JoystickButton joggingForwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_FORWARD_BUTTON);
 	public JoystickButton joggingBackwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_BACKWARD_BUTTON);
+	public JoystickButton elevatorUpButton = new JoystickButton(driveStick,RobotMap.MOVE_ELEVATOR_UP_BUTTON);
+	public JoystickButton elevatorDownButton = new JoystickButton(driveStick,RobotMap.MOVE_ELEVATOR_DOWN_BUTTON);
+	
 	
 	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
 			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
@@ -69,6 +72,7 @@ public class OI {
 	private JogRightTrigger jogRightTrigger = new JogRightTrigger();
 	private JogForwardTrigger jogForwardTrigger = new JogForwardTrigger();
 	private JogBackwardTrigger jogBackwardsTrigger = new JogBackwardTrigger();
+	
 	
 	
 	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
@@ -90,6 +94,9 @@ public class OI {
 		
 		jogLeftTrigger.whenActive(new JogSideways(true));
 		jogRightTrigger.whenActive(new JogSideways(false));
+		
+		
+		
 	}
 	/**
 	 * Returns the drive stick Y axis magnitude [-1..1] where negative is
