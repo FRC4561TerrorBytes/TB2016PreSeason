@@ -8,13 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class MoveElevator extends Command {
-	private int motorID;
+	private double motorSpeed;
 	
-    public MoveElevator(int motorID) {
+    public MoveElevator(double motorSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.motorID = motorID;
+    	this.motorSpeed = motorSpeed;
     	requires(Robot.elevator);
+    	requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +24,7 @@ public class MoveElevator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elevator.testMoveElevator(motorID, 0.5);
+    	Robot.elevator.testMoveElevator(motorSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

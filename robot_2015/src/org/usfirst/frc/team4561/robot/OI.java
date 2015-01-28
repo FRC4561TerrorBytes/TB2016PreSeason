@@ -96,8 +96,8 @@ public class OI {
 		jogLeftTrigger.whenActive(new JogSideways(true));
 		jogRightTrigger.whenActive(new JogSideways(false));
 		
-		elevatorDownButton.whileHeld(new MoveElevator(RobotMap.MOVE_ELEVATOR_DOWN_BUTTON));
-		elevatorUpButton.whileHeld(new MoveElevator(RobotMap.MOVE_ELEVATOR_UP_BUTTON));
+		elevatorDownButton.whileHeld(new MoveElevator(-0.5));
+		elevatorUpButton.whileHeld(new MoveElevator(0.5));
 		
 	}
 	/**

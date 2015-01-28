@@ -29,13 +29,9 @@ public class Elevator extends PIDSubsystem {
 	}
 	
 	
-	public void testMoveElevator(int jButton, double motorSpeed) {
-		if (jButton == RobotMap.MOVE_ELEVATOR_UP_BUTTON) {
+	public void testMoveElevator(double motorSpeed) {
 			elevator_motor.set(motorSpeed);
-		}
-		else if (jButton == RobotMap.MOVE_ELEVATOR_DOWN_BUTTON) {
-			elevator_motor.set(-motorSpeed);
-		}
+		
 	}
 	
 	public double getElevatorEncoderCountPID() {
