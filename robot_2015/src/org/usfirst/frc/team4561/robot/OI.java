@@ -2,6 +2,7 @@ package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.JogSideways;
+import org.usfirst.frc.team4561.robot.commands.MoveElevator;
 import org.usfirst.frc.team4561.robot.triggers.JogBackwardTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogForwardTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogLeftTrigger;
@@ -95,7 +96,8 @@ public class OI {
 		jogLeftTrigger.whenActive(new JogSideways(true));
 		jogRightTrigger.whenActive(new JogSideways(false));
 		
-		
+		elevatorDownButton.whileHeld(new MoveElevator(RobotMap.MOVE_ELEVATOR_DOWN_BUTTON));
+		elevatorUpButton.whileHeld(new MoveElevator(RobotMap.MOVE_ELEVATOR_UP_BUTTON));
 		
 	}
 	/**
