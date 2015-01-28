@@ -30,6 +30,8 @@ public class RobotMap {
 	public static final int ROBOT_JOG_LEFT_BUTTON = 4;
 	public static final int ROBOT_JOG_FORWARD_BUTTON = 3;
 	public static final int ROBOT_JOG_BACKWARD_BUTTON = 2;
+	public static final int MOVE_ELEVATOR_UP_BUTTON = 6;
+	public static final int MOVE_ELEVATOR_DOWN_BUTTON = 7;
 	
 	// Dead zone thresholds
 	public static final double DRIVE_DEAD_ZONE = 0.3;
