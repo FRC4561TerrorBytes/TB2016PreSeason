@@ -20,7 +20,7 @@ public class ClawRelease extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.claw.closeClaw();
+		Robot.claw.openClaw();
 		
 	}
 
