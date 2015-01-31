@@ -37,7 +37,7 @@ private int currentDirection = FORWARD;
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (currentDirection == FORWARD){
-    		Robot.driveTrain.driveRobotRelative(0.0,0.3,0);
+    		Robot.driveTrain.driveRobotRelative(0.0,0.3);
     	}
      
     	
