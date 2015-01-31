@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.robot;
 
+import org.usfirst.frc.team4561.robot.subsystems.Claw;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 import org.usfirst.frc.team4561.robot.subsystems.Extender;
@@ -22,6 +23,7 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Elevator elevator = new Elevator();
 	public static final Extender extender = new Extender();
+	public static final Claw claw = new Claw();
 	public static OI oi;
 
 	Command autonomousCommand;
