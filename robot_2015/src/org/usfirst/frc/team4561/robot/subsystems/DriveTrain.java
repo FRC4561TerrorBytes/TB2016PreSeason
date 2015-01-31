@@ -95,10 +95,6 @@ public class DriveTrain extends PIDSubsystem {
 		//Returns the gyroscope angle. Angle continues upward once it its 360.
 		return gyro.getAngle();
 	}
-	public double getNormalizedGyroAngle() {
-		//Returns the gyroscope angle. Angle loops to 0 once it hits 360.
-		return gyro.getAngle() % 360;
-	}
 	
 	public double getNormalizedGyroAngle() {
 		return getGyroAngle() % 360.0;
