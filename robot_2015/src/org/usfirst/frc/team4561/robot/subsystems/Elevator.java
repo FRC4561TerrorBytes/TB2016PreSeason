@@ -30,6 +30,7 @@ public class Elevator extends PIDSubsystem {
 	
 	
 	public void testMoveElevator(double motorSpeed) {
+			elevator_motor.enableBrakeMode(true);
 			elevator_motor.set(motorSpeed);
 		
 	}

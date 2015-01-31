@@ -56,8 +56,8 @@ public class OI {
 	public JoystickButton joggingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_LEFT_BUTTON);
 	public JoystickButton joggingForwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_FORWARD_BUTTON);
 	public JoystickButton joggingBackwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_BACKWARD_BUTTON);
-	public JoystickButton elevatorUpButton = new JoystickButton(driveStick,RobotMap.MOVE_ELEVATOR_UP_BUTTON);
-	public JoystickButton elevatorDownButton = new JoystickButton(driveStick,RobotMap.MOVE_ELEVATOR_DOWN_BUTTON);
+	public JoystickButton elevatorUpButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_UP_BUTTON);
+	public JoystickButton elevatorDownButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_DOWN_BUTTON);
 	
 	
 	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,

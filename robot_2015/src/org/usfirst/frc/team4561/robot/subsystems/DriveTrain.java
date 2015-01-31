@@ -61,10 +61,18 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void driveRobotRelative(double x_v, double y_v, double rot) {
+		leftFront.enableBrakeMode(true);
+		leftRear.enableBrakeMode(true);
+		rightFront.enableBrakeMode(true);
+		rightRear.enableBrakeMode(true);
 		robotDrive.mecanumDrive_Cartesian(x_v, y_v, rot, 0.0);
 	}
 
 	public void driveFieldRelative(double x_v, double y_v, double rot) {
+		leftFront.enableBrakeMode(true);
+		leftRear.enableBrakeMode(true);
+		rightFront.enableBrakeMode(true);
+		rightRear.enableBrakeMode(true);
 		robotDrive.mecanumDrive_Cartesian(x_v, y_v, rot, gyro.getAngle());
 	}
 
@@ -82,15 +90,19 @@ public class DriveTrain extends Subsystem {
 	
 	public void testSingleMotor(int motorID) {
 		if(motorID == RobotMap.FRONT_LEFT_MOTOR_CAN) {
+			leftFront.enableBrakeMode(true);
 			leftFront.set(0.5);
 		}
 		else if(motorID == RobotMap.REAR_LEFT_MOTOR_CAN) {
+			leftRear.enableBrakeMode(true);
 			leftRear.set(0.5);
 		}
 		else if(motorID == RobotMap.FRONT_RIGHT_MOTOR_CAN) {
+			rightFront.enableBrakeMode(true);
 			rightFront.set(0.5);
 		}
 		else if(motorID == RobotMap.REAR_RIGHT_MOTOR_CAN) {
+			rightRear.enableBrakeMode(true);
 			rightRear.set(0.5);
 		}
 	}
