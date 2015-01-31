@@ -91,6 +91,11 @@ public class RobotMap {
 	public static final int EXTENDER_MOTOR_CAN = 2; // TODO change me
 
 	/*
+	 * Pneumatics mappings
+	 */
+	public static final int CLAW_PORT_1 = 0; // TODO change me
+	public static final int CLAW_PORT_2 = 1;
+	/*
 	 * Drivetrain Encoder mappings.
 	 */
 	public static final int REAR_LEFT_ENCODER_A_CHANNEL = 0; 
