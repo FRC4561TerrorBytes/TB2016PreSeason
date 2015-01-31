@@ -38,6 +38,10 @@ public class DriveTrain extends PIDSubsystem {
 	 private RobotDrive robotDrive = new RobotDrive(leftFront, leftRear,
 			rightFront, rightRear);
 	 
+	 private double currentX = 0.0;
+	 private double currentY = 0.0;
+	 private boolean fieldRelative = true;
+	 
 	 //Gyroscope
 	 private Gyro gyro = new Gyro(RobotMap.GYRO_IN);
 	 
@@ -54,9 +58,14 @@ public class DriveTrain extends PIDSubsystem {
 	public DriveTrain() { 
 		super(0.3, 0, 0);
 		getPIDController().setContinuous(false);
+		setAbsoluteTolerance(3);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		gyro.initGyro();
+		leftFront.enableBrakeMode(true);
+		leftRear.enableBrakeMode(true);
+		rightFront.enableBrakeMode(true);
+		rightRear.enableBrakeMode(true);
 	}
 	 
 	public void initDefaultCommand() {
@@ -67,20 +76,18 @@ public class DriveTrain extends PIDSubsystem {
 	public void rotateToAngle(double heading) {
 		setSetpoint(heading);
 	}	
-	public void driveRobotRelative(double x_v, double y_v, double rot) {
-		leftFront.enableBrakeMode(true);
-		leftRear.enableBrakeMode(true);
-		rightFront.enableBrakeMode(true);
-		rightRear.enableBrakeMode(true);
-		robotDrive.mecanumDrive_Cartesian(x_v, y_v, rot, 0.0);
+	public void driveRobotRelative(double x_v, double y_v) {
+		currentX = x_v;
+		currentY = y_v;		
+		fieldRelative = false;
 	}
 
-	public void driveFieldRelative(double x_v, double y_v, double rot) {
-		leftFront.enableBrakeMode(true);
-		leftRear.enableBrakeMode(true);
-		rightFront.enableBrakeMode(true);
-		rightRear.enableBrakeMode(true);
-		robotDrive.mecanumDrive_Cartesian(x_v, y_v, rot, gyro.getAngle());
+	public void driveFieldRelative(double x_v, double y_v) {
+		setSetpoint(Robot.oi.getRotationDegrees());
+		calcFastestTurn();
+		currentX = x_v;
+		currentY = y_v;
+		fieldRelative = true;
 	}
 	
 	public void calcFastestTurn(){
@@ -96,7 +103,8 @@ public class DriveTrain extends PIDSubsystem {
 		}
 	}
 	public void stop() {
-		robotDrive.mecanumDrive_Cartesian(0.0, 0.0, 0.0, 0.0);
+		currentX = 0.0;
+		currentY = 0.0;
 	}
 	
 	public double getGyroAngle() {
@@ -158,10 +166,13 @@ public class DriveTrain extends PIDSubsystem {
 	@Override
 	protected void usePIDOutput(double output) {
 		// TODO Auto-generated method stub
-		if (getPIDController().onTarget() ==  false) {
+		System.out.println(fieldRelative + " " + getPIDController().onTarget());
+		double rot = 0.0;
+		if (fieldRelative && getPIDController().onTarget() ==  false) {
 			calcFastestTurn();
-			double rot = output/(180*getPIDController().getP());
-			robotDrive.mecanumDrive_Cartesian(0, 0, rot, getNormalizedGyroAngle());
+			rot = output/(180*getPIDController().getP());
 		}
+			
+		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
 	}
 }

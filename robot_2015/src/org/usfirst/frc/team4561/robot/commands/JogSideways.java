@@ -26,7 +26,7 @@ private boolean left;
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveRobotRelative(left? -0.3:0.3 , 0.0, 0.0);
+    	Robot.driveTrain.driveRobotRelative(left? -0.3:0.3 , 0.0);
     			
     }
     	

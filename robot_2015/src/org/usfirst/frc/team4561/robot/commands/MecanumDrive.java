@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -17,16 +16,17 @@ public class MecanumDrive extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.driveTrain.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (Robot.oi.isRobotRelative()) {
 			Robot.driveTrain.driveRobotRelative(Robot.oi.getDriveX(),
-					Robot.oi.getDriveY(), Robot.oi.getRotationX());
+					Robot.oi.getDriveY());
 		} else {
 			Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX(),
-					Robot.oi.getDriveY(), Robot.oi.getRotationX());
+					Robot.oi.getDriveY());
 		}
 	}
 
@@ -38,6 +38,7 @@ public class MecanumDrive extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.driveTrain.stop();
+		Robot.driveTrain.disable();
 	}
 
 	// Called when another command which requires one or more of the same
