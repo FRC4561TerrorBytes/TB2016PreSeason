@@ -26,7 +26,7 @@ public class MecanumDrive extends Command {
 					Robot.oi.getDriveY());
 		} else {
 			Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX(),
-					Robot.oi.getDriveY());
+					Robot.oi.getDriveY(), Robot.oi.getRotationDegrees());
 		}
 	}
 
