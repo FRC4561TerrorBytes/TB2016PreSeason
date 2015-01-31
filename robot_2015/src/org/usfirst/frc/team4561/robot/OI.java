@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
+import org.usfirst.frc.team4561.robot.commands.JogForwardBackwards;
 import org.usfirst.frc.team4561.robot.commands.JogSideways;
 import org.usfirst.frc.team4561.robot.commands.MoveElevator;
 import org.usfirst.frc.team4561.robot.triggers.JogBackwardTrigger;
@@ -59,7 +60,6 @@ public class OI {
 	public JoystickButton elevatorUpButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_UP_BUTTON);
 	public JoystickButton elevatorDownButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_DOWN_BUTTON);
 	
-	
 	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
 			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
 	private JoystickButton driveRearLeft = new JoystickButton(driveStick,
@@ -73,7 +73,6 @@ public class OI {
 	private JogRightTrigger jogRightTrigger = new JogRightTrigger();
 	private JogForwardTrigger jogForwardTrigger = new JogForwardTrigger();
 	private JogBackwardTrigger jogBackwardsTrigger = new JogBackwardTrigger();
-	
 	
 	
 	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
@@ -102,9 +101,15 @@ public class OI {
 		jogLeftTrigger.whenActive(new JogSideways(true));
 		jogRightTrigger.whenActive(new JogSideways(false));
 		
+		jogBackwardsTrigger.whenActive(new JogForwardBackwards(false));
+		jogForwardTrigger.whenActive(new JogForwardBackwards(true));
+		
 		elevatorDownButton.whileHeld(new MoveElevator(-0.5));
 		elevatorUpButton.whileHeld(new MoveElevator(0.5));
-		
+	}
+	
+	public int getDrivePOV(){
+		return driveStick.getPOV();
 	}
 	
 	/**
