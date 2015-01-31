@@ -87,7 +87,8 @@ public class RobotMap {
 	public static final int FRONT_LEFT_MOTOR_CAN = 4;
 	public static final int REAR_RIGHT_MOTOR_CAN = 3;
 	public static final int FRONT_RIGHT_MOTOR_CAN = 2; 
-	public static final int ELEVATOR_MOTOR_CAN = 4;
+	public static final int ELEVATOR_MOTOR_CAN = 4; // TODO change me
+	public static final int EXTENDER_MOTOR_CAN = 2; // TODO change me
 
 	/*
 	 * Drivetrain Encoder mappings.

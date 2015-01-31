@@ -90,6 +90,7 @@ public class DriveTrain extends PIDSubsystem {
 	public void stop() {
 		robotDrive.mecanumDrive_Cartesian(0.0, 0.0, 0.0, 0.0);
 	}
+	
 	public double getGyroAngle() {
 		//Returns the gyroscope angle. Angle continues upward once it its 360.
 		return gyro.getAngle();
@@ -98,6 +99,11 @@ public class DriveTrain extends PIDSubsystem {
 		//Returns the gyroscope angle. Angle loops to 0 once it hits 360.
 		return gyro.getAngle() % 360;
 	}
+	
+	public double getNormalizedGyroAngle() {
+		return getGyroAngle() % 360.0;
+	}
+	
 	public void testSingleMotor(int motorID) {
 		if(motorID == RobotMap.FRONT_LEFT_MOTOR_CAN) {
 			leftFront.set(0.5);
