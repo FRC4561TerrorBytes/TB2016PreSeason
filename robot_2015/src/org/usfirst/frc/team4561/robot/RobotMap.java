@@ -30,6 +30,8 @@ public class RobotMap {
 	public static final int ROBOT_JOG_LEFT_BUTTON = 4;
 	public static final int ROBOT_JOG_FORWARD_BUTTON = 3;
 	public static final int ROBOT_JOG_BACKWARD_BUTTON = 2;
+	public static final int MOVE_ELEVATOR_UP_BUTTON = 6;
+	public static final int MOVE_ELEVATOR_DOWN_BUTTON = 7;
 	
 	// Dead zone thresholds
 	public static final double DRIVE_DEAD_ZONE = 0.3;
@@ -81,27 +83,32 @@ public class RobotMap {
 	/*
 	 * Drivetrain TalonSRX mappings.
 	 */
-	public static final int REAR_LEFT_MOTOR_CAN = 1; 
+	public static final int REAR_LEFT_MOTOR_CAN = 1;
 	public static final int FRONT_LEFT_MOTOR_CAN = 4;
 	public static final int REAR_RIGHT_MOTOR_CAN = 3;
 	public static final int FRONT_RIGHT_MOTOR_CAN = 2; 
-	public static final int ELEVATOR_MOTOR_CAN = 5;
+	public static final int ELEVATOR_MOTOR_CAN = 4;
 
 	/*
 	 * Drivetrain Encoder mappings.
 	 */
-	// public static final int REAR_LEFT_ENCODER_A_CHANNEL = 0; //change port #
-	// public static final int FRONT_LEFT_ENCODER_A_CHANNEL = 0; //change port #
-	// public static final int REAR_RIGHT_ENCODER_A_CHANNEL = 0; //change port #
-	// public static final int FRONT_RIGHT_ENCODER_A_CHANNEL = 0; //change port
-	// #
-	// public static final int REAR_LEFT_ENCODER_B_CHANNEL = 0; //change port #
-	// public static final int FRONT_LEFT_ENCODER_B_CHANNEL = 0; //change port #
-	// public static final int REAR_RIGHT_ENCODER_B_CHANNEL = 0; //change port #
-	// public static final int FRONT_RIGHT_ENCODER_B_CHANNEL = 0; //change port
-	// #
+	public static final int REAR_LEFT_ENCODER_A_CHANNEL = 0; 
+	public static final int FRONT_LEFT_ENCODER_A_CHANNEL = 6;
+	public static final int REAR_RIGHT_ENCODER_A_CHANNEL = 4;
+	public static final int FRONT_RIGHT_ENCODER_A_CHANNEL = 2;
+
+	public static final int REAR_LEFT_ENCODER_B_CHANNEL = 1;
+	public static final int FRONT_LEFT_ENCODER_B_CHANNEL = 7;
+	public static final int REAR_RIGHT_ENCODER_B_CHANNEL = 5;
+	public static final int FRONT_RIGHT_ENCODER_B_CHANNEL = 3;
+
 	/*
-	 * Reverse encoder direction i.e. REVERSE_DIRECTION = True, then forward =
+	 * Elevator Encoder Mappings
+	 */
+	public static final int ELEVATOR_ENCODER_A_CHANNEL = 8;
+	public static final int ELEVATOR_ENCODER_B_CHANNEL = 9;
+	/*
+	 * Reverse Drive Train encoder direction i.e. REVERSE_DIRECTION = True, then forward =
 	 * "+", backward = "-"
 	 */
 	public static final boolean REVERSE_DIRECTION = true;

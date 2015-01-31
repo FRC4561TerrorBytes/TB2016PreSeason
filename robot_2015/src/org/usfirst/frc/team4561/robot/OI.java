@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.JogForwardBackwards;
 import org.usfirst.frc.team4561.robot.commands.JogSideways;
+import org.usfirst.frc.team4561.robot.commands.MoveElevator;
 import org.usfirst.frc.team4561.robot.triggers.JogBackwardTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogForwardTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogLeftTrigger;
@@ -56,6 +57,8 @@ public class OI {
 	public JoystickButton joggingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_LEFT_BUTTON);
 	public JoystickButton joggingForwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_FORWARD_BUTTON);
 	public JoystickButton joggingBackwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_BACKWARD_BUTTON);
+	public JoystickButton elevatorUpButton = new JoystickButton(driveStick,RobotMap.MOVE_ELEVATOR_UP_BUTTON);
+	public JoystickButton elevatorDownButton = new JoystickButton(driveStick,RobotMap.MOVE_ELEVATOR_DOWN_BUTTON);
 	
 	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
 			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
@@ -95,7 +98,14 @@ public class OI {
 		jogBackwardsTrigger.whenActive(new JogForwardBackwards(false));
 		jogForwardTrigger.whenActive(new JogForwardBackwards(true));
 		
+		elevatorDownButton.whileHeld(new MoveElevator(-0.5));
+		elevatorUpButton.whileHeld(new MoveElevator(0.5));
 	}
+	
+	public int getDrivePOV(){
+		return driveStick.getPOV();
+	}
+	
 	/**
 	 * Returns the drive stick Y axis magnitude [-1..1] where negative is
 	 * forward and backward is positive.

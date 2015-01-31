@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
+	public static final Elevator elevator = new Elevator();
 	public static OI oi;
 
 	Command autonomousCommand;
