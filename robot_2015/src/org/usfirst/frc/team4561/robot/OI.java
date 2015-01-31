@@ -57,8 +57,8 @@ public class OI {
 	public JoystickButton joggingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_LEFT_BUTTON);
 	public JoystickButton joggingForwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_FORWARD_BUTTON);
 	public JoystickButton joggingBackwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_BACKWARD_BUTTON);
-	public JoystickButton elevatorUpButton = new JoystickButton(driveStick,RobotMap.MOVE_ELEVATOR_UP_BUTTON);
-	public JoystickButton elevatorDownButton = new JoystickButton(driveStick,RobotMap.MOVE_ELEVATOR_DOWN_BUTTON);
+	public JoystickButton elevatorUpButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_UP_BUTTON);
+	public JoystickButton elevatorDownButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_DOWN_BUTTON);
 	
 	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
 			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
@@ -86,6 +86,12 @@ public class OI {
 	public boolean isRobotRelative() {
 		return robotRelativeButton.get();
 	}
+	
+	/**
+	 * The OI constructor is called from {@link Robot#robotInit()} to create the
+	 * one and only OI instance. The connection of button or custom trigger to
+	 * commands is made here.
+	 */
 	public OI() {
 		driveFrontLeft.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_LEFT_MOTOR_CAN));
 		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
@@ -153,7 +159,19 @@ public class OI {
 		return rotationStickX;
 		// return xBoxRotaryStick.getX();
 	}
+	
+	/**
+	 * Returns the degrees from 0 to the current direction of the rotation
+	 * stick. If the stick is currently neutral, the last value is returned.
+	 * 
+	 * @return the degrees of the current or most recent rotation stick input
+	 */
 	public double getRotationDegrees() {
-		return rotationStick.getDirectionDegrees();
+		if ((Math.abs(rotationStick.getX()) >= RobotMap.ROTATION_DEAD_ZONE)
+				|| (Math.abs(rotationStick.getY()) >= RobotMap.ROTATION_DEAD_ZONE))
+			return rotationStick.getDirectionDegrees();
+		else
+			return Robot.driveTrain.getNormalizedGyroAngle();
 	}
+
 }
