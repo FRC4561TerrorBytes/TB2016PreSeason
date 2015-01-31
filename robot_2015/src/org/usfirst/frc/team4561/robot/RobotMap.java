@@ -22,7 +22,7 @@ public class RobotMap {
 	/*
 	 * Joystick mappings
 	 */
-	public static final int DRIVE_JOYSTICK = 2;
+	public static final int DRIVE_JOYSTICK = 0;
 	public static final int ROTATION_JOYSTICK = 1;
 	public static final int ROBOT_RELATIVE_BUTTON = 1;
 
