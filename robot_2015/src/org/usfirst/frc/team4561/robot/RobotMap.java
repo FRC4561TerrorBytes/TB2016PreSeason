@@ -22,7 +22,7 @@ public class RobotMap {
 	/*
 	 * Joystick mappings
 	 */
-	public static final int DRIVE_JOYSTICK = 2;
+	public static final int DRIVE_JOYSTICK = 0;
 	public static final int ROTATION_JOYSTICK = 1;
 	public static final int ROBOT_RELATIVE_BUTTON = 1;
 
@@ -87,7 +87,8 @@ public class RobotMap {
 	public static final int FRONT_LEFT_MOTOR_CAN = 4;
 	public static final int REAR_RIGHT_MOTOR_CAN = 3;
 	public static final int FRONT_RIGHT_MOTOR_CAN = 2; 
-	public static final int ELEVATOR_MOTOR_CAN = 4;
+	public static final int ELEVATOR_MOTOR_CAN = 4; // TODO change me
+	public static final int EXTENDER_MOTOR_CAN = 2; // TODO change me
 
 	/*
 	 * Drivetrain Encoder mappings.

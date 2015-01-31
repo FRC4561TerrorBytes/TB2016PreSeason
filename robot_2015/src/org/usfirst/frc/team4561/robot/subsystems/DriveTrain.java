@@ -71,9 +71,15 @@ public class DriveTrain extends Subsystem {
 	public void stop() {
 		robotDrive.mecanumDrive_Cartesian(0.0, 0.0, 0.0, 0.0);
 	}
+	
 	public double getGyroAngle() {
 		return gyro.getAngle();
 	}
+	
+	public double getNormalizedGyroAngle() {
+		return getGyroAngle() % 360.0;
+	}
+	
 	public void testSingleMotor(int motorID) {
 		if(motorID == RobotMap.FRONT_LEFT_MOTOR_CAN) {
 			leftFront.set(0.5);

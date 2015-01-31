@@ -15,7 +15,7 @@ public class MoveElevator extends Command {
         // eg. requires(chassis);
     	this.motorSpeed = motorSpeed;
     	requires(Robot.elevator);
-    	requires(Robot.driveTrain);
+    	requires(Robot.driveTrain); // TODO remove
     }
 
     // Called just before this Command runs the first time

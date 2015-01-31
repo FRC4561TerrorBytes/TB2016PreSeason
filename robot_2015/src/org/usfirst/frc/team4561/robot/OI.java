@@ -87,6 +87,12 @@ public class OI {
 	public boolean isRobotRelative() {
 		return robotRelativeButton.get();
 	}
+	
+	/**
+	 * The OI constructor is called from {@link Robot#robotInit()} to create the
+	 * one and only OI instance. The connection of button or custom trigger to
+	 * commands is made here.
+	 */
 	public OI() {
 		driveFrontLeft.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_LEFT_MOTOR_CAN));
 		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
@@ -100,6 +106,7 @@ public class OI {
 		elevatorUpButton.whileHeld(new MoveElevator(0.5));
 		
 	}
+	
 	/**
 	 * Returns the drive stick Y axis magnitude [-1..1] where negative is
 	 * forward and backward is positive.
@@ -147,7 +154,19 @@ public class OI {
 		return rotationStickX;
 		// return xBoxRotaryStick.getX();
 	}
+	
+	/**
+	 * Returns the degrees from 0 to the current direction of the rotation
+	 * stick. If the stick is currently neutral, the last value is returned.
+	 * 
+	 * @return the degrees of the current or most recent rotation stick input
+	 */
 	public double getRotationDegrees() {
-		return rotationStick.getDirectionDegrees();
+		if ((Math.abs(rotationStick.getX()) >= RobotMap.ROTATION_DEAD_ZONE)
+				|| (Math.abs(rotationStick.getY()) >= RobotMap.ROTATION_DEAD_ZONE))
+			return rotationStick.getDirectionDegrees();
+		else
+			return Robot.driveTrain.getNormalizedGyroAngle();
 	}
+
 }
