@@ -98,10 +98,9 @@ public class DriveTrain extends PIDSubsystem {
 	
 	public double getNormalizedGyroAngle() {
 		double norm = gyro.getAngle() % 360.0;
-		double absNorm = Math.abs(norm);
-		if (absNorm > 180.0)
-			absNorm = absNorm - 180.0;
-		norm = (norm < 0) ? -absNorm : absNorm;
+		if (Math.abs(norm) > 180.0) {
+			norm = (norm < 0) ? norm + 360.0 : norm - 360.0;
+		}
 		return norm;
 	}
 	
