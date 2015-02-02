@@ -57,8 +57,9 @@ public class DriveTrain extends PIDSubsystem {
 	
 	public DriveTrain() { 
 		super(0.3, 0, 0);
-		getPIDController().setContinuous(false);
-		setAbsoluteTolerance(3);
+		setInputRange(-180.0, 180.0);
+		getPIDController().setContinuous(true);
+		setPercentTolerance(3.0);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		gyro.initGyro();
@@ -80,40 +81,27 @@ public class DriveTrain extends PIDSubsystem {
 		currentX = x_v;
 		currentY = y_v;		
 		fieldRelative = false;
+		setSetpoint(getNormalizedGyroAngle());
 	}
 
-	public void driveFieldRelative(double x_v, double y_v) {
-		setSetpoint(Robot.oi.getRotationDegrees());
-		calcFastestTurn();
+	public void driveFieldRelative(double x_v, double y_v, double rotationDegrees) {
 		currentX = x_v;
 		currentY = y_v;
 		fieldRelative = true;
+		setSetpoint(rotationDegrees);
 	}
 	
-	public void calcFastestTurn(){
-		//Changes the setpoint to make sure that the robot turns in the correct direction
-		//for the fastest route to the desired position.
-		if(getPIDController().getError() > 180) {
-			//Fixes positive direction turns above 180.
-			setSetpointRelative(-360);
-		}
-		if(getPIDController().getError() < -180) {
-			//Fixes negative direction turns above 180.
-				setSetpointRelative(360);
-		}
-	}
 	public void stop() {
 		currentX = 0.0;
 		currentY = 0.0;
 	}
 	
-	public double getGyroAngle() {
-		//Returns the gyroscope angle. Angle continues upward once it its 360.
-		return gyro.getAngle();
-	}
-	
 	public double getNormalizedGyroAngle() {
-		return getGyroAngle() % 360.0;
+		double norm = gyro.getAngle() % 360.0;
+		if (Math.abs(norm) > 180.0) {
+			norm = (norm < 0) ? norm + 360.0 : norm - 360.0;
+		}
+		return norm;
 	}
 	
 	public void testSingleMotor(int motorID) {
@@ -165,14 +153,11 @@ public class DriveTrain extends PIDSubsystem {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		// TODO Auto-generated method stub
 		System.out.println(fieldRelative + " " + getPIDController().onTarget());
 		double rot = 0.0;
 		if (fieldRelative && getPIDController().onTarget() ==  false) {
-			calcFastestTurn();
-			rot = output/(180*getPIDController().getP());
+			rot = output;
 		}
-			
 		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
 	}
 }
