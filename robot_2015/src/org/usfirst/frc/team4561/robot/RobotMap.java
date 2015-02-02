@@ -125,10 +125,7 @@ public class RobotMap {
 	 */
 	public static final EncodingType ENCODING_TYPE = EncodingType.k1X;
 	
-	//Elevator Set Height Points (inches)
-	public static final double RECYCLING_CAN_ON_GROUND = 9;
-	public static final double TOTE_ON_GROUND = 9;
-	public static final double RECYCLING_CAN_ON_PLATFORM = 11;
-	public static final double TOTE_ON_PLATFORM = 11;
 	
+
+
 }
