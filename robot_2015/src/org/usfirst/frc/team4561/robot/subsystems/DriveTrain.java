@@ -41,6 +41,7 @@ public class DriveTrain extends PIDSubsystem {
 	 private double currentX = 0.0;
 	 private double currentY = 0.0;
 	 private boolean fieldRelative = true;
+	 private byte turnDirection = 0;
 	 
 	 //Gyroscope
 	 private Gyro gyro = new Gyro(RobotMap.GYRO_IN);
@@ -56,7 +57,7 @@ public class DriveTrain extends PIDSubsystem {
 			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
 	
 	public DriveTrain() { 
-		super(0.3, 0, 0);
+		super(0.8/180, 0, 0); //TODO add "i" constant
 		setInputRange(-180.0, 180.0);
 		getPIDController().setContinuous(true);
 		setPercentTolerance(3.0);
@@ -76,7 +77,19 @@ public class DriveTrain extends PIDSubsystem {
 	}
 	public void rotateToAngle(double heading) {
 		setSetpoint(heading);
-	}	
+	}
+	public void setTurnDirection(double rot){
+		if(rot == 0) {
+			turnDirection = 0;
+		}
+		if(rot > 0) {
+			turnDirection = 1;
+		}
+		if(rot < 0) {
+			turnDirection = -1;
+		}
+	}
+
 	public void driveRobotRelative(double x_v, double y_v) {
 		currentX = x_v;
 		currentY = y_v;		
@@ -92,8 +105,8 @@ public class DriveTrain extends PIDSubsystem {
 	}
 	
 	public void stop() {
-		currentX = 0.0;
-		currentY = 0.0;
+//		currentX = 0.0;
+//		currentY = 0.0;
 	}
 	
 	public double getNormalizedGyroAngle() {
@@ -150,13 +163,19 @@ public class DriveTrain extends PIDSubsystem {
 		// TODO Auto-generated method stub
 		return getNormalizedGyroAngle();
 	}
-
+	int i = 0;
 	@Override
 	protected void usePIDOutput(double output) {
-		System.out.println(fieldRelative + " " + getPIDController().onTarget());
 		double rot = 0.0;
 		if (fieldRelative && getPIDController().onTarget() ==  false) {
 			rot = output;
+		}
+		i++;
+		if(i%10 == 0){
+			System.out.println("Motor Power: " + rot); // motor power
+			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
+			System.out.println("Drive Stick: (" + Robot.oi.getDriveX() + ", " + Robot.oi.getDriveY() + ") "); // drivestick (x, y)
+			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
 		}
 		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
 	}
