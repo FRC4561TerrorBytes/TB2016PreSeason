@@ -39,6 +39,7 @@ public class DriveTrain extends PIDSubsystem {
 	 private double currentX = 0.0;
 	 private double currentY = 0.0;
 	 private boolean fieldRelative = true;
+	 private boolean deltaRotating = false;
 	 
 	 //Gyroscope
 	 private Gyro gyro = new Gyro(RobotMap.GYRO_IN);
@@ -95,6 +96,7 @@ public class DriveTrain extends PIDSubsystem {
 	 * @param deltaRotation
 	 */
 	public void driveRotationRelative(double deltaRotation) {
+		deltaRotating = true;
 		double newSetpoint = getSetpoint() + deltaRotation;
 		setSetpoint(normalizeAngle(newSetpoint));
 	}
@@ -177,8 +179,12 @@ public class DriveTrain extends PIDSubsystem {
 	@Override
 	protected void usePIDOutput(double output) {
 		double rot = 0.0;
-		if (fieldRelative && getPIDController().onTarget() ==  false) {
-			rot = output;
+		if (!getPIDController().onTarget()) {
+			if (fieldRelative || deltaRotating) {
+				rot = output;
+			}
+		} else {
+			deltaRotating = false;
 		}
 		i++;
 		if(i%10 == 0){
