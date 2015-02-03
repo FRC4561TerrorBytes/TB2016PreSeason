@@ -7,8 +7,6 @@ import org.usfirst.frc.team4561.robot.commands.MecanumDrive;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
@@ -41,7 +39,6 @@ public class DriveTrain extends PIDSubsystem {
 	 private double currentX = 0.0;
 	 private double currentY = 0.0;
 	 private boolean fieldRelative = true;
-	 private byte turnDirection = 0;
 	 
 	 //Gyroscope
 	 private Gyro gyro = new Gyro(RobotMap.GYRO_IN);
@@ -74,20 +71,6 @@ public class DriveTrain extends PIDSubsystem {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 		setDefaultCommand(new MecanumDrive());
-	}
-	public void rotateToAngle(double heading) {
-		setSetpoint(heading);
-	}
-	public void setTurnDirection(double rot){
-		if(rot == 0) {
-			turnDirection = 0;
-		}
-		if(rot > 0) {
-			turnDirection = 1;
-		}
-		if(rot < 0) {
-			turnDirection = -1;
-		}
 	}
 
 	public void driveRobotRelative(double x_v, double y_v) {
