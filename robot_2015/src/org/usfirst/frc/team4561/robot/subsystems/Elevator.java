@@ -42,7 +42,7 @@ public class Elevator extends PIDSubsystem {
 	}
 	
 	public Elevator() {
-		super(0.3, 0.0, 0.0);
+		super(0.3/MAX_HEIGHT - MIN_HEIGHT, 0.0, 0.0);
 		setInputRange(MIN_HEIGHT, MAX_HEIGHT);
 		getPIDController().setContinuous(false);
 		elevatorMotor.enableBrakeMode(true);
@@ -87,7 +87,7 @@ public class Elevator extends PIDSubsystem {
 	}
 	@Override
 	protected void usePIDOutput(double output) {
-		double elevatorMotorPower = output/MAX_HEIGHT - MIN_HEIGHT;
+		double elevatorMotorPower = output;
 		if(getPIDController().onTarget() == false) {
 			elevatorMotor.set(elevatorMotorPower);
 		}
