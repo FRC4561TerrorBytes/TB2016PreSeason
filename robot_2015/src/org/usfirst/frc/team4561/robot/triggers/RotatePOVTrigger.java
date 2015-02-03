@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 /**
  *
  */
-public class POVTrigger extends Trigger {
+public class RotatePOVTrigger extends Trigger {
     
     public boolean get() {
     	if(Robot.oi == null) return false;
-        return Robot.oi.getDrivePOV() != -1 && Robot.oi.isRobotRelative();
+        return Robot.oi.getRotatePOV() != -1 && Robot.oi.isRobotRelative();
     }
 }

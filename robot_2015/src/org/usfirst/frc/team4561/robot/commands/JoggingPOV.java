@@ -10,15 +10,17 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 
 public class JoggingPOV extends Command {
-private static final int FORWARD = 0;
-private static final int FORWARD_LEFT = 1;
-private static final int LEFT = 2;
-private static final int LEFT_BACKWARD = 3;
-private static final int BACKWARD = 4;
-private static final int BACKWARD_RIGHT = 5;
-private static final int RIGHT = 6;
-private static final int RIGHT_FORWARD = 7;
-private int currentDirection = FORWARD;
+	
+	private static final int FORWARD = 0;
+	private static final int FORWARD_LEFT = 1;
+	private static final int LEFT = 2;
+	private static final int LEFT_BACKWARD = 3;
+	private static final int BACKWARD = 4;
+	private static final int BACKWARD_RIGHT = 5;
+	private static final int RIGHT = 6;
+	private static final int RIGHT_FORWARD = 7;
+	private int currentDirection = FORWARD;
+	
     public JoggingPOV() {
     	requires(Robot.driveTrain);
 
@@ -39,8 +41,27 @@ private int currentDirection = FORWARD;
     	if (currentDirection == FORWARD){
     		Robot.driveTrain.driveRobotRelative(0.0,0.3);
     	}
-     
-    	
+    	else if(currentDirection == FORWARD_LEFT){
+    		Robot.driveTrain.driveRobotRelative(0.3,0.3);
+    	}
+    	else if(currentDirection == LEFT){
+    		Robot.driveTrain.driveRobotRelative(0.3,0.0);
+    	}
+    	else if(currentDirection == LEFT_BACKWARD){
+    		Robot.driveTrain.driveRobotRelative(0.3,-0.3);
+    	}
+    	else if(currentDirection ==BACKWARD){
+    		Robot.driveTrain.driveRobotRelative(0.0,-0.3);
+    	}
+    	else if(currentDirection == BACKWARD_RIGHT){
+    		Robot.driveTrain.driveRobotRelative(-0.3,-0.3);
+    	}
+    	else if(currentDirection == RIGHT){
+    		Robot.driveTrain.driveRobotRelative(-0.3,0.0);
+    	}
+    	else if(currentDirection == RIGHT_FORWARD){
+    		Robot.driveTrain.driveRobotRelative(-0.3,0.3);
+    	}
     }	
 
     // Make this return true when this Command no longer needs to run execute()
