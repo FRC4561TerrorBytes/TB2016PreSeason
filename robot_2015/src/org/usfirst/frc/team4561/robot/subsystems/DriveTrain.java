@@ -87,13 +87,41 @@ public class DriveTrain extends PIDSubsystem {
 		setSetpoint(rotationDegrees);
 	}
 	
+	/**
+	 * Change the rotation target by the deltaRotation. A negative value moves
+	 * the target left (counter clockwise) and a positive value moves the target
+	 * right (clockwise).
+	 * 
+	 * @param deltaRotation
+	 */
+	public void driveRotationRelative(double deltaRotation) {
+		double newSetpoint = getSetpoint() + deltaRotation;
+		setSetpoint(normalizeAngle(newSetpoint));
+	}
+	
 	public void stop() {
 //		currentX = 0.0;
 //		currentY = 0.0;
 	}
 	
+	/**
+	 * Reset the gyro to 0 heading.
+	 */
+	public void resetGyro() {
+		gyro.reset();
+	}
+	
 	public double getNormalizedGyroAngle() {
-		double norm = gyro.getAngle() % 360.0;
+		return normalizeAngle(gyro.getAngle());
+	}
+	
+	/**
+	 * Converts an angle to the [-180, 180] range.
+	 * @param angle
+	 * @return
+	 */
+	private double normalizeAngle(double angle) {
+		double norm = angle % 360.0;
 		if (Math.abs(norm) > 180.0) {
 			norm = (norm < 0) ? norm + 360.0 : norm - 360.0;
 		}
@@ -143,7 +171,6 @@ public class DriveTrain extends PIDSubsystem {
 
 	@Override
 	protected double returnPIDInput() {
-		// TODO Auto-generated method stub
 		return getNormalizedGyroAngle();
 	}
 	int i = 0;
