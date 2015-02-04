@@ -24,6 +24,7 @@ public class RobotMap {
 	 */
 	public static final int DRIVE_JOYSTICK = 0;
 	public static final int ROTATION_JOYSTICK = 1;
+	public static final int ARCADE_BOX = 2;
 	public static final int ROBOT_RELATIVE_BUTTON = 1;
 
 	public static final int ROBOT_JOG_RIGHT_BUTTON = 5;
@@ -41,6 +42,14 @@ public class RobotMap {
 	public static final int REAR_LEFT_MOTOR_BUTTON = 7;
 	public static final int FRONT_RIGHT_MOTOR_BUTTON = 11;
 	public static final int REAR_RIGHT_MOTOR_BUTTON = 10;
+	/*
+	 * Arcade Box Buttons
+	 */
+	public static final int POS_1_BUTTON = 1;
+	public static final int POS_2_BUTTON = 1;
+	public static final int POS_3_BUTTON = 1;
+	public static final int POS_4_BUTTON = 1;
+	public static final int POS_5_BUTTON = 1;
 	/*
 	 * XBox Controller button mappings.
 	 */

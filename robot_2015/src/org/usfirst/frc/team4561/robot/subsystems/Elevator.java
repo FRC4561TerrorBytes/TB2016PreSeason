@@ -17,11 +17,11 @@ public class Elevator extends PIDSubsystem {
 	private static final double HEIGHT_OF_TOTE = 12;
 	private static final double HEIGHT_OF_PLATFORM = 2;
 	private static final double OBJECT_ON_GROUND = 8;
-	private static final double SCORING_POSITION_1 = HEIGHT_OF_PLATFORM+HEIGHT_OF_TOTE+OBJECT_ON_GROUND; //placing tote on 1 one existing tote
-	private static final double SCORING_POSITION_2 = HEIGHT_OF_PLATFORM+(HEIGHT_OF_TOTE*2)+OBJECT_ON_GROUND;
-	private static final double SCORING_POSITION_3 = HEIGHT_OF_PLATFORM+(HEIGHT_OF_TOTE*3)+OBJECT_ON_GROUND;
-	private static final double SCORING_POSITION_4 = HEIGHT_OF_PLATFORM+(HEIGHT_OF_TOTE*4)+OBJECT_ON_GROUND;
-	private static final double SCORING_POSITION_5 = HEIGHT_OF_PLATFORM+(HEIGHT_OF_TOTE*5)+OBJECT_ON_GROUND;
+	private static final double SCORING_POSITION_1 = HEIGHT_OF_PLATFORM + HEIGHT_OF_TOTE + OBJECT_ON_GROUND; //placing tote on 1 one existing tote
+	private static final double SCORING_POSITION_2 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*2)+OBJECT_ON_GROUND;
+	private static final double SCORING_POSITION_3 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*3)+OBJECT_ON_GROUND;
+	private static final double SCORING_POSITION_4 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*4)+OBJECT_ON_GROUND;
+	private static final double SCORING_POSITION_5 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*5)+OBJECT_ON_GROUND;
 	private static final double MIN_HEIGHT = OBJECT_ON_GROUND - 2;
 	private static final double MAX_HEIGHT = SCORING_POSITION_5 + 4;
 	private static final double JOG_TICKS = 1;
@@ -46,6 +46,7 @@ public class Elevator extends PIDSubsystem {
 		setInputRange(MIN_HEIGHT, MAX_HEIGHT);
 		getPIDController().setContinuous(false);
 		elevatorMotor.enableBrakeMode(true);
+		enable();
 		// TODO Auto-generated constructor stub
 		
 	}
@@ -73,7 +74,6 @@ public class Elevator extends PIDSubsystem {
 	public void testMoveElevator(double motorSpeed) {
 			elevatorMotor.enableBrakeMode(true);
 			elevatorMotor.set(motorSpeed);
-		
 	}
 	
 	public double getElevatorEncoderCountPID() {
