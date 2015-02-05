@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 
 /**
- *
+ * This is a command that slightly moves the robot in a certain direction if the robot is in robot relative mode.
+ * This command uses the hat on the drive stick and all directions trigger the code.  It uses a custom
+ * trigger as well.  
  */
 
 public class JoggingPOV extends Command {

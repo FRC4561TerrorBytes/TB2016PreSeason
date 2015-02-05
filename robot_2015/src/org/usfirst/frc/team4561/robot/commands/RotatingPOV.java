@@ -5,7 +5,8 @@ import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *  This is a command that uses the Hat on the Rotation stick to do precise rotations in robot relative mode.
+ *  The only directions that work on the Hats are left and right, the rest don't effect the code.  (Needs verification)
  */
 
 
