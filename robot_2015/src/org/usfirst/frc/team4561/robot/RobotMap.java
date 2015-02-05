@@ -45,11 +45,12 @@ public class RobotMap {
 	/*
 	 * Arcade Box Buttons
 	 */
+	public static final int OBJECT_ON_GROUND_BUTTON = 0;
 	public static final int POS_1_BUTTON = 1;
-	public static final int POS_2_BUTTON = 1;
-	public static final int POS_3_BUTTON = 1;
-	public static final int POS_4_BUTTON = 1;
-	public static final int POS_5_BUTTON = 1;
+	public static final int POS_2_BUTTON = 2;
+	public static final int POS_3_BUTTON = 3;
+	public static final int POS_4_BUTTON = 4;
+	public static final int POS_5_BUTTON = 5;
 	/*
 	 * XBox Controller button mappings.
 	 */
@@ -126,7 +127,7 @@ public class RobotMap {
 	 * Reverse Drive Train encoder direction i.e. REVERSE_DIRECTION = True, then forward =
 	 * "+", backward = "-"
 	 */
-	public static final boolean REVERSE_DIRECTION = true;
+	public static final boolean REVERSE_DIRECTION = false;
 	/*
 	 * Encoder count multiplier ENCODING_TYPE = EncodingType.k1X, count is
 	 * normal ENCODING_TYPE = EncodingType.k2X, count is multiplied by 2

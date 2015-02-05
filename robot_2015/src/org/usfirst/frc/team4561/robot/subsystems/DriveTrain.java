@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 
 /**
- *
+ * The main subsystem used for driving. This drive train is configured 
+ * to use mechanum wheels and rotate to a heading based on the given 
+ * angle from the rotation joystick.
  */
 public class DriveTrain extends PIDSubsystem {
 
@@ -87,6 +89,7 @@ public class DriveTrain extends PIDSubsystem {
 		fieldRelative = true;
 		setSetpoint(rotationDegrees);
 	}
+
 	
 	/**
 	 * Change the rotation target by the deltaRotation. A negative value moves

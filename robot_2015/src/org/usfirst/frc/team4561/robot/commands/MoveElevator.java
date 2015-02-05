@@ -4,18 +4,15 @@ import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class MoveElevator extends Command {
+	//TODO Remove this entire command?
 	private double motorSpeed;
-	
+
     public MoveElevator(double motorSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.motorSpeed = motorSpeed;
     	requires(Robot.elevator);
-    	requires(Robot.driveTrain); // TODO remove
     }
 
     // Called just before this Command runs the first time

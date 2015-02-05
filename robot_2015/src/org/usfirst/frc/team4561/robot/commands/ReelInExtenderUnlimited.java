@@ -5,16 +5,14 @@ import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * The command does not finish on its own and is expected to be used via
- * whileHeld on a button.
+ * Command tells the extender to begin reeling in the motor, and doing so indefinitely.
+ * This command does not finish on its own and is expected to be used via
+ * a button.
  */
 public class ReelInExtenderUnlimited extends Command {
 
 	public ReelInExtenderUnlimited() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 		requires(Robot.extender);
-		requires(Robot.driveTrain); // TODO remove
 	}
 
 	// Called just before this Command runs the first time
@@ -41,6 +39,6 @@ public class ReelInExtenderUnlimited extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		end();
+		end(); //TODO Remove this? Nothing else should ever use the extender.
 	}
 }
