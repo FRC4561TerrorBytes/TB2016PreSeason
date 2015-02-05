@@ -44,7 +44,7 @@ public class DriveTrain extends PIDSubsystem {
 	 private boolean deltaRotating = false;
 	 
 	 //Gyroscope
-	 private Gyro gyro = new Gyro(RobotMap.GYRO_IN);
+	 private Gyro gyro = null;
 	 
 	 //Encoders
 	 private Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL, RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL,
@@ -68,6 +68,16 @@ public class DriveTrain extends PIDSubsystem {
 		leftRear.enableBrakeMode(true);
 		rightFront.enableBrakeMode(true);
 		rightRear.enableBrakeMode(true);
+	}
+	
+	/**
+	 * This should be called after robot warm up and just before the match
+	 * starts.
+	 */
+	public synchronized void initGyro() {
+		if (gyro == null) {
+			gyro = new Gyro(RobotMap.GYRO_IN);
+		}
 	}
 	 
 	public void initDefaultCommand() {

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
+import org.usfirst.frc.team4561.robot.commands.InitGyro;
 import org.usfirst.frc.team4561.robot.commands.JogForwardBackwards;
 import org.usfirst.frc.team4561.robot.commands.JogSideways;
 import org.usfirst.frc.team4561.robot.commands.JoggingPOV;
@@ -96,6 +97,7 @@ public class OI {
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	
+	private JoystickButton initGyroButton = new JoystickButton(rotationStick, RobotMap.INITIALIZE_GYRO_BUTTON);
 	
 	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
 	// private Joystick xBoxRotaryStick = new Joystick(RobotMap.RIGHT_STICK);
@@ -138,6 +140,7 @@ public class OI {
 		Pos3Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
 		Pos4Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
 		Pos5Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
+		initGyroButton.whenPressed(new InitGyro());
 	}
 	
 	public int getDrivePOV(){
