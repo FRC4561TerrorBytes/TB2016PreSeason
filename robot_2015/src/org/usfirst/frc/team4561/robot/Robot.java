@@ -45,6 +45,9 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = null;
 		
 		SmartDashboard.putData(driveTrain);
+		SmartDashboard.putData(extender);
+		SmartDashboard.putData(elevator);
+		SmartDashboard.putData(claw);
 	}
 
 	public void disabledPeriodic() {
