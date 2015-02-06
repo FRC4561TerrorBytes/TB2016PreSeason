@@ -1,14 +1,13 @@
 package org.usfirst.frc.team4561.robot.commands;
-import org.usfirst.frc.team4561.robot.RobotMap;
+
 import org.usfirst.frc.team4561.robot.Robot;
-import org.usfirst.frc.team4561.robot.OI;
-import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * 
  */
 public class IndividualMotorDrive extends Command {
+	
 	private int motorID;
 
     public IndividualMotorDrive(int motorID) {
