@@ -68,7 +68,6 @@ public class DriveTrain extends PIDSubsystem {
 		leftRear.enableBrakeMode(true);
 		rightFront.enableBrakeMode(true);
 		rightRear.enableBrakeMode(true);
-		enable();
 	 }
 	
 	/**
