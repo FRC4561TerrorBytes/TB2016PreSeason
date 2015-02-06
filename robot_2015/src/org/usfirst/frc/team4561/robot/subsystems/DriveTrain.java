@@ -48,13 +48,13 @@ public class DriveTrain extends PIDSubsystem {
 	 
 	 //Encoders
 	 public Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL,
-			 										RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL);
-	 public Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL,
+			 										RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL);
+	 public Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL,
 													RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL);
-	 public Encoder rearLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL,
-			 										RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL);
-	 public Encoder rearRightEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL,
-			 										RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL);
+	 public Encoder rearLeftEncoder = new Encoder(RobotMap.REAR_LEFT_ENCODER_A_CHANNEL,
+			 										RobotMap.REAR_LEFT_ENCODER_B_CHANNEL);
+	 public Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL,
+			 										RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL);
 	
 
 	public DriveTrain() {
@@ -64,7 +64,6 @@ public class DriveTrain extends PIDSubsystem {
 		setPercentTolerance(3.0);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
-		gyro.initGyro();
 		leftFront.enableBrakeMode(true);
 		leftRear.enableBrakeMode(true);
 		rightFront.enableBrakeMode(true);
