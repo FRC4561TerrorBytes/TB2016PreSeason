@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
-import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.CANTalon;
@@ -15,8 +14,10 @@ public class Elevator extends PIDSubsystem {
 	private CANTalon elevatorMotor = new CANTalon(RobotMap.ELEVATOR_MOTOR_CAN);
 	private Encoder elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A_CHANNEL, RobotMap.ELEVATOR_ENCODER_B_CHANNEL);
 	
-	//Elevator Set Height Points (inches)
+	//Elevator Presets (inches)
 	private static final double FLOOR = 0;
+	private static final double RC_SIDEWAYS_HUMAN_PLAYER = 0.0; //TODO Change
+	private static final double RC_UPRIGHT_HUMAN_PLAYER = 0.0; //TODO Change
 	private static final double HEIGHT_OF_TOTE = 12;
 	private static final double HEIGHT_OF_PLATFORM = 2;
 	private static final double OBJECT_ON_GROUND = 8;
@@ -29,7 +30,7 @@ public class Elevator extends PIDSubsystem {
 	private static final double MAX_HEIGHT = SCORING_POSITION_5 + 4;
 	private static final double JOG_INCHES = 0.5;
 	
-	private static final double GEAR_SIZE = 1.5; //inches
+	private static final double GEAR_SIZE = 1.5; //inches //TODO Is this the radius or diameter?
 	private static final double INCHES_PER_REVOLUTION = Math.PI * 2 * GEAR_SIZE;
 	private static final double PULSES_PER_REVOLUTION = 2048;
 	
@@ -55,7 +56,6 @@ public class Elevator extends PIDSubsystem {
 		elevatorMotor.enableBrakeMode(true);
 		enable();
 		elevatorEncoder.setDistancePerPulse(INCHES_PER_REVOLUTION/PULSES_PER_REVOLUTION);
-		// TODO Auto-generated constructor stub
 	}
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -85,7 +85,6 @@ public class Elevator extends PIDSubsystem {
 	
 	@Override
 	protected double returnPIDInput() {
-		// TODO Auto-generated method stub
 		return getElevatorEncoderInches();
 	}
 	@Override
@@ -97,6 +96,5 @@ public class Elevator extends PIDSubsystem {
 		else {
 			elevatorMotor.set(0);
 		}
-		// TODO Auto-generated method stub
 	}
 }
