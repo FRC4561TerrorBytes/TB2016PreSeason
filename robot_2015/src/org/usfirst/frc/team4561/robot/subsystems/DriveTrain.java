@@ -56,7 +56,7 @@ public class DriveTrain extends PIDSubsystem {
 	 private Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL, RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL, 
 			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
 	
-	public DriveTrain() { 
+	public DriveTrain() {
 		super(0.8/180, 0, 0); //TODO add "i" constant
 		setInputRange(-180.0, 180.0);
 		getPIDController().setContinuous(true);
@@ -68,6 +68,7 @@ public class DriveTrain extends PIDSubsystem {
 		leftRear.enableBrakeMode(true);
 		rightFront.enableBrakeMode(true);
 		rightRear.enableBrakeMode(true);
+		enable();
 	}
 	
 	/**
