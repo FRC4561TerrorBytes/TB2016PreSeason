@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * 
  */
 public class IndividualMotorDrive extends Command {
-	//TODO Is this command needed anymore? Should we keep it for testing?
+	
 	private int motorID;
 
     public IndividualMotorDrive(int motorID) {

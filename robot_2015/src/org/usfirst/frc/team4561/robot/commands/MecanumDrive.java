@@ -16,7 +16,6 @@ public class MecanumDrive extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.driveTrain.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
