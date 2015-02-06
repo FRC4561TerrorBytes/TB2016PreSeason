@@ -9,6 +9,7 @@ import org.usfirst.frc.team4561.robot.commands.MoveElevator;
 import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
 import org.usfirst.frc.team4561.robot.commands.RotatingPOV;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
+import org.usfirst.frc.team4561.robot.triggers.InitializeGyroTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogBackwardTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogForwardTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogLeftTrigger;
@@ -97,7 +98,8 @@ public class OI {
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	
-	private JoystickButton initGyroButton = new JoystickButton(rotationStick, RobotMap.INITIALIZE_GYRO_BUTTON);
+	public JoystickButton initGyroButton = new JoystickButton(rotationStick, RobotMap.INITIALIZE_GYRO_BUTTON);
+	private InitializeGyroTrigger initGyroTrigger = new InitializeGyroTrigger();
 	
 	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
 	// private Joystick xBoxRotaryStick = new Joystick(RobotMap.RIGHT_STICK);
@@ -140,7 +142,7 @@ public class OI {
 		Pos3Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
 		Pos4Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
 		Pos5Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
-		initGyroButton.whenPressed(new InitGyro());
+		initGyroTrigger.whenActive(new InitGyro());
 	}
 	
 	public int getDrivePOV(){
@@ -211,19 +213,5 @@ public class OI {
 		else
 			return Robot.driveTrain.getNormalizedGyroAngle();
 	}
-	public boolean getPos1Pressed() {
-		return Pos1Button.get();
-	}
-	public boolean getPos2Pressed() {
-		return Pos2Button.get();
-	}
-	public boolean getPos3Pressed() {
-		return Pos3Button.get();
-	}
-	public boolean getPos4Pressed() {
-		return Pos4Button.get();
-	}
-	public boolean getPos5Pressed() {
-		return Pos5Button.get();
-	}
+
 }

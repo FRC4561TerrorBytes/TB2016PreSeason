@@ -44,7 +44,7 @@ public class DriveTrain extends PIDSubsystem {
 	 private boolean deltaRotating = false;
 	 
 	 //Gyroscope
-	 private Gyro gyro = null;
+	 private Gyro gyro = new Gyro(RobotMap.GYRO_IN);
 	 
 	 //Encoders
 	 private Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL, RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL,
@@ -76,9 +76,7 @@ public class DriveTrain extends PIDSubsystem {
 	 * starts.
 	 */
 	public synchronized void initGyro() {
-		if (gyro == null) {
-			gyro = new Gyro(RobotMap.GYRO_IN);
-		}
+		gyro.initGyro();
 	}
 	 
 	public void initDefaultCommand() {
