@@ -61,7 +61,7 @@ public class DriveTrain extends PIDSubsystem {
 		super(0.8/180, 0, 0); //TODO add "i" constant
 		setInputRange(-180.0, 180.0);
 		getPIDController().setContinuous(true);
-		setPercentTolerance(3.0);
+		setPercentTolerance(0.5);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		leftFront.enableBrakeMode(true);
@@ -76,6 +76,7 @@ public class DriveTrain extends PIDSubsystem {
 	 */
 	public synchronized void initGyro() {
 		gyro.initGyro();
+		System.out.println("Did initGyro");
 	}
 	 
 	public void initDefaultCommand() {
@@ -125,7 +126,7 @@ public class DriveTrain extends PIDSubsystem {
 	}
 	
 	public double getNormalizedGyroAngle() {
-		return normalizeAngle(gyro.getAngle());
+		return normalizeAngle(gyro.getAngle() * 1.086);
 	}
 	
 	/**
@@ -187,8 +188,9 @@ public class DriveTrain extends PIDSubsystem {
 		}
 		i++;
 		if(i%10 == 0){
-			System.out.println("Motor Power: " + rot); // motor power
+			System.out.println("Rot Power: " + rot); // motor power
 			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
+			System.out.println("Raw gyro angle: " + gyro.getAngle());
 			System.out.println("Drive Stick: (" + Robot.oi.getDriveX() + ", " + Robot.oi.getDriveY() + ") "); // drivestick (x, y)
 			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
 		}

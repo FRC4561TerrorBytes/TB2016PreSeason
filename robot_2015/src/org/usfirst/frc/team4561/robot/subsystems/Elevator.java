@@ -15,19 +15,20 @@ public class Elevator extends PIDSubsystem {
 	private Encoder elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A_CHANNEL, RobotMap.ELEVATOR_ENCODER_B_CHANNEL);
 	
 	//Elevator Presets (inches)
-	private static final double FLOOR = 0;
-	private static final double RC_SIDEWAYS_HUMAN_PLAYER = 0.0; //TODO Change
-	private static final double RC_UPRIGHT_HUMAN_PLAYER = 0.0; //TODO Change
-	private static final double HEIGHT_OF_TOTE = 12;
-	private static final double HEIGHT_OF_PLATFORM = 2;
-	private static final double OBJECT_ON_GROUND = 8;
-	private static final double SCORING_POSITION_1 = HEIGHT_OF_PLATFORM + HEIGHT_OF_TOTE + OBJECT_ON_GROUND; //placing tote on 1 one existing tote
-	private static final double SCORING_POSITION_2 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*2)+OBJECT_ON_GROUND;
-	private static final double SCORING_POSITION_3 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*3)+OBJECT_ON_GROUND;
-	private static final double SCORING_POSITION_4 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*4)+OBJECT_ON_GROUND;
-	private static final double SCORING_POSITION_5 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*5)+OBJECT_ON_GROUND;
-	private static final double MIN_HEIGHT = OBJECT_ON_GROUND - 2;
-	private static final double MAX_HEIGHT = SCORING_POSITION_5 + 4;
+	private static final double FLOOR = 0.0;
+	private static final double HEIGHT_OF_TOTE = 12.0;
+	private static final double HEIGHT_OF_PLATFORM = 2.0;
+	private static final double OBJECT_ON_GROUND = 8.0;
+	private static final double OBJECT_ON_SINGLE_TOTE = OBJECT_ON_GROUND + HEIGHT_OF_TOTE;
+	private static final double RC_UPRIGHT_HUMAN_PLAYER = 16.0;
+	private static final double RC_SIDEWAYS_HUMAN_PLAYER = 24.0;
+	private static final double SCORING_POSITION_1 = HEIGHT_OF_PLATFORM + HEIGHT_OF_TOTE + OBJECT_ON_GROUND; //placing RC on 1 one existing tote
+	private static final double SCORING_POSITION_2 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*2.0)+OBJECT_ON_GROUND;
+	private static final double SCORING_POSITION_3 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*3.0)+OBJECT_ON_GROUND;
+	private static final double SCORING_POSITION_4 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*4.0)+OBJECT_ON_GROUND;
+	private static final double SCORING_POSITION_5 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*5.0)+OBJECT_ON_GROUND;
+	private static final double MIN_HEIGHT = OBJECT_ON_GROUND - 2.0;
+	private static final double MAX_HEIGHT = SCORING_POSITION_5 + 4.0;
 	private static final double JOG_INCHES = 0.5;
 	
 	private static final double GEAR_SIZE = 1.5; //inches //TODO Is this the radius or diameter?
@@ -36,6 +37,9 @@ public class Elevator extends PIDSubsystem {
 	
 	public enum Position {
 		pickUp(OBJECT_ON_GROUND),
+		pickUpOffTote(OBJECT_ON_SINGLE_TOTE),
+		getLitterUpright(RC_UPRIGHT_HUMAN_PLAYER),
+		getLitterSideways(RC_SIDEWAYS_HUMAN_PLAYER),
 		score1(SCORING_POSITION_1),
 		score2(SCORING_POSITION_2),
 		score3(SCORING_POSITION_3),
@@ -53,8 +57,9 @@ public class Elevator extends PIDSubsystem {
 		super(0.8/MAX_HEIGHT - MIN_HEIGHT, 0.0, 0.0);
 		setInputRange(MIN_HEIGHT, MAX_HEIGHT);
 		getPIDController().setContinuous(false);
+		setAbsoluteTolerance(0.1);
 		elevatorMotor.enableBrakeMode(true);
-		enable();
+		//enable();
 		elevatorEncoder.setDistancePerPulse(INCHES_PER_REVOLUTION/PULSES_PER_REVOLUTION);
 	}
 	// Put methods for controlling this subsystem

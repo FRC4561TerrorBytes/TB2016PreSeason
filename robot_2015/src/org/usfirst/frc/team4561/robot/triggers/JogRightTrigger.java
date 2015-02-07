@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 public class JogRightTrigger extends Trigger {
     
     public boolean get() {
-    	if(Robot.oi == null) return false;
-        return Robot.oi.isRobotRelative()&& Robot.oi.joggingRightButton.get();
+    	//if(Robot.oi == null) return false;
+        //return Robot.oi.isRobotRelative()&& Robot.oi.joggingRightButton.get();
+    	return false;
     }
 }

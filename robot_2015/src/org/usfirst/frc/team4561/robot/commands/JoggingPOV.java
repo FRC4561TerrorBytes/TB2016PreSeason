@@ -23,7 +23,7 @@ public class JoggingPOV extends Command {
 	
     public JoggingPOV() {
     	requires(Robot.driveTrain);
-
+    	setTimeout(0.5);
     	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -33,7 +33,6 @@ public class JoggingPOV extends Command {
     protected void initialize() {
     	currentDirection = Robot.oi.getDrivePOV();
     	System.out.println("POV =" + currentDirection);
-    	setTimeout(0.5);
     }
 
     // Called repeatedly when this Command is scheduled to run

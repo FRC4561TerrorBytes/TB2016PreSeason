@@ -62,10 +62,10 @@ public class OI {
 	private JoystickButton robotRelativeButton = new JoystickButton(driveStick,
 			RobotMap.ROBOT_RELATIVE_BUTTON);
 
-	public JoystickButton joggingRightButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_RIGHT_BUTTON);
-	public JoystickButton joggingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_LEFT_BUTTON);
-	public JoystickButton joggingForwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_FORWARD_BUTTON);
-	public JoystickButton joggingBackwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_BACKWARD_BUTTON);
+	//public JoystickButton joggingRightButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_RIGHT_BUTTON);
+	//public JoystickButton joggingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_LEFT_BUTTON);
+	//public JoystickButton joggingForwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_FORWARD_BUTTON);
+	//public JoystickButton joggingBackwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_BACKWARD_BUTTON);
 	public JoystickButton elevatorUpButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_UP_BUTTON);
 	public JoystickButton elevatorDownButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_DOWN_BUTTON);
 	
@@ -78,7 +78,7 @@ public class OI {
 	private JoystickButton driveRearRight = new JoystickButton(driveStick,
 			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
 	
-	private JoystickButton objectOnGroundButton = new JoystickButton(arcadeBox,
+/*	private JoystickButton objectOnGroundButton = new JoystickButton(arcadeBox,
 			RobotMap.OBJECT_ON_GROUND_BUTTON);
 	private JoystickButton Pos1Button = new JoystickButton(arcadeBox,
 			RobotMap.POS_1_BUTTON);
@@ -89,12 +89,12 @@ public class OI {
 	private JoystickButton Pos4Button = new JoystickButton(arcadeBox,
 			RobotMap.POS_4_BUTTON);
 	private JoystickButton Pos5Button = new JoystickButton(arcadeBox,
-			RobotMap.POS_5_BUTTON);
+			RobotMap.POS_5_BUTTON);*/
 	
-	private JogLeftTrigger jogLeftTrigger = new JogLeftTrigger();
-	private JogRightTrigger jogRightTrigger = new JogRightTrigger();
-	private JogForwardTrigger jogForwardTrigger = new JogForwardTrigger();
-	private JogBackwardTrigger jogBackwardsTrigger = new JogBackwardTrigger();
+	//private JogLeftTrigger jogLeftTrigger = new JogLeftTrigger();
+	//private JogRightTrigger jogRightTrigger = new JogRightTrigger();
+	//private JogForwardTrigger jogForwardTrigger = new JogForwardTrigger();
+	//private JogBackwardTrigger jogBackwardsTrigger = new JogBackwardTrigger();
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	
@@ -124,11 +124,11 @@ public class OI {
 		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
 		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
 		
-		jogLeftTrigger.whenActive(new JogSideways(true));
-		jogRightTrigger.whenActive(new JogSideways(false));
+		//jogLeftTrigger.whenActive(new JogSideways(true));
+		//jogRightTrigger.whenActive(new JogSideways(false));
 		
-		jogBackwardsTrigger.whenActive(new JogForwardBackwards(false));
-		jogForwardTrigger.whenActive(new JogForwardBackwards(true));
+		//jogBackwardsTrigger.whenActive(new JogForwardBackwards(false));
+		//jogForwardTrigger.whenActive(new JogForwardBackwards(true));
 		
 		triggerJogPOV.whenActive(new JoggingPOV());
 		triggerRotatePOV.whenActive(new RotatingPOV());
@@ -136,12 +136,12 @@ public class OI {
 		elevatorDownButton.whileHeld(new MoveElevator(-0.5));
 		elevatorUpButton.whileHeld(new MoveElevator(0.5));
 		
-		objectOnGroundButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
+/*		objectOnGroundButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
 		Pos1Button.whenPressed(new MoveElevatorTo(Elevator.Position.score1));
 		Pos2Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
 		Pos3Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
 		Pos4Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
-		Pos5Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
+		Pos5Button.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));*/
 		initGyroTrigger.whenActive(new InitGyro());
 	}
 	

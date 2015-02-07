@@ -51,12 +51,12 @@ public class RobotMap {
 	/*
 	 * Arcade Box Buttons
 	 */
-	public static final int OBJECT_ON_GROUND_BUTTON = 0;
-	public static final int POS_1_BUTTON = 1;
-	public static final int POS_2_BUTTON = 2;
-	public static final int POS_3_BUTTON = 3;
-	public static final int POS_4_BUTTON = 4;
-	public static final int POS_5_BUTTON = 5;
+	public static final int OBJECT_ON_GROUND_BUTTON = 1;
+	public static final int POS_1_BUTTON = 2;
+	public static final int POS_2_BUTTON = 3;
+	public static final int POS_3_BUTTON = 4;
+	public static final int POS_4_BUTTON = 5;
+	public static final int POS_5_BUTTON = 6;
 	/*
 	 * XBox Controller button mappings.
 	 */
