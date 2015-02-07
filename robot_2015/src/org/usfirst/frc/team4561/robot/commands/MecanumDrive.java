@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 
@@ -32,14 +33,12 @@ public class MecanumDrive extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		//TODO Tell Steve that the drive train PID loop wasn't actually disabling, since this returns false.
 		return false;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.driveTrain.stop();
-		Robot.driveTrain.disable();
 	}
 
 	// Called when another command which requires one or more of the same

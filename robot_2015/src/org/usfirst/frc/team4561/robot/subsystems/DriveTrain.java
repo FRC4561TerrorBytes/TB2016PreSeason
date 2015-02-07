@@ -44,40 +44,38 @@ public class DriveTrain extends PIDSubsystem {
 	 private boolean deltaRotating = false;
 	 
 	 //Gyroscope
-	 private Gyro gyro = null;
+	 private Gyro gyro = new Gyro(RobotMap.GYRO_IN);
 	 
 	 //Encoders
-	 private Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL, RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL,
-			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
-	 private Encoder rearLeftEncoder = new Encoder(RobotMap.REAR_LEFT_ENCODER_A_CHANNEL, RobotMap.REAR_LEFT_ENCODER_B_CHANNEL,
-			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
-	 private Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL, RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL, 
-			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
-	 private Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL, RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL, 
-			 										RobotMap.REVERSE_DIRECTION, RobotMap.ENCODING_TYPE);
+	 public Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL,
+			 										RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL);
+	 public Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL,
+													RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL);
+	 public Encoder rearLeftEncoder = new Encoder(RobotMap.REAR_LEFT_ENCODER_A_CHANNEL,
+			 										RobotMap.REAR_LEFT_ENCODER_B_CHANNEL);
+	 public Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL,
+			 										RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL);
 	
-	public DriveTrain() { 
+
+	public DriveTrain() {
 		super(0.8/180, 0, 0); //TODO add "i" constant
 		setInputRange(-180.0, 180.0);
 		getPIDController().setContinuous(true);
 		setPercentTolerance(3.0);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
-		gyro.initGyro();
 		leftFront.enableBrakeMode(true);
 		leftRear.enableBrakeMode(true);
 		rightFront.enableBrakeMode(true);
 		rightRear.enableBrakeMode(true);
-	}
+	 }
 	
 	/**
 	 * This should be called after robot warm up and just before the match
 	 * starts.
 	 */
 	public synchronized void initGyro() {
-		if (gyro == null) {
-			gyro = new Gyro(RobotMap.GYRO_IN);
-		}
+		gyro.initGyro();
 	}
 	 
 	public void initDefaultCommand() {
@@ -161,28 +159,16 @@ public class DriveTrain extends PIDSubsystem {
 			rightRear.set(0.5);
 		}
 	}
-	public int[] getDriveEncoderCount() {
-		int[] encoderCount;
-		encoderCount = new int[4];
-		encoderCount[0] = frontLeftEncoder.get();
-		encoderCount[1] = rearLeftEncoder.get();
-		encoderCount[2] = frontRightEncoder.get();
-		encoderCount[3] = rearRightEncoder.get();
-		return encoderCount;
+	
+	public double getAverageEncoderInches() {
+		double frontLeftEncoderInches = frontLeftEncoder.getDistance();
+		double frontRightEncoderInches = frontRightEncoder.getDistance();
+		double rearLeftEncoderInches = rearLeftEncoder.getDistance();
+		double rearRightEncoderInches = rearRightEncoder.getDistance();
+		double encoderInchesSum = frontLeftEncoderInches + frontRightEncoderInches + rearLeftEncoderInches + rearRightEncoderInches;
+		double encoderInchesAverage = encoderInchesSum/4;
+		return encoderInchesAverage;
 	}
-	public void printDriveEncoderCount() {
-		//TEMPORARY. For testing purposes only.
-		int[] encoderCount;
-		encoderCount = new int[4];
-		encoderCount[0] = frontLeftEncoder.get();
-		encoderCount[1] = rearLeftEncoder.get();
-		encoderCount[2] = frontRightEncoder.get();
-		encoderCount[3] = rearRightEncoder.get();
-		//Prints to RIOLOG: [frontLeftEncoderCount rearLeftEncoderCount frontRightEncoderCount rearEncoderCount]
-	    for(int a = 0;a < 4; a++) {
-	    	System.out.print(encoderCount[a] + " ");
-	    }
-	} 
 
 	@Override
 	protected double returnPIDInput() {

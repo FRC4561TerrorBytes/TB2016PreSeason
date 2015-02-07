@@ -19,7 +19,6 @@ public class DriveDirection extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.driveTrain.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -40,7 +39,6 @@ public class DriveDirection extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.driveTrain.stop();
-		Robot.driveTrain.disable();
 	}
 
 	// Called when another command which requires one or more of the same
