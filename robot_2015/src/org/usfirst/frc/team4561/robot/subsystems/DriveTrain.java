@@ -58,8 +58,9 @@ public class DriveTrain extends PIDSubsystem {
 	
 
 	public DriveTrain() {
-		super(0.8/180, 0, 0); //TODO add "i" constant
+		super(0.4/180.0, 0, 0); //TODO add "i" constant
 		setInputRange(-180.0, 180.0);
+		setOutputRange(-0.5, 0.5);
 		getPIDController().setContinuous(true);
 		setPercentTolerance(0.5);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
