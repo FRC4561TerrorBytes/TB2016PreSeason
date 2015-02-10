@@ -12,8 +12,16 @@
 //	private static final double INCHES_PER_REVOLUTION = 2 * Math.PI * WHEEL_RADIUS;
 //	private static final double PULSES_PER_REVOLUTION = 2048;
 //	double inches;
-//	
-//    public AutoModeDrive(double inches) {
+//	/**
+//	 * Moves the robot in a cardinal direction for a certain amount of time.
+//	 * @param direction
+//	 * 1 = north
+//	 * 2 = east
+//	 * 3 = south
+//	 * 4 = west
+//	 * @param inches
+//	 */
+//    public AutoModeDrive(double direction, double inches) {
 //    	super(0.3, 0, 0);
 //    	this.inches = inches;
 //    	requires(Robot.driveTrain);

@@ -54,12 +54,13 @@ public class Elevator extends PIDSubsystem {
 	}
 	
 	public Elevator() {
-		super(0.8/MAX_HEIGHT - MIN_HEIGHT, 0.0, 0.0);
+		super(0.1/MAX_HEIGHT - MIN_HEIGHT, 0.0, 0.0);
 		setInputRange(MIN_HEIGHT, MAX_HEIGHT);
+		setOutputRange(-0.1, 0.1);
 		getPIDController().setContinuous(false);
 		setAbsoluteTolerance(0.1);
 		elevatorMotor.enableBrakeMode(true);
-		//enable();
+		enable();
 		elevatorEncoder.setDistancePerPulse(INCHES_PER_REVOLUTION/PULSES_PER_REVOLUTION);
 	}
 	// Put methods for controlling this subsystem
@@ -92,14 +93,22 @@ public class Elevator extends PIDSubsystem {
 	protected double returnPIDInput() {
 		return getElevatorEncoderInches();
 	}
+	int i = 0;
 	@Override
 	protected void usePIDOutput(double output) {
-		double elevatorMotorPower = output;
+		double elevatorMotorPower = -output;
 		if(getPIDController().onTarget() == false) {
 			elevatorMotor.set(elevatorMotorPower);
 		}
 		else {
 			elevatorMotor.set(0);
+		}
+		i++;
+		if(i%10 == 0){
+			System.out.println("Setpoint: " + getSetpoint());
+			System.out.println("Encoder Value: " + getElevatorEncoderInches());
+			System.out.println("Encoder Raw: " + elevatorEncoder.get());
+			System.out.println("Motor Power: " + elevatorMotorPower);
 		}
 	}
 }

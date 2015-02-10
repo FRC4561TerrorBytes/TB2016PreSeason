@@ -187,14 +187,14 @@ public class DriveTrain extends PIDSubsystem {
 		} else {
 			deltaRotating = false;
 		}
-		i++;
-		if(i%10 == 0){
-			System.out.println("Rot Power: " + rot); // motor power
-			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
-			System.out.println("Raw gyro angle: " + gyro.getAngle());
-			System.out.println("Drive Stick: (" + Robot.oi.getDriveX() + ", " + Robot.oi.getDriveY() + ") "); // drivestick (x, y)
-			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
-		}
+//		i++;
+//		if(i%10 == 0){
+//			System.out.println("Rot Power: " + rot); // motor power
+//			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
+//			System.out.println("Raw gyro angle: " + gyro.getAngle());
+//			System.out.println("Drive Stick: (" + Robot.oi.getDriveX() + ", " + Robot.oi.getDriveY() + ") "); // drivestick (x, y)
+//			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
+//		}
 		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
 	}
 }
