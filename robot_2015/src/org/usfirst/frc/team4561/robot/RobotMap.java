@@ -25,8 +25,8 @@ public class RobotMap {
 	public static final int DRIVE_JOYSTICK = 0;
 	public static final int ROTATION_JOYSTICK = 1;
 	public static final int ARCADE_BOX = 2;
+	
 	public static final int ROBOT_RELATIVE_BUTTON = 1;
-
 	public static final int ROBOT_JOG_RIGHT_BUTTON = 5;
 	public static final int ROBOT_JOG_LEFT_BUTTON = 4;
 	public static final int ROBOT_JOG_FORWARD_BUTTON = 3;
@@ -51,12 +51,39 @@ public class RobotMap {
 	/*
 	 * Arcade Box Buttons
 	 */
-	public static final int OBJECT_ON_GROUND_BUTTON = 1;
-	public static final int POS_1_BUTTON = 2;
-	public static final int POS_2_BUTTON = 3;
-	public static final int POS_3_BUTTON = 4;
-	public static final int POS_4_BUTTON = 5;
-	public static final int POS_5_BUTTON = 6;
+
+	public static final int OBJECT_ON_GROUND_BUTTON = 1; //PG
+	public static final int OBJECT_ON_TOTE_BUTTON = 2; //PT
+	public static final int RC_NOODLE_UPRIGHT = 3; //NU
+	public static final int RC_NOODLE_SIDEWAYS = 4; //NS
+	public static final int JOG_ELEVATOR_DOWN_BUTTON = 5; //JU
+	public static final int POS_1_BUTTON = 6; //P1
+	public static final int POS_2_BUTTON = 7; //P2
+	public static final int JOG_ELEVATOR_UP_BUTTON = 8; //JD
+	public static final int POS_3_BUTTON = 9; //P3
+	public static final int POS_4_BUTTON = 10; //P4
+	public static final int POS_5_BUTTON = 12; //P5
+	public static final int POS_6_BUTTON = 11; //P6
+	
+	/*
+	 * Arcade Box's current layout
+	 * 
+	 *            PORT NUMBERS                               BUTTON MAPPINGS
+	 *  __________________________________         __________________________________
+	 * |                                  |       |                                  |
+	 * |      1      2      3      4      |       |     PG     PT     NU     NS      |
+	 * |                                  |       |                                  |
+	 * |                                  |       |                                  |
+	 * |                                  |       |                                  |
+	 * |      5      6      7      8      |       |     JU     P1     P2     JD      |
+	 * |                                  |       |                                  |
+	 * |                                  |       |                                  |
+	 * |                                  |       |                                  |
+	 * |      9     10     12     11      |       |     P3     P4     P5     P6      |
+	 * |__________________________________|       |__________________________________|
+	 * 
+	 */
+		
 	/*
 	 * XBox Controller button mappings.
 	 */

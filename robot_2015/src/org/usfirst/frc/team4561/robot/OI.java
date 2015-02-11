@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.robot;
 
+import org.usfirst.frc.team4561.robot.commands.ElevatorJog;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.InitGyro;
 import org.usfirst.frc.team4561.robot.commands.JogForwardBackwards;
@@ -80,17 +81,30 @@ public class OI {
 	
 	private JoystickButton objectOnGroundButton = new JoystickButton(arcadeBox,
 			RobotMap.OBJECT_ON_GROUND_BUTTON);
-	private JoystickButton Pos1Button = new JoystickButton(arcadeBox,
+	private JoystickButton pos1Button = new JoystickButton(arcadeBox,
 			RobotMap.POS_1_BUTTON);
-	private JoystickButton Pos2Button = new JoystickButton(arcadeBox,
+	private JoystickButton pos2Button = new JoystickButton(arcadeBox,
 			RobotMap.POS_2_BUTTON);
-	private JoystickButton Pos3Button = new JoystickButton(arcadeBox,
+	private JoystickButton pos3Button = new JoystickButton(arcadeBox,
 			RobotMap.POS_3_BUTTON);
-	private JoystickButton Pos4Button = new JoystickButton(arcadeBox,
+	private JoystickButton pos4Button = new JoystickButton(arcadeBox,
 			RobotMap.POS_4_BUTTON);
-	private JoystickButton Pos5Button = new JoystickButton(arcadeBox,
+	private JoystickButton pos5Button = new JoystickButton(arcadeBox,
 			RobotMap.POS_5_BUTTON);
+	private JoystickButton pos6Button = new JoystickButton(arcadeBox,
+			RobotMap.POS_6_BUTTON);
+	private JoystickButton objectOnToteButton = new JoystickButton(arcadeBox,
+			RobotMap.OBJECT_ON_TOTE_BUTTON);
+	private JoystickButton noodleChuteSidewaysButton = new JoystickButton(arcadeBox,
+			RobotMap.RC_NOODLE_SIDEWAYS);
+	private JoystickButton noodleChuteUprightButton = new JoystickButton(arcadeBox,
+			RobotMap.RC_NOODLE_UPRIGHT);
 	
+	private JoystickButton jogElevatorUpButton = new JoystickButton(arcadeBox,
+			RobotMap.JOG_ELEVATOR_UP_BUTTON);
+	private JoystickButton jogElevatorDownButton = new JoystickButton(arcadeBox,
+			RobotMap.JOG_ELEVATOR_DOWN_BUTTON);
+
 	//private JogLeftTrigger jogLeftTrigger = new JogLeftTrigger();
 	//private JogRightTrigger jogRightTrigger = new JogRightTrigger();
 	//private JogForwardTrigger jogForwardTrigger = new JogForwardTrigger();
@@ -137,11 +151,17 @@ public class OI {
 		elevatorUpButton.whileHeld(new MoveElevator(0.5));
 		
 		objectOnGroundButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
-		Pos1Button.whenPressed(new MoveElevatorTo(Elevator.Position.score1));
-		Pos2Button.whenPressed(new MoveElevatorTo(Elevator.Position.score2));
-		Pos3Button.whenPressed(new MoveElevatorTo(Elevator.Position.score3));
-		Pos4Button.whenPressed(new MoveElevatorTo(Elevator.Position.score4));
-		Pos5Button.whenPressed(new MoveElevatorTo(Elevator.Position.score5));
+		pos1Button.whenPressed(new MoveElevatorTo(Elevator.Position.score1));
+		pos2Button.whenPressed(new MoveElevatorTo(Elevator.Position.score2));
+		pos3Button.whenPressed(new MoveElevatorTo(Elevator.Position.score3));
+		pos4Button.whenPressed(new MoveElevatorTo(Elevator.Position.score4));
+		pos5Button.whenPressed(new MoveElevatorTo(Elevator.Position.score5));
+		pos6Button.whenPressed(new MoveElevatorTo(Elevator.Position.score6));
+		objectOnToteButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUpOffTote));
+		noodleChuteUprightButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
+		noodleChuteSidewaysButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
+		jogElevatorUpButton.whenPressed(new ElevatorJog(true));
+		jogElevatorDownButton.whenPressed(new ElevatorJog(false));
 		initGyroTrigger.whenActive(new InitGyro());
 	}
 	
