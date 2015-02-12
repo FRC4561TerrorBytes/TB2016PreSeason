@@ -25,7 +25,7 @@ public class MovePos extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	currentDirection = Robot.oi.getDrivePOV();
+    	currentDirection = Robot.oi.getDpadPOV();
     }
 
     // Called repeatedly when this Command is scheduled to run

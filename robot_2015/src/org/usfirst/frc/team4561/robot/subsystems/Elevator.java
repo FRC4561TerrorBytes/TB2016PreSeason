@@ -96,19 +96,19 @@ public class Elevator extends PIDSubsystem {
 		setSetpoint(getPosition());
 	}
 	public void upOneScoringPos() {
-		if(getSetpoint() < SCORING_POSITION_1) {
+		if (getSetpoint() < SCORING_POSITION_1) {
 			setSetpoint(SCORING_POSITION_1);
 		}
-		else if(getSetpoint() < SCORING_POSITION_2) {
+		else if (getSetpoint() < SCORING_POSITION_2) {
 			setSetpoint(SCORING_POSITION_2);
 		}
-		else if(getSetpoint() < SCORING_POSITION_3) {
+		else if (getSetpoint() < SCORING_POSITION_3) {
 			setSetpoint(SCORING_POSITION_3);
 		}
-		else if(getSetpoint() < SCORING_POSITION_4) {
+		else if (getSetpoint() < SCORING_POSITION_4) {
 			setSetpoint(SCORING_POSITION_4);
 		}
-		else if(getSetpoint() < SCORING_POSITION_5) {
+		else if (getSetpoint() < SCORING_POSITION_5) {
 			setSetpoint(SCORING_POSITION_5);
 		}
 		else {
@@ -117,31 +117,29 @@ public class Elevator extends PIDSubsystem {
 	}
 	
 	public void downOneScoringPos() {
-		if(getSetpoint() >= SCORING_POSITION_6){
+		if (getSetpoint() > SCORING_POSITION_6) {
 			setSetpoint(SCORING_POSITION_6);
 		}
-		if(getSetpoint() <= SCORING_POSITION_6 && getSetpoint() > SCORING_POSITION_5) {
+		else if (getSetpoint() > SCORING_POSITION_5) {
 			setSetpoint(SCORING_POSITION_5);
 		}
-		if(getSetpoint() <= SCORING_POSITION_5 && getSetpoint() > SCORING_POSITION_4) {
+		else if (getSetpoint() > SCORING_POSITION_4) {
 			setSetpoint(SCORING_POSITION_4);
 		}
-		if(getSetpoint() <= SCORING_POSITION_4 && getSetpoint() > SCORING_POSITION_3) {
+		else if (getSetpoint() > SCORING_POSITION_3) {
 			setSetpoint(SCORING_POSITION_3);
 		}
-		if(getSetpoint() <= SCORING_POSITION_3 && getSetpoint() > SCORING_POSITION_2) {
+		else if (getSetpoint() > SCORING_POSITION_2) {
 			setSetpoint(SCORING_POSITION_2);
 		}
-		if(getSetpoint() <= SCORING_POSITION_2 && getSetpoint() > SCORING_POSITION_1) {
+		else {
 			setSetpoint(SCORING_POSITION_1);
 		}
 	}
 	public void jogUp() {
-		stop();
 		setSetpoint(getSetpoint() + JOG_INCHES);
 	}
 	public void jogDown() {
-		stop();
 		setSetpoint(getSetpoint() - JOG_INCHES);
 	}
 	public void testMoveElevator(double motorSpeed) {
@@ -160,6 +158,8 @@ public class Elevator extends PIDSubsystem {
 	@Override
 	protected void usePIDOutput(double output) {
 		double elevatorMotorPower = output;
+		// TODO check limit switches here
+		// stop on contact and reset setPoint to current
 		if(getPIDController().onTarget() == false) {
 			elevatorMotor.set(elevatorMotorPower);
 		}

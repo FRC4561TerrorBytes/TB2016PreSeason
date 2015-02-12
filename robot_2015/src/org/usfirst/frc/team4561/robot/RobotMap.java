@@ -101,14 +101,17 @@ public class RobotMap {
 	public static final int RC_NOODLE_SIDEWAYS = Y_BUTTON; //NS
 	public static final int JOG_ELEVATOR_DOWN_BUTTON = LEFT_BUMPER; //JU
 	public static final int JOG_ELEVATOR_UP_BUTTON = RIGHT_BUMPER; //JD
+	public static final int OPEN_CLAW = BACK_BUTTON;
+	public static final int CLOSE_CLAW = START_BUTTON;
+	
 	
 	/*
 	 * Sensors stuff
 	 */
 	
 	public static final int GYRO_IN = 0; //analog 0
-	public static final int LIMIT_SW_BOTTOM = 0; //digital 0
-	public static final int LIMIT_SW_TOP = 1; //digital 1
+	public static final int ELEVATOR_LIMIT_SW_BOTTOM = 10; //digital 10
+	public static final int ELEVATOR_LIMIT_SW_TOP = 11; //digital 11
 	
 	/*
 	 * Controller axis mappings.
@@ -134,8 +137,8 @@ public class RobotMap {
 	public static final int FRONT_LEFT_MOTOR_CAN = 4;
 	public static final int REAR_RIGHT_MOTOR_CAN = 3;
 	public static final int FRONT_RIGHT_MOTOR_CAN = 2; 
-	public static final int ELEVATOR_MOTOR_CAN = 5; // TODO change me
-	public static final int EXTENDER_MOTOR_CAN = 6; // TODO change me
+	public static final int ELEVATOR_MOTOR_CAN = 5; // TODO change to PWM
+	public static final int EXTENDER_MOTOR_CAN = 6; // TODO change to PWM
 
 	/*
 	 * Pneumatics mappings

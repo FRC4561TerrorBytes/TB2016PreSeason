@@ -26,15 +26,18 @@ public class MoveElevator extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	// Only schedule this command as whileHeld
         return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.elevator.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

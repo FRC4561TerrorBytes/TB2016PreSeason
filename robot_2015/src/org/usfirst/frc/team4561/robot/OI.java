@@ -192,22 +192,6 @@ public class OI {
 		return driveStickX;
 		// return xBoxDriveStick.getX();
 	}
-
-	/**
-	 * Returns the rotation stick X axis magnitude [-1..1] where negative is
-	 * left and right is positive.
-	 * 
-	 * @return the rotation stick X axis magnitude
-	 */
-	public double getRotationX() {
-		// Dead zone management
-		double rotationStickX = rotationStick.getX();
-		if(Math.abs(rotationStickX) < RobotMap.ROTATION_DEAD_ZONE) {
-			rotationStickX = 0;
-		}
-		return rotationStickX;
-		// return xBoxRotaryStick.getX();
-	}
 	
 	/**
 	 * Returns the degrees from 0 to the current direction of the rotation
