@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveDirection extends Command {
+	//TODO Obsolete?
 	public double x_v;
 	public double y_v;
 	public DriveDirection(double x_v, double y_v) {

@@ -24,7 +24,7 @@ public class RobotMap {
 	 */
 	public static final int DRIVE_JOYSTICK = 0;
 	public static final int ROTATION_JOYSTICK = 1;
-	public static final int ARCADE_BOX = 2;
+	public static final int CONTROLLER = 2;
 	
 	public static final int ROBOT_RELATIVE_BUTTON = 1;
 	public static final int ROBOT_JOG_RIGHT_BUTTON = 5;
@@ -52,18 +52,18 @@ public class RobotMap {
 	 * Arcade Box Buttons
 	 */
 
-	public static final int OBJECT_ON_GROUND_BUTTON = 1; //PG
-	public static final int OBJECT_ON_TOTE_BUTTON = 2; //PT
-	public static final int RC_NOODLE_UPRIGHT = 3; //NU
-	public static final int RC_NOODLE_SIDEWAYS = 4; //NS
-	public static final int JOG_ELEVATOR_DOWN_BUTTON = 5; //JU
-	public static final int POS_1_BUTTON = 6; //P1
-	public static final int POS_2_BUTTON = 7; //P2
-	public static final int JOG_ELEVATOR_UP_BUTTON = 8; //JD
-	public static final int POS_3_BUTTON = 9; //P3
-	public static final int POS_4_BUTTON = 10; //P4
-	public static final int POS_5_BUTTON = 12; //P5
-	public static final int POS_6_BUTTON = 11; //P6
+//	public static final int OBJECT_ON_GROUND_BUTTON = 1; //PG
+//	public static final int OBJECT_ON_TOTE_BUTTON = 2; //PT
+//	public static final int RC_NOODLE_UPRIGHT = 3; //NU
+//	public static final int RC_NOODLE_SIDEWAYS = 4; //NS
+//	public static final int JOG_ELEVATOR_DOWN_BUTTON = 5; //JU
+//	public static final int POS_1_BUTTON = 6; //P1
+//	public static final int POS_2_BUTTON = 7; //P2
+//	public static final int JOG_ELEVATOR_UP_BUTTON = 8; //JD
+//	public static final int POS_3_BUTTON = 9; //P3
+//	public static final int POS_4_BUTTON = 10; //P4
+//	public static final int POS_5_BUTTON = 12; //P5
+//	public static final int POS_6_BUTTON = 11; //P6
 	
 	/*
 	 * Arcade Box's current layout
@@ -85,7 +85,7 @@ public class RobotMap {
 	 */
 		
 	/*
-	 * XBox Controller button mappings.
+	 * Controller button mappings.
 	 */
 	public static final int A_BUTTON = 1;
 	public static final int B_BUTTON = 2;
@@ -98,6 +98,13 @@ public class RobotMap {
 	public static final int LEFT_STICK = 9;
 	public static final int RIGHT_STICK = 10;
 	
+	public static final int OBJECT_ON_GROUND_BUTTON = A_BUTTON; //PG
+	public static final int OBJECT_ON_TOTE_BUTTON = B_BUTTON; //PT
+	public static final int RC_NOODLE_UPRIGHT = X_BUTTON; //NU
+	public static final int RC_NOODLE_SIDEWAYS = Y_BUTTON; //NS
+	public static final int JOG_ELEVATOR_DOWN_BUTTON = LEFT_BUMPER; //JU
+	public static final int JOG_ELEVATOR_UP_BUTTON = RIGHT_BUMPER; //JD
+	
 	/*
 	 * Sensors stuff
 	 */
@@ -107,15 +114,15 @@ public class RobotMap {
 	public static final int LIMIT_SW_TOP = 1; //digital 1
 	
 	/*
-	 * XBox Controller axis mappings.
+	 * Controller axis mappings.
 	 */
-	public static final int LEFT_STICK_X = 1; // left: -, right, +
-	public static final int LEFT_STICK_Y = 2; // up: -, down, +
-	public static final int TRIGGERS = 3; // left: +, right, -
+	public static final int LEFT_STICK_X = 0; // left: -, right, +
+	public static final int LEFT_STICK_Y = 1; // up: -, down, +
+	public static final int LEFT_TRIGGER = 2; // depressed: +, released: neutral
+	public static final int RIGHT_TRIGGER = 3; // depressed: +, released: neutral
 	public static final int RIGHT_STICK_X = 4; // left: -, right, +
 	public static final int RIGHT_STICK_Y = 5; // up: -, down, +
-	public static final int DPAD = 6; // RECOMMENDED: DO NOT USE. EXTREMLY
-										// buggy.
+
 	/*
 	 * DriveTrain Talon mappings.
 	 */

@@ -92,7 +92,10 @@ public class DriveTrain extends PIDSubsystem {
 		fieldRelative = true;
 		setSetpoint(rotationDegrees);
 	}
-
+	
+	public void rotateTo(double angle) {
+		setSetpoint(angle);
+	}
 	
 	/**
 	 * Change the rotation target by the deltaRotation. A negative value moves
@@ -119,15 +122,18 @@ public class DriveTrain extends PIDSubsystem {
 			return lastGyroAngle;
 		}
 		else {
-			String stringYaw = yawPitchRoll.substring(0, yawPitchRoll.indexOf(','));
+			
 			double doubleYaw = lastGyroAngle;
 			try {
+				String stringYaw = yawPitchRoll.substring(0, yawPitchRoll.indexOf(','));
 				doubleYaw = Double.parseDouble(stringYaw);
 			}
 			catch(NumberFormatException nfe) {
 			}
+			catch(StringIndexOutOfBoundsException sioobe) {
+			}
 
-			System.out.println(doubleYaw);
+			// System.out.println(doubleYaw);
 			lastGyroAngle = doubleYaw;
 			return doubleYaw;
 		}
@@ -181,6 +187,20 @@ public class DriveTrain extends PIDSubsystem {
 		encoderInches[2]= rearLeftEncoder.getDistance();
 		encoderInches[3]= rearRightEncoder.getDistance();
 		return encoderInches;
+	}
+	
+	public double getAbsAverageEncoderInches() {
+		
+		double frontLeftEncoderInches = Math.abs(frontLeftEncoder.getDistance());
+		double frontRightEncoderInches = Math.abs(frontLeftEncoder.getDistance());
+		double rearLeftEncoderInches = Math.abs(frontLeftEncoder.getDistance());
+		double rearRightEncoderInches = Math.abs(frontLeftEncoder.getDistance());
+		
+		double encoderSumInches = frontLeftEncoderInches + frontRightEncoderInches 
+									+ rearLeftEncoderInches + rearRightEncoderInches;
+		double encoderAverageInches = encoderSumInches / 4;
+		
+		return encoderAverageInches;
 	}
 	
 	public void fullEncoderReset() {

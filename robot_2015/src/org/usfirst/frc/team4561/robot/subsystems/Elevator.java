@@ -2,6 +2,7 @@ package org.usfirst.frc.team4561.robot.subsystems;
 
 import org.usfirst.frc.team4561.robot.RobotMap;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  * Also allows for micro-movements by the drive team.
  */
 public class Elevator extends PIDSubsystem {
+	// private Talon elevatorMotor = new Talon(RobotMap.ELEVATOR_MOTOR_CAN);
 	private CANTalon elevatorMotor = new CANTalon(RobotMap.ELEVATOR_MOTOR_CAN);
 	private Encoder elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A_CHANNEL, RobotMap.ELEVATOR_ENCODER_B_CHANNEL);
 	
@@ -92,6 +94,47 @@ public class Elevator extends PIDSubsystem {
 	}
 	public void stop() {
 		setSetpoint(getPosition());
+	}
+	public void upOneScoringPos() {
+		if(getSetpoint() < SCORING_POSITION_1) {
+			setSetpoint(SCORING_POSITION_1);
+		}
+		else if(getSetpoint() < SCORING_POSITION_2) {
+			setSetpoint(SCORING_POSITION_2);
+		}
+		else if(getSetpoint() < SCORING_POSITION_3) {
+			setSetpoint(SCORING_POSITION_3);
+		}
+		else if(getSetpoint() < SCORING_POSITION_4) {
+			setSetpoint(SCORING_POSITION_4);
+		}
+		else if(getSetpoint() < SCORING_POSITION_5) {
+			setSetpoint(SCORING_POSITION_5);
+		}
+		else {
+			setSetpoint(SCORING_POSITION_6);
+		}
+	}
+	
+	public void downOneScoringPos() {
+		if(getSetpoint() >= SCORING_POSITION_6){
+			setSetpoint(SCORING_POSITION_6);
+		}
+		if(getSetpoint() <= SCORING_POSITION_6 && getSetpoint() > SCORING_POSITION_5) {
+			setSetpoint(SCORING_POSITION_5);
+		}
+		if(getSetpoint() <= SCORING_POSITION_5 && getSetpoint() > SCORING_POSITION_4) {
+			setSetpoint(SCORING_POSITION_4);
+		}
+		if(getSetpoint() <= SCORING_POSITION_4 && getSetpoint() > SCORING_POSITION_3) {
+			setSetpoint(SCORING_POSITION_3);
+		}
+		if(getSetpoint() <= SCORING_POSITION_3 && getSetpoint() > SCORING_POSITION_2) {
+			setSetpoint(SCORING_POSITION_2);
+		}
+		if(getSetpoint() <= SCORING_POSITION_2 && getSetpoint() > SCORING_POSITION_1) {
+			setSetpoint(SCORING_POSITION_1);
+		}
 	}
 	public void jogUp() {
 		stop();

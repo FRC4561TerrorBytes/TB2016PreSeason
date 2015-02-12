@@ -1,9 +1,9 @@
 package org.usfirst.frc.team4561.robot.commands;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * 
+ * Uses the AutoModeCardinalFieldRelativeDrive command in junction with the
+ * RotateTo command to achieve movement.
  */
 public class AutoMode extends CommandGroup {
     
@@ -24,10 +24,16 @@ public class AutoMode extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new DriveDirection(0.5, 0.0));
     	
+    	// Proof-of-Concept AutoMode:
+    	// Starts on the edge of the Auto Zone
+    	// Would rotate 90 degrees to face forward, and then drive forward
+    	// 5 feet to be in the Auto Zone.
     	
-    	
+    	addSequential(new RotateTo(0.0));
+    	//Possible bug: because RotateTo stops as soon as it's called, AutoModeCardinalFieldRelativeDrive may
+    	//run at the same time. 
+    	addSequential(new AutoModeCardinalFieldRelativeDrive(1, 60));
     	
     }
 }
