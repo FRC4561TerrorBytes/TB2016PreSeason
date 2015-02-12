@@ -2,18 +2,10 @@ package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.InitGyro;
-import org.usfirst.frc.team4561.robot.commands.JogForwardBackwards;
-import org.usfirst.frc.team4561.robot.commands.JogSideways;
 import org.usfirst.frc.team4561.robot.commands.JoggingPOV;
 import org.usfirst.frc.team4561.robot.commands.MoveElevator;
-import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
 import org.usfirst.frc.team4561.robot.commands.RotatingPOV;
-import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 import org.usfirst.frc.team4561.robot.triggers.InitializeGyroTrigger;
-import org.usfirst.frc.team4561.robot.triggers.JogBackwardTrigger;
-import org.usfirst.frc.team4561.robot.triggers.JogForwardTrigger;
-import org.usfirst.frc.team4561.robot.triggers.JogLeftTrigger;
-import org.usfirst.frc.team4561.robot.triggers.JogRightTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogPOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.RotatePOVTrigger;
 
@@ -62,10 +54,6 @@ public class OI {
 	private JoystickButton robotRelativeButton = new JoystickButton(driveStick,
 			RobotMap.ROBOT_RELATIVE_BUTTON);
 
-	//public JoystickButton joggingRightButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_RIGHT_BUTTON);
-	//public JoystickButton joggingLeftButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_LEFT_BUTTON);
-	//public JoystickButton joggingForwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_FORWARD_BUTTON);
-	//public JoystickButton joggingBackwardButton = new JoystickButton(driveStick,RobotMap.ROBOT_JOG_BACKWARD_BUTTON);
 	public JoystickButton elevatorUpButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_UP_BUTTON);
 	public JoystickButton elevatorDownButton = new JoystickButton(rotationStick,RobotMap.MOVE_ELEVATOR_DOWN_BUTTON);
 	
@@ -91,10 +79,6 @@ public class OI {
 	private JoystickButton Pos5Button = new JoystickButton(arcadeBox,
 			RobotMap.POS_5_BUTTON);*/
 	
-	//private JogLeftTrigger jogLeftTrigger = new JogLeftTrigger();
-	//private JogRightTrigger jogRightTrigger = new JogRightTrigger();
-	//private JogForwardTrigger jogForwardTrigger = new JogForwardTrigger();
-	//private JogBackwardTrigger jogBackwardsTrigger = new JogBackwardTrigger();
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	
@@ -123,12 +107,6 @@ public class OI {
 		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
 		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
 		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
-		
-		//jogLeftTrigger.whenActive(new JogSideways(true));
-		//jogRightTrigger.whenActive(new JogSideways(false));
-		
-		//jogBackwardsTrigger.whenActive(new JogForwardBackwards(false));
-		//jogForwardTrigger.whenActive(new JogForwardBackwards(true));
 		
 		triggerJogPOV.whenActive(new JoggingPOV());
 		triggerRotatePOV.whenActive(new RotatingPOV());
@@ -204,14 +182,15 @@ public class OI {
 	 * Returns the degrees from 0 to the current direction of the rotation
 	 * stick. If the stick is currently neutral, the last value is returned.
 	 * 
-	 * @return the degrees of the current or most recent rotation stick input
+	 * @return the degrees of the current or most recent rotation stick input or
+	 *         Double.MAX_VALUE if the stick is not deflected.
 	 */
 	public double getRotationDegrees() {
 		if ((Math.abs(rotationStick.getX()) >= RobotMap.ROTATION_DEAD_ZONE)
 				|| (Math.abs(rotationStick.getY()) >= RobotMap.ROTATION_DEAD_ZONE))
 			return rotationStick.getDirectionDegrees();
 		else
-			return Robot.driveTrain.getNormalizedGyroAngle();
+			return Double.MAX_VALUE;
 	}
 
 }

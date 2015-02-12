@@ -27,7 +27,7 @@ public class DriveDirection extends Command {
 			Robot.driveTrain.driveRobotRelative(Robot.oi.getDriveX(),
 					Robot.oi.getDriveY());
 		} else {
-			Robot.driveTrain.driveFieldRelative(x_v, y_v, Robot.oi.getRotationDegrees());
+			Robot.driveTrain.driveFieldRelative(x_v, y_v, Robot.driveTrain.getNormalizedGyroAngle());
 		}
 	}
 

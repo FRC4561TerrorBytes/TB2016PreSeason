@@ -27,10 +27,6 @@ public class RobotMap {
 	public static final int ARCADE_BOX = 2;
 	public static final int ROBOT_RELATIVE_BUTTON = 1;
 
-	public static final int ROBOT_JOG_RIGHT_BUTTON = 5;
-	public static final int ROBOT_JOG_LEFT_BUTTON = 4;
-	public static final int ROBOT_JOG_FORWARD_BUTTON = 3;
-	public static final int ROBOT_JOG_BACKWARD_BUTTON = 2;
 	public static final int MOVE_ELEVATOR_UP_BUTTON = 6;
 	public static final int MOVE_ELEVATOR_DOWN_BUTTON = 7;
 	
