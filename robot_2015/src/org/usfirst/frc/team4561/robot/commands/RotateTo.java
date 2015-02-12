@@ -1,24 +1,23 @@
 package org.usfirst.frc.team4561.robot.commands;
 
-import org.usfirst.frc.team4561.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team4561.robot.Robot;
 
 /**
  *
  */
-public class InitGyro extends Command {
-
-    public InitGyro() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.driveTrain);
-    	setRunWhenDisabled(true);
+public class RotateTo extends Command {
+	//TODO Should this command be possible to do while AutoModeCardinalFieldRelativeDrive is happening?
+	double angle;
+	
+    public RotateTo(double angle) {
+        requires(Robot.driveTrain);
+        this.angle = angle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-//    	Robot.driveTrain.initGyro();
+    	Robot.driveTrain.rotateTo(angle);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -27,6 +26,7 @@ public class InitGyro extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	
         return true;
     }
 

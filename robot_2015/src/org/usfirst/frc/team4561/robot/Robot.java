@@ -55,7 +55,6 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
-		driveTrain.resetGyro();
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
