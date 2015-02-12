@@ -33,7 +33,7 @@ public class AutoMode extends CommandGroup {
     	addSequential(new RotateTo(0.0));
     	//Possible bug: because RotateTo stops as soon as it's called, AutoModeCardinalFieldRelativeDrive may
     	//run at the same time. 
-    	addSequential(new AutoModeCardinalFieldRelativeDrive(1, 60));
+    	addSequential(new AutoCardinalFieldRelativeDrive(1, 60));
     	
     }
 }

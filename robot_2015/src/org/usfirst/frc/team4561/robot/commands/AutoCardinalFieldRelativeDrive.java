@@ -6,7 +6,7 @@ import org.usfirst.frc.team4561.robot.Robot;
 /**
  * 
  */
-public class AutoModeCardinalFieldRelativeDrive extends PIDCommand {
+public class AutoCardinalFieldRelativeDrive extends PIDCommand {
 	
 // We need this, because otherwise, the motors will run at full power unless the setpoint is below 1 inch away.
 	private static final int INCHES_FOR_FULL_POWER = 36;
@@ -23,7 +23,7 @@ public class AutoModeCardinalFieldRelativeDrive extends PIDCommand {
 	 * 4 = west
 	 * @param inches
 	 */
-    public AutoModeCardinalFieldRelativeDrive(int direction, double inches) {
+    public AutoCardinalFieldRelativeDrive(int direction, double inches) {
     	super(0.3/INCHES_FOR_FULL_POWER, 0, 0);
         requires(Robot.driveTrain);
         this.direction = direction;
