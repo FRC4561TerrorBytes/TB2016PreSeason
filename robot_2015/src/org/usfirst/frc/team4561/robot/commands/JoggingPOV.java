@@ -27,9 +27,9 @@ public class JoggingPOV extends Command {
 	private AutoCardinalRobotRelativeDrive rightDrive = new AutoCardinalRobotRelativeDrive(
 			2, 0.5);
 	private AutoCardinalRobotRelativeDrive backwardDrive = new AutoCardinalRobotRelativeDrive(
-			3, 0.5);
+			3, -0.5);
 	private AutoCardinalRobotRelativeDrive leftDrive = new AutoCardinalRobotRelativeDrive(
-			4, 0.5);
+			4, -0.5);
 	
     public JoggingPOV() {
     	requires(Robot.driveTrain);

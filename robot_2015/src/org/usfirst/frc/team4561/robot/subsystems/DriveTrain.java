@@ -6,9 +6,11 @@ import org.usfirst.frc.team4561.robot.commands.MecanumDrive;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 
@@ -48,15 +50,32 @@ public class DriveTrain extends PIDSubsystem {
 	 //Gyroscope
 	 private SerialPort gyro = new SerialPort(38400, Port.kMXP);
 	 
+		/*
+		 * Reverse Drive Train encoder direction i.e. REVERSE_DIRECTION = True, then forward =
+		 * "+", backward = "-"
+		 */
+		public static final boolean REVERSE_DIRECTION = true;
+		/*
+		 * Encoder count multiplier ENCODING_TYPE = EncodingType.k1X, count is
+		 * normal ENCODING_TYPE = EncodingType.k2X, count is multiplied by 2
+		 * ENCODING_TYPE = EncodingType.k4X, count is multiplied by 4
+		 */
+		public static final EncodingType ENCODING_TYPE = EncodingType.k1X;
+	 
 	 //Encoders
 	 public Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL,
-			 										RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL);
+			 										RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
 	 public Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL,
-													RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL);
+													RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
 	 public Encoder rearLeftEncoder = new Encoder(RobotMap.REAR_LEFT_ENCODER_A_CHANNEL,
-			 										RobotMap.REAR_LEFT_ENCODER_B_CHANNEL);
+			 										RobotMap.REAR_LEFT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
 	 public Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL,
-			 										RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL);
+			 										RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
+	 
+	 
+	private static final double INCHES_PER_REVOLUTION = Math.PI * 2 * 4;
+	private static final double PULSES_PER_REVOLUTION = 2048;
+	private static final double INCHES_PER_PULSE = INCHES_PER_REVOLUTION/PULSES_PER_REVOLUTION;
 	
 
 	public DriveTrain() {
@@ -71,6 +90,10 @@ public class DriveTrain extends PIDSubsystem {
 		leftRear.enableBrakeMode(true);
 		rightFront.enableBrakeMode(true);
 		rightRear.enableBrakeMode(true);
+		frontLeftEncoder.setDistancePerPulse(INCHES_PER_PULSE);
+		frontRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
+		rearLeftEncoder.setDistancePerPulse(INCHES_PER_PULSE);
+		rearRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
 	 }
 	
 	public void initDefaultCommand() {
@@ -168,12 +191,40 @@ public class DriveTrain extends PIDSubsystem {
 		}
 		else if(motorID == RobotMap.FRONT_RIGHT_MOTOR_CAN) {
 			rightFront.enableBrakeMode(true);
-			rightFront.set(0.5);
+			rightFront.set(-0.5);
 		}
 		else if(motorID == RobotMap.REAR_RIGHT_MOTOR_CAN) {
 			rightRear.enableBrakeMode(true);
-			rightRear.set(0.5);
+			rightRear.set(-0.5);
 		}
+	}
+	/**
+	 * Gets the value in inches of a single encoder.
+	 * @param id
+	 * @return
+	 */
+	public double getSingleEncoderInches(int id) {
+		double[] encoderInches;
+		encoderInches = new double[4];
+		encoderInches[0] = frontLeftEncoder.getDistance();
+		encoderInches[1]= frontRightEncoder.getDistance();
+		encoderInches[2]= rearLeftEncoder.getDistance();
+		encoderInches[3]= rearRightEncoder.getDistance();
+		return encoderInches[id];
+	}
+	/**
+	 * Gets the value in ticks of a single encoder.
+	 * @param id
+	 * @return
+	 */
+	public double getSingleEncoderTicks(int id) {
+		double[] encoderInches;
+		encoderInches = new double[4];
+		encoderInches[0] = frontLeftEncoder.get();
+		encoderInches[1]= frontRightEncoder.get();
+		encoderInches[2]= rearLeftEncoder.get();
+		encoderInches[3]= rearRightEncoder.get();
+		return encoderInches[id];
 	}
 	 /**
 	  * @return An array of doubles of the inches each encoder has moved in the format 
@@ -188,6 +239,20 @@ public class DriveTrain extends PIDSubsystem {
 		encoderInches[3]= rearRightEncoder.getDistance();
 		return encoderInches;
 	}
+	 /**
+	  * @return An array of doubles of the ticks each encoder has moved in the format 
+	  * [frontLeft, frontRight, rearLeft, rearRight]
+	  */
+	public double[] getEncoderTicks() {
+		double[] encoderInches;
+		encoderInches = new double[4];
+		encoderInches[0] = frontLeftEncoder.get();
+		encoderInches[1]= frontRightEncoder.get();
+		encoderInches[2]= rearLeftEncoder.get();
+		encoderInches[3]= rearRightEncoder.get();
+		return encoderInches;
+	}
+	
 	
 	public double getAbsAverageEncoderInches() {
 		
@@ -196,12 +261,14 @@ public class DriveTrain extends PIDSubsystem {
 		double rearLeftEncoderInches = Math.abs(frontLeftEncoder.getDistance());
 		double rearRightEncoderInches = Math.abs(frontLeftEncoder.getDistance());
 		
-		double encoderSumInches = frontLeftEncoderInches + frontRightEncoderInches 
-									+ rearLeftEncoderInches + rearRightEncoderInches;
-		double encoderAverageInches = encoderSumInches / 4;
+		double encoderSumInches = frontLeftEncoderInches //+ frontRightEncoderInches 
+									+ rearLeftEncoderInches; // + rearRightEncoderInches; TODO right encoders fried
+		double encoderAverageInches = encoderSumInches /2; // / 4;
 		
 		return encoderAverageInches;
 	}
+	
+
 	
 	public void fullEncoderReset() {
 		frontLeftEncoder.reset();
