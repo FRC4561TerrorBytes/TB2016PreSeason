@@ -20,7 +20,7 @@ public class SmartDashboardDisplay extends Command {
 //	String IS_EXTENDER_RETRACKED = "NaN";
 	
     public SmartDashboardDisplay() {
-    	//requires(Robot.sdlogging);    	
+//    	requires(Robot.sdlogging);    	
 
     }
 
