@@ -7,7 +7,7 @@ import org.usfirst.frc.team4561.robot.Robot;
  *
  */
 public class RotateTo extends Command {
-	//TODO Should this command be possible to do while AutoModeCardinalFieldRelativeDrive is happening?
+	//TODO Is this command be possible to do while AutoModeCardinalFieldRelativeDrive is happening?
 	double angle;
 	
     public RotateTo(double angle) {
@@ -26,8 +26,12 @@ public class RotateTo extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	
-        return true;
+    	if(Robot.driveTrain.onTarget() ==  true) {
+    		        return true;
+    	}
+    	else {
+    		return false;
+    	}
     }
 
     // Called once after isFinished returns true

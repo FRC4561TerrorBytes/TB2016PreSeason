@@ -22,10 +22,17 @@ public class JoggingPOV extends Command {
 	
 	private int currentDirection = FORWARD;
 	
+	private AutoCardinalRobotRelativeDrive forwardDrive = new AutoCardinalRobotRelativeDrive(
+			1, 0.5);
+	private AutoCardinalRobotRelativeDrive rightDrive = new AutoCardinalRobotRelativeDrive(
+			2, 0.5);
+	private AutoCardinalRobotRelativeDrive backwardDrive = new AutoCardinalRobotRelativeDrive(
+			3, 0.5);
+	private AutoCardinalRobotRelativeDrive leftDrive = new AutoCardinalRobotRelativeDrive(
+			4, 0.5);
+	
     public JoggingPOV() {
     	requires(Robot.driveTrain);
-    	setTimeout(0.5);
-    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -33,30 +40,28 @@ public class JoggingPOV extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	currentDirection = Robot.oi.getDrivePOV();
-    	System.out.println("POV =" + currentDirection);
+		if (currentDirection == FORWARD) {
+			forwardDrive.start();
+		} else if (currentDirection == RIGHT) {
+			rightDrive.start();
+		} else if (currentDirection == BACKWARD) {
+			backwardDrive.start();
+		} else if (currentDirection == LEFT) {
+			leftDrive.start();
+		}
     }
 
     // Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (currentDirection == FORWARD) {
-			Robot.driveTrain.driveRobotRelative(0.0, 0.3);
-		} else if (currentDirection == RIGHT) {
-			Robot.driveTrain.driveRobotRelative(0.3, 0.0);
-		} else if (currentDirection == BACKWARD) {
-			Robot.driveTrain.driveRobotRelative(0.0, -0.3);
-		} else if (currentDirection == LEFT) {
-			Robot.driveTrain.driveRobotRelative(-0.3, 0.0);
-		}
 	}	
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrain.stop();
     }
 
     // Called when another command which requires one or more of the same
