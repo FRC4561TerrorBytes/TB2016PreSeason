@@ -41,13 +41,25 @@ public class JoggingPOV extends Command {
     protected void initialize() {
     	currentDirection = Robot.oi.getDrivePOV();
 		if (currentDirection == FORWARD) {
-			forwardDrive.start();
+			if (forwardDrive.isRunning())
+				forwardDrive.bump();
+			else
+				forwardDrive.start();
 		} else if (currentDirection == RIGHT) {
-			rightDrive.start();
+			if (rightDrive.isRunning())
+				rightDrive.bump();
+			else
+				rightDrive.start();
 		} else if (currentDirection == BACKWARD) {
-			backwardDrive.start();
+			if (backwardDrive.isRunning())
+				backwardDrive.bump();
+			else
+				backwardDrive.start();
 		} else if (currentDirection == LEFT) {
-			leftDrive.start();
+			if (leftDrive.isRunning())
+				leftDrive.bump();
+			else
+				leftDrive.start();
 		}
     }
 

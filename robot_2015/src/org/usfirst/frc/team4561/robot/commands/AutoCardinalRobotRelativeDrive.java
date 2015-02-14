@@ -36,6 +36,10 @@ public class AutoCardinalRobotRelativeDrive extends PIDCommand {
     	Robot.driveTrain.fullEncoderReset();
     	setSetpoint(inches);
     }
+    
+    public void bump() {
+    	setSetpoint(getSetpoint() + inches);
+    }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
