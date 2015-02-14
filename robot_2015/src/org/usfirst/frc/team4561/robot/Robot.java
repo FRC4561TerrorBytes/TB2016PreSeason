@@ -1,5 +1,9 @@
 package org.usfirst.frc.team4561.robot;
 
+import org.usfirst.frc.team4561.robot.commands.Abstract4561AutomodeGroup;
+import org.usfirst.frc.team4561.robot.commands.AutoMode;
+import org.usfirst.frc.team4561.robot.commands.AutomodeDoNothing;
+import org.usfirst.frc.team4561.robot.commands.AutomodePushItemToZoneWithOpenClaw;
 import org.usfirst.frc.team4561.robot.subsystems.Claw;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
@@ -7,9 +11,9 @@ import org.usfirst.frc.team4561.robot.subsystems.Extender;
 import org.usfirst.frc.team4561.robot.subsystems.SDLogging;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -28,7 +32,8 @@ public class Robot extends IterativeRobot {
 	public static final SDLogging sdlogging = new SDLogging();
 	public static OI oi;
 
-	Command autonomousCommand;
+	Abstract4561AutomodeGroup autonomousCommand;
+	SendableChooser autoChooser;
 	
 	private static Robot robotSingleton;
 	
@@ -50,6 +55,11 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(extender);
 		SmartDashboard.putData(elevator);
 		SmartDashboard.putData(claw);
+		
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("Do nothing", new AutomodeDoNothing());
+		autoChooser.addObject("Push item with claw", new AutomodePushItemToZoneWithOpenClaw());
+		autoChooser.addObject("Win match", new AutoMode());
 	}
 
 	public void disabledPeriodic() {
@@ -57,9 +67,12 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
+		autonomousCommand = (Abstract4561AutomodeGroup) autoChooser.getSelected();
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
+			driveTrain.setStartAngle(autonomousCommand.getStartAngle());
 			autonomousCommand.start();
+		}
 	}
 
 	/**

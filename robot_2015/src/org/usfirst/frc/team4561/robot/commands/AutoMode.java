@@ -1,11 +1,10 @@
 package org.usfirst.frc.team4561.robot.commands;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * Uses the AutoModeCardinalFieldRelativeDrive command in junction with the
  * RotateTo command to achieve movement.
  */
-public class AutoMode extends CommandGroup {
+public class AutoMode extends Abstract4561AutomodeGroup {
     
     public  AutoMode() {
         // Add Commands here:
@@ -36,4 +35,10 @@ public class AutoMode extends CommandGroup {
     	addSequential(new AutoCardinalFieldRelativeDrive(1, 60));
     	
     }
+
+	@Override
+	public double getStartAngle() {
+		// Starts with the front of the robot facing the right wall.
+		return 90.0;
+	}
 }

@@ -45,6 +45,9 @@ public class DriveTrain extends PIDSubsystem {
 	 private boolean fieldRelative = true;
 	 private boolean deltaRotating = false;
 	 private double lastGyroAngle = 0.0;
+	 private boolean needToSaveGyroBias = true;
+	 private double gyroBias = 0.0;
+	 private double startAngle = 0.0;
 	 
 	 //Gyroscope
 	 private SerialPort gyro = new SerialPort(38400, Port.kMXP);
@@ -137,19 +140,22 @@ public class DriveTrain extends PIDSubsystem {
 //		currentY = 0.0;
 	}
 	
-	public double getAngle() {
+	private double getAngle() {
 		gyro.writeString("#f");
 		String yawPitchRoll = gyro.readString();
 		if(yawPitchRoll == null || yawPitchRoll.isEmpty()) {
 			return lastGyroAngle;
 		}
 		else {
-			
 			double doubleYaw = lastGyroAngle;
 			try {
 				yawPitchRoll = yawPitchRoll.substring(yawPitchRoll.indexOf('=') + 1);
 				String stringYaw = yawPitchRoll.substring(0, yawPitchRoll.indexOf(','));
 				doubleYaw = Double.parseDouble(stringYaw);
+				if (needToSaveGyroBias) {
+					gyroBias = doubleYaw;
+					needToSaveGyroBias = false;
+				}
 			}
 			catch(NumberFormatException nfe) {
 			}
@@ -157,8 +163,8 @@ public class DriveTrain extends PIDSubsystem {
 			}
 
 			// System.out.println(doubleYaw);
-			lastGyroAngle = doubleYaw;
-			return doubleYaw;
+			lastGyroAngle = doubleYaw + startAngle - gyroBias;
+			return lastGyroAngle;
 		}
 
 	}
@@ -322,5 +328,14 @@ public class DriveTrain extends PIDSubsystem {
 
 	public double getLastGyroAngle() {
 		return lastGyroAngle;
+	}
+
+	public double getStartAngle() {
+		return startAngle;
+	}
+
+	public void setStartAngle(double startAngle) {
+		this.startAngle = startAngle;
+		this.needToSaveGyroBias = true;
 	}
 }
