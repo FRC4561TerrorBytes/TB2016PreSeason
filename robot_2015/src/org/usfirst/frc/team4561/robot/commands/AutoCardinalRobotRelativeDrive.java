@@ -24,14 +24,16 @@ public class AutoCardinalRobotRelativeDrive extends PIDCommand {
 	 * @param inches
 	 */
     public AutoCardinalRobotRelativeDrive(int direction, double inches) {
-    	super(0.3/INCHES_FOR_FULL_POWER, 0, 0);
+    	super(0.8, 0, 0);
         requires(Robot.driveTrain);
+        getPIDController().setAbsoluteTolerance(0.1);
         this.direction = direction;
         this.inches = inches;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.driveTrain.fullEncoderReset();
     	setSetpoint(inches);
     }
 
@@ -42,7 +44,7 @@ public class AutoCardinalRobotRelativeDrive extends PIDCommand {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	if(getPIDController().onTarget() == true) {
-    		        return true;
+    		return true;
     	}
     	else{
     		return false;
@@ -61,6 +63,9 @@ public class AutoCardinalRobotRelativeDrive extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
+		if(direction == 2 || direction == 4) {
+			return Robot.driveTrain.getSingleEncoderInches(0);
+		}
 		return Robot.driveTrain.getAbsAverageEncoderInches();
 	}
 

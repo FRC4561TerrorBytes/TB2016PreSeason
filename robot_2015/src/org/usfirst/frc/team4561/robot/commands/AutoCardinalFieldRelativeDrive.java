@@ -26,6 +26,7 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
     public AutoCardinalFieldRelativeDrive(int direction, double inches) {
     	super(0.3/INCHES_FOR_FULL_POWER, 0, 0);
         requires(Robot.driveTrain);
+        getPIDController().setAbsoluteTolerance(1);
         this.direction = direction;
         this.inches = inches;
     }

@@ -163,16 +163,6 @@ public class RobotMap {
 	 */
 	public static final int ELEVATOR_ENCODER_A_CHANNEL = 8;
 	public static final int ELEVATOR_ENCODER_B_CHANNEL = 9;
-	/*
-	 * Reverse Drive Train encoder direction i.e. REVERSE_DIRECTION = True, then forward =
-	 * "+", backward = "-"
-	 */
-	public static final boolean REVERSE_DIRECTION = false;
-	/*
-	 * Encoder count multiplier ENCODING_TYPE = EncodingType.k1X, count is
-	 * normal ENCODING_TYPE = EncodingType.k2X, count is multiplied by 2
-	 * ENCODING_TYPE = EncodingType.k4X, count is multiplied by 4
-	 */
-	public static final EncodingType ENCODING_TYPE = EncodingType.k1X;
+
 
 }
