@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
-import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.MecanumDrive;
 
@@ -10,7 +9,6 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 
@@ -259,9 +257,9 @@ public class DriveTrain extends PIDSubsystem {
 	public double getAbsAverageEncoderInches() {
 		
 		double frontLeftEncoderInches = Math.abs(frontLeftEncoder.getDistance());
-		double frontRightEncoderInches = Math.abs(frontLeftEncoder.getDistance());
+		//double frontRightEncoderInches = Math.abs(frontLeftEncoder.getDistance());
 		double rearLeftEncoderInches = Math.abs(frontLeftEncoder.getDistance());
-		double rearRightEncoderInches = Math.abs(frontLeftEncoder.getDistance());
+		//double rearRightEncoderInches = Math.abs(frontLeftEncoder.getDistance());
 		
 		double encoderSumInches = frontLeftEncoderInches //+ frontRightEncoderInches 
 									+ rearLeftEncoderInches; // + rearRightEncoderInches; TODO right encoders fried

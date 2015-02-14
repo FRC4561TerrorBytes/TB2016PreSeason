@@ -8,9 +8,6 @@ import org.usfirst.frc.team4561.robot.Robot;
  */
 public class AutoCardinalRobotRelativeDrive extends PIDCommand {
 	
-// We need this, because otherwise, the motors will run at full power unless the setpoint is below 1 inch away.
-	private static final int INCHES_FOR_FULL_POWER = 36;
-	
 	int direction;
 	double inches;
 	/**

@@ -3,9 +3,6 @@ package org.usfirst.frc.team4561.robot.commands;
 import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
-
 
 public class MecanumDrive extends Command {
 	private double lastRotationDegrees = Double.MAX_VALUE;
@@ -25,8 +22,6 @@ public class MecanumDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
-
 		if (Robot.oi.isRobotRelative()) {
 			Robot.driveTrain.driveRobotRelative(Robot.oi.getDriveX(),
 					Robot.oi.getDriveY());
