@@ -3,7 +3,6 @@ package org.usfirst.frc.team4561.robot.subsystems;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -13,7 +12,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class Elevator extends PIDSubsystem {
 	// private Talon elevatorMotor = new Talon(RobotMap.ELEVATOR_MOTOR_CAN);
-	private CANTalon elevatorMotor = new CANTalon(RobotMap.ELEVATOR_MOTOR_CAN);
+	private Talon elevatorMotor = new Talon(RobotMap.ELEVATOR_MOTOR_CAN);
 	private Encoder elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A_CHANNEL, RobotMap.ELEVATOR_ENCODER_B_CHANNEL);
 	
 	
@@ -79,7 +78,6 @@ public class Elevator extends PIDSubsystem {
 		setOutputRange(-0.1, 0.1);
 		getPIDController().setContinuous(false);
 		setAbsoluteTolerance(0.1);
-		elevatorMotor.enableBrakeMode(true);
 		enable();
 		elevatorEncoder.setDistancePerPulse(INCHES_PER_REVOLUTION/PULSES_PER_REVOLUTION);
 	}
@@ -143,7 +141,6 @@ public class Elevator extends PIDSubsystem {
 		setSetpoint(getSetpoint() - JOG_INCHES);
 	}
 	public void testMoveElevator(double motorSpeed) {
-			elevatorMotor.enableBrakeMode(true);
 			elevatorMotor.set(motorSpeed);
 	}
 	public double getElevatorEncoderInches() {
