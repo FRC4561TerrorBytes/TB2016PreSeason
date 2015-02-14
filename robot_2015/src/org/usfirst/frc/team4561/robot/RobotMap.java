@@ -41,11 +41,6 @@ public class RobotMap {
 	public static final int REAR_RIGHT_MOTOR_BUTTON = 10;
 	
 	/*
-	 * Rotation stick buttons.
-	 */
-	public static final int INITIALIZE_GYRO_BUTTON = 7;
-	
-	/*
 	 * Arcade Box Buttons
 	 */
 

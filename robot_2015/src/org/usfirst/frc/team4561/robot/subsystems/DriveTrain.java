@@ -140,7 +140,7 @@ public class DriveTrain extends PIDSubsystem {
 	}
 	
 	public double getAngle() {
-		gyro.writeString("A");
+		gyro.writeString("#f");
 		String yawPitchRoll = gyro.readString();
 		if(yawPitchRoll == null || yawPitchRoll.isEmpty()) {
 			return lastGyroAngle;
@@ -149,6 +149,7 @@ public class DriveTrain extends PIDSubsystem {
 			
 			double doubleYaw = lastGyroAngle;
 			try {
+				yawPitchRoll = yawPitchRoll.substring(yawPitchRoll.indexOf('=') + 1);
 				String stringYaw = yawPitchRoll.substring(0, yawPitchRoll.indexOf(','));
 				doubleYaw = Double.parseDouble(stringYaw);
 			}

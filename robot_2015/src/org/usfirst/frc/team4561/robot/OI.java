@@ -1,15 +1,15 @@
 package org.usfirst.frc.team4561.robot;
 
+import org.usfirst.frc.team4561.robot.commands.ClawGrab;
+import org.usfirst.frc.team4561.robot.commands.ClawRelease;
 import org.usfirst.frc.team4561.robot.commands.ElevatorJog;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
-import org.usfirst.frc.team4561.robot.commands.InitGyro;
 import org.usfirst.frc.team4561.robot.commands.JoggingPOV;
 import org.usfirst.frc.team4561.robot.commands.MoveElevator;
 import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
 import org.usfirst.frc.team4561.robot.commands.MovePos;
 import org.usfirst.frc.team4561.robot.commands.RotatingPOV;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
-import org.usfirst.frc.team4561.robot.triggers.InitializeGyroTrigger;
 import org.usfirst.frc.team4561.robot.triggers.JogPOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.MovePosPOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.RotatePOVTrigger;
@@ -98,13 +98,16 @@ public class OI {
 			RobotMap.JOG_ELEVATOR_UP_BUTTON);
 	private JoystickButton jogElevatorDownButton = new JoystickButton(controller,
 			RobotMap.JOG_ELEVATOR_DOWN_BUTTON);
+	
+	private JoystickButton openClawButton = new JoystickButton(controller,
+			RobotMap.OPEN_CLAW);
+	private JoystickButton closeClawButton = new JoystickButton(controller,
+			RobotMap.CLOSE_CLAW);
+	
 
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
-	
-	public JoystickButton initGyroButton = new JoystickButton(rotationStick, RobotMap.INITIALIZE_GYRO_BUTTON);
-	private InitializeGyroTrigger initGyroTrigger = new InitializeGyroTrigger();
 	
 	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
 	// private Joystick xBoxRotaryStick = new Joystick(RobotMap.RIGHT_STICK);
@@ -148,7 +151,8 @@ public class OI {
 		noodleChuteSidewaysButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
 		jogElevatorUpButton.whenPressed(new ElevatorJog(true));
 		jogElevatorDownButton.whenPressed(new ElevatorJog(false));
-		initGyroTrigger.whenActive(new InitGyro());
+		openClawButton.whenPressed(new ClawRelease());
+		closeClawButton.whenPressed(new ClawGrab());
 	}
 	
 	public int getDrivePOV(){
