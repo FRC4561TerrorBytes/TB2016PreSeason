@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.subsystems.SDLogging;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,19 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SmartDashboardDisplay extends Command {
-
-//	String IS_ROBOT_RELATIVE = "NaN";
-//	String X_MOTOR_VALUE = "NaN";
-//	String Y_MOTOR_VALUE = "NaN";
-//	String ROTATION_MOTOR_VALUE ="NaN";
-//	String GYRO_VALUE = "NaN";
-//	String ELEVATOR_POSTION ="NaN";
-//	String CURRENT_SET_POINT = "NaN";
-//	String IS_CLAW_OPEN = "NaN";
-//	String IS_EXTENDER_RETRACKED = "NaN";
 	
     public SmartDashboardDisplay() {
-//    	requires(Robot.sdlogging);    	
+    	requires(Robot.sdlogging);    	
 
     }
 
@@ -29,10 +20,26 @@ public class SmartDashboardDisplay extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-//    	IS_ROBOT_RELATIVE = 
-//    	ELEVATOR_POSTION = "The Elevators is " + Robot.elevator.getElevatorEncoderInches() + "Inches High";
-    }
+	protected void execute() {
+		SDLogging logger = Robot.sdlogging;
+		logger.displayData(SDLogging.Key.FieldRealtive,
+				Boolean.toString(Robot.driveTrain.isFieldRelative()));
+		logger.displayData(SDLogging.Key.DriveX,
+				Double.toString(Robot.driveTrain.getCurrentX()));
+		logger.displayData(SDLogging.Key.DriveY,
+				Double.toString(Robot.driveTrain.getCurrentY()));
+		logger.displayData(SDLogging.Key.RotateOutput,
+				Double.toString(Robot.driveTrain.getLastRotation()));
+		logger.displayData(SDLogging.Key.GyroValue,
+				Double.toString(Robot.driveTrain.getLastGyroAngle()));
+		logger.displayData(SDLogging.Key.ElevatorPosition,
+				Double.toString(Robot.elevator.getPosition()));
+		logger.displayData(SDLogging.Key.ElevatorDirection, (Robot.elevator
+				.getSetpoint() - Robot.elevator.getPosition()) >= 0 ? "up"
+				: "down");
+		logger.displayData(SDLogging.Key.ClawState, "???");
+		logger.displayData(SDLogging.Key.ExtenderPosition, "???");
+	}
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
@@ -46,5 +53,6 @@ public class SmartDashboardDisplay extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

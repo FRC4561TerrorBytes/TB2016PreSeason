@@ -41,6 +41,7 @@ public class DriveTrain extends PIDSubsystem {
 	 
 	 private double currentX = 0.0;
 	 private double currentY = 0.0;
+	 private double lastRotation = 0.0;
 	 private boolean fieldRelative = true;
 	 private boolean deltaRotating = false;
 	 private double lastGyroAngle = 0.0;
@@ -233,6 +234,27 @@ public class DriveTrain extends PIDSubsystem {
 //			System.out.println("Drive Stick: (" + Robot.oi.getDriveX() + ", " + Robot.oi.getDriveY() + ") "); // drivestick (x, y)
 //			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
 //		}
+		lastRotation = rot;
 		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
+	}
+
+	public double getCurrentX() {
+		return currentX;
+	}
+
+	public double getCurrentY() {
+		return currentY;
+	}
+	
+	public double getLastRotation() {
+		return lastRotation;
+	}
+
+	public boolean isFieldRelative() {
+		return fieldRelative;
+	}
+
+	public double getLastGyroAngle() {
+		return lastGyroAngle;
 	}
 }

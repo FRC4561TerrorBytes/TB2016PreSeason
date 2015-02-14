@@ -14,24 +14,26 @@ public class SDLogging extends Subsystem {
     // here. Call these from Commands.
 	
 	public enum Key {
-		ROBOTRELATIVE("0"),
-		POSTIONOFELEVATOR("1"),
-		DIRECTIONOFELEVATOR("2"),
-		CLAWOPEN("3"),
-		MOTORX("4"),
-		MOTORY("5"),
-		MOTORROTATE("6"),
-		GYROVALUE("7"),
-		EXTENDERPOSITION("8");	
+		FieldRealtive("String 0", "Field Relative: "),
+		DriveX("String 1", "Drive X: "),
+		DriveY("String 2", "Drive Y: "),
+		RotateOutput("String 3", "Rotate: "),
+		GyroValue("String 4", "Gyro: "),
+		ElevatorPosition("String 5", "Elevator pos: "),
+		ElevatorDirection("String 6", "Elevator dir: "),
+		ClawState("String 7", "Claw is "),
+		ExtenderPosition("String 8", "Extender is ");	
 		
 		private String key;
+		private String label;
 		
-		Key(String key){
+		Key(String key, String label){
 			this.key = key;
+			this.label = label;
 		}
 	}
 	public void displayData(Key key,String value){
-		SmartDashboard.putString(key.key,value);
+		SmartDashboard.putString(key.key,key.label + value);
 	}
 	
     public void initDefaultCommand() {
