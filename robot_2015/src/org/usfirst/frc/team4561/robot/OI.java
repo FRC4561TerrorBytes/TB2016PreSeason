@@ -209,7 +209,7 @@ public class OI {
 				|| (Math.abs(rotationStick.getY()) >= RobotMap.ROTATION_DEAD_ZONE))
 			return rotationStick.getDirectionDegrees();
 		else
-			return Double.MAX_VALUE;
+			return Robot.driveTrain.getNormalizedGyroAngle();
 	}
 
 }

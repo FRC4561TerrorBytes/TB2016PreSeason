@@ -5,7 +5,6 @@ import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MecanumDrive extends Command {
-	private double lastRotationDegrees = Double.MAX_VALUE;
 	/**
 	 * Gives the drive train the current joystick values.
 	 */
@@ -26,32 +25,8 @@ public class MecanumDrive extends Command {
 			Robot.driveTrain.driveRobotRelative(Robot.oi.getDriveX(),
 					Robot.oi.getDriveY());
 		} else {
-			double rotationDegrees = Robot.oi.getRotationDegrees();
-			/*
-			 * If no rotation stick deflection, we need be careful to get
-			 * rotation locking working properly.
-			 */
-			if (rotationDegrees == Double.MAX_VALUE) {
-				/*
-				 * If the last time we had deflection, set the target angle to
-				 * where we are and do not change it until next deflection.
-				 */
-				if (lastRotationDegrees != Double.MAX_VALUE) {
-					rotationDegrees = Robot.driveTrain.getNormalizedGyroAngle();
-					lastRotationDegrees = Double.MAX_VALUE;
-					Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX(),
-							Robot.oi.getDriveY(), rotationDegrees);
-				} else {
-					// Leave the rotation set point as is.
-					Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX(),
-							Robot.oi.getDriveY(), Robot.driveTrain.getSetpoint());
-				}
-			} else {
-				// Use the rotation stick value as is.
-				Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX(),
-						Robot.oi.getDriveY(), rotationDegrees);
-				lastRotationDegrees = rotationDegrees;
-			}
+			Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX(),
+					Robot.oi.getDriveY(), Robot.oi.getRotationDegrees());
 		}
 	}
 
