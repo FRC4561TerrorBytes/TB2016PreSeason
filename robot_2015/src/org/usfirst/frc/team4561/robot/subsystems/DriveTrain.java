@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot.subsystems;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.MecanumDrive;
 
+import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -14,7 +15,7 @@ import edu.wpi.first.wpilibj.Encoder;
 
 /**
  * The main subsystem used for driving. This drive train is configured 
- * to use mechanum wheels and rotate to a heading based on the given 
+ * to use mecanum wheels and rotate to a heading based on the given 
  * angle from the rotation joystick.
  */
 public class DriveTrain extends PIDSubsystem {
@@ -48,6 +49,8 @@ public class DriveTrain extends PIDSubsystem {
 	 private boolean needToSaveGyroBias = true;
 	 private double gyroBias = 0.0;
 	 private double startAngle = 0.0;
+	 private long gyroMissCount = 0;
+	 private boolean pingPending = false;
 	 
 	 //Gyroscope
 	 private SerialPort gyro = new SerialPort(38400, Port.kMXP);
@@ -81,11 +84,11 @@ public class DriveTrain extends PIDSubsystem {
 	
 
 	public DriveTrain() {
-		super(1.6/180.0, 0, 0); //TODO add "i" constant
+		super(1.6/180.0, 0/*0.02/180.0*/, 0); //TODO add "i" constant
 		setInputRange(-180.0, 180.0);
 		setOutputRange(-0.5, 0.5);
 		getPIDController().setContinuous(true);
-		setPercentTolerance(0.5);
+		setAbsoluteTolerance(2.0);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		leftFront.enableBrakeMode(true);
@@ -141,13 +144,16 @@ public class DriveTrain extends PIDSubsystem {
 	}
 	
 	private double getAngle() {
-		gyro.writeString("#f");
+		return lastGyroAngle;
+		//gyro.writeString("A");
+		/*gyro.writeString("#f");
 		String yawPitchRoll = gyro.readString();
 		if(yawPitchRoll == null || yawPitchRoll.isEmpty()) {
+			gyroMissCount++;
 			return lastGyroAngle;
 		}
 		else {
-			double doubleYaw = lastGyroAngle;
+			double doubleYaw = 0.0;
 			try {
 				yawPitchRoll = yawPitchRoll.substring(yawPitchRoll.indexOf('=') + 1);
 				String stringYaw = yawPitchRoll.substring(0, yawPitchRoll.indexOf(','));
@@ -158,14 +164,18 @@ public class DriveTrain extends PIDSubsystem {
 				}
 			}
 			catch(NumberFormatException nfe) {
+				gyroMissCount++;
+				return lastGyroAngle;
 			}
 			catch(StringIndexOutOfBoundsException sioobe) {
+				gyroMissCount++;
+				return lastGyroAngle;
 			}
 
 			// System.out.println(doubleYaw);
 			lastGyroAngle = doubleYaw + startAngle - gyroBias;
 			return lastGyroAngle;
-		}
+		}*/
 
 	}
 	
@@ -285,6 +295,7 @@ public class DriveTrain extends PIDSubsystem {
 
 	@Override
 	protected double returnPIDInput() {
+		readGyro();
 		return getNormalizedGyroAngle();
 	}
 	int i = 0;
@@ -298,16 +309,21 @@ public class DriveTrain extends PIDSubsystem {
 		} else {
 			deltaRotating = false;
 		}
-//		i++;
-//		if(i%10 == 0){
-//			System.out.println("Rot Power: " + rot); // motor power
-//			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
-//			System.out.println("Raw gyro angle: " + gyro.getAngle());
-//			System.out.println("Drive Stick: (" + Robot.oi.getDriveX() + ", " + Robot.oi.getDriveY() + ") "); // drivestick (x, y)
-//			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
-//		}
+		i++;
+		if(i%10 == 0){
+			System.out.println("Rot Power: " + rot); // motor power
+			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
+			System.out.println("Gyro miss count: " + gyroMissCount);
+			System.out.println("Last gyro angle: " + lastGyroAngle);
+			System.out.println("Set point: " + getSetpoint());
+			System.out.println("Raw gyro value: " + doubleYaw);
+			System.out.println("Start angle: " + startAngle);
+			System.out.println("Gyro bias: " + gyroBias);
+			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
+		}
 		lastRotation = rot;
 		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
+		// pingGyro();
 	}
 
 	public double getCurrentX() {
@@ -326,10 +342,6 @@ public class DriveTrain extends PIDSubsystem {
 		return fieldRelative;
 	}
 
-	public double getLastGyroAngle() {
-		return lastGyroAngle;
-	}
-
 	public double getStartAngle() {
 		return startAngle;
 	}
@@ -337,5 +349,42 @@ public class DriveTrain extends PIDSubsystem {
 	public void setStartAngle(double startAngle) {
 		this.startAngle = startAngle;
 		this.needToSaveGyroBias = true;
+	}
+	
+	private synchronized void pingGyro() {
+		if (!pingPending) {
+			gyro.writeString("#f");
+			pingPending = true;
+		}
+	}
+	
+	double doubleYaw = 0.0;
+	private synchronized void readGyro() {
+		//if (pingPending) {
+			pingPending = false;
+			String yawPitchRoll = gyro.readString();
+			if(yawPitchRoll == null || yawPitchRoll.isEmpty()) {
+				gyroMissCount++;
+			}
+			else {
+				//double doubleYaw = 0.0;
+				try {
+					yawPitchRoll = yawPitchRoll.substring(yawPitchRoll.indexOf('=') + 1);
+					String stringYaw = yawPitchRoll.substring(0, yawPitchRoll.indexOf(','));
+					doubleYaw = Double.parseDouble(stringYaw);
+					if (needToSaveGyroBias) {
+						gyroBias = doubleYaw;
+						needToSaveGyroBias = false;
+					}
+				}
+				catch(Throwable t) {
+					gyroMissCount++;
+					return;
+				}
+
+				// System.out.println(doubleYaw);
+				lastGyroAngle = doubleYaw + startAngle - gyroBias;
+			}
+		//}
 	}
 }

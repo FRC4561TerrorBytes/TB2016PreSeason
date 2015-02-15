@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class Elevator extends PIDSubsystem {
 	// private Talon elevatorMotor = new Talon(RobotMap.ELEVATOR_MOTOR_CAN);
-	private Talon elevatorMotor = new Talon(RobotMap.ELEVATOR_MOTOR_CAN);
+	private Talon elevatorMotor = new Talon(RobotMap.ELEVATOR_MOTOR);
 	private Encoder elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A_CHANNEL, RobotMap.ELEVATOR_ENCODER_B_CHANNEL);
 	
 	
@@ -75,11 +75,11 @@ public class Elevator extends PIDSubsystem {
 	public Elevator() {
 		super(0.1/MAX_HEIGHT - MIN_HEIGHT, 0.0, 0.0);
 		setInputRange(MIN_HEIGHT, MAX_HEIGHT);
-		setOutputRange(-0.1, 0.1);
 		getPIDController().setContinuous(false);
 		setAbsoluteTolerance(0.1);
 		enable();
 		elevatorEncoder.setDistancePerPulse(INCHES_PER_REVOLUTION/PULSES_PER_REVOLUTION);
+		setSetpoint(MIN_HEIGHT);
 	}
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -149,11 +149,12 @@ public class Elevator extends PIDSubsystem {
 	
 	@Override
 	protected double returnPIDInput() {
-		return -getElevatorEncoderInches();
+		return getElevatorEncoderInches();
 	}
 	int i = 0;
 	@Override
 	protected void usePIDOutput(double output) {
+
 		double elevatorMotorPower = output;
 		// TODO check limit switches here
 		// stop on contact and reset setPoint to current
@@ -165,10 +166,10 @@ public class Elevator extends PIDSubsystem {
 		}
 		i++;
 		if(i%10 == 0){
-			// System.out.println("Setpoint: " + getSetpoint());
-			// System.out.println("Encoder Value: " + getElevatorEncoderInches());
-			// System.out.println("Encoder Raw: " + elevatorEncoder.get());
-			// System.out.println("Motor Power: " + elevatorMotorPower);
+//			System.out.println("Setpoint: " + getSetpoint());
+//			System.out.println("Encoder Inches: " + getElevatorEncoderInches());
+//			System.out.println("Encoder Raw: " + elevatorEncoder.get());
+//			System.out.println("Motor Power: " + elevatorMotorPower);
 		}
 	}
 }
