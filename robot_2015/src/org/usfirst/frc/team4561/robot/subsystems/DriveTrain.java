@@ -1,14 +1,15 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
+import org.usfirst.frc.team4561.robot.GyroReadThread;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.MecanumDrive;
-
 import org.usfirst.frc.team4561.robot.Robot;
-import edu.wpi.first.wpilibj.SerialPort;
+
+//import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-import edu.wpi.first.wpilibj.SerialPort.Port;
+//import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
@@ -45,15 +46,15 @@ public class DriveTrain extends PIDSubsystem {
 	 private double lastRotation = 0.0;
 	 private boolean fieldRelative = true;
 	 private boolean deltaRotating = false;
-	 private double lastGyroAngle = 0.0;
-	 private boolean needToSaveGyroBias = true;
-	 private double gyroBias = 0.0;
+	 //private double lastGyroAngle = 0.0;
+	 //private boolean needToSaveGyroBias = true;
+	 //private double gyroBias = 0.0;
 	 private double startAngle = 0.0;
-	 private long gyroMissCount = 0;
-	 private boolean pingPending = false;
+	 //private long gyroMissCount = 0;
+	 //private boolean pingPending = false;
 	 
 	 //Gyroscope
-	 private SerialPort gyro = new SerialPort(38400, Port.kMXP);
+	 //private SerialPort gyro = new SerialPort(38400, Port.kMXP);
 	 
 		/*
 		 * Reverse Drive Train encoder direction i.e. REVERSE_DIRECTION = True, then forward =
@@ -82,6 +83,8 @@ public class DriveTrain extends PIDSubsystem {
 	private static final double PULSES_PER_REVOLUTION = 2048;
 	private static final double INCHES_PER_PULSE = INCHES_PER_REVOLUTION/PULSES_PER_REVOLUTION;
 	
+	private GyroReadThread gyroThread = new GyroReadThread();
+	
 
 	public DriveTrain() {
 		super(1.6/180.0, 0/*0.02/180.0*/, 0); //TODO add "i" constant
@@ -99,6 +102,8 @@ public class DriveTrain extends PIDSubsystem {
 		frontRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
 		rearLeftEncoder.setDistancePerPulse(INCHES_PER_PULSE);
 		rearRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
+		
+		gyroThread.start();
 	 }
 	
 	public void initDefaultCommand() {
@@ -144,7 +149,7 @@ public class DriveTrain extends PIDSubsystem {
 	}
 	
 	private double getAngle() {
-		return lastGyroAngle;
+		return /*lastGyroAngle*/ gyroThread.getLastGoodRotation() - gyroThread.getBias() + startAngle;
 		//gyro.writeString("A");
 		/*gyro.writeString("#f");
 		String yawPitchRoll = gyro.readString();
@@ -295,7 +300,7 @@ public class DriveTrain extends PIDSubsystem {
 
 	@Override
 	protected double returnPIDInput() {
-		readGyro();
+		//readGyro();
 		return getNormalizedGyroAngle();
 	}
 	int i = 0;
@@ -311,19 +316,22 @@ public class DriveTrain extends PIDSubsystem {
 		}
 		i++;
 		if(i%10 == 0){
-			System.out.println("Rot Power: " + rot); // motor power
-			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
-			System.out.println("Gyro miss count: " + gyroMissCount);
-			System.out.println("Last gyro angle: " + lastGyroAngle);
+			System.out.println("Thread is running: " + gyroThread.isAlive());
 			System.out.println("Set point: " + getSetpoint());
-			System.out.println("Raw gyro value: " + doubleYaw);
+			//System.out.println("Gyro miss count: " + gyroMissCount);
+			System.out.println("Last gyro raw data: " + gyroThread.getLastRawData());
+			System.out.println("Last read gyro angle: " + /*lastGyroAngle*/ gyroThread.getLastGoodRotation());
+			System.out.println("Gyro bias: " + /*gyroBias*/ gyroThread.getBias());
+			//System.out.println("Raw gyro value: " + doubleYaw);
 			System.out.println("Start angle: " + startAngle);
-			System.out.println("Gyro bias: " + gyroBias);
+			System.out.println("Calculated non-norm angle: " + getAngle());
+			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
 			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
+			System.out.println("Rot Power: " + rot); // motor power
 		}
 		lastRotation = rot;
 		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
-		pingGyro();
+		//pingGyro();
 	}
 
 	public double getCurrentX() {
@@ -348,10 +356,11 @@ public class DriveTrain extends PIDSubsystem {
 
 	public void setStartAngle(double startAngle) {
 		this.startAngle = startAngle;
-		this.needToSaveGyroBias = true;
+		//this.needToSaveGyroBias = true;
+		gyroThread.reset();
 	}
 	
-	private synchronized void pingGyro() {
+	/*private synchronized void pingGyro() {
 		if (!pingPending) {
 			gyro.writeString("#f");
 			pingPending = true;
@@ -386,5 +395,5 @@ public class DriveTrain extends PIDSubsystem {
 				lastGyroAngle = doubleYaw + startAngle - gyroBias;
 			}
 		//}
-	}
+	}*/
 }

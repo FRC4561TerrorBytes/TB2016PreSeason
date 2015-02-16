@@ -23,20 +23,24 @@ public class RobotMap {
 	public static final int DRIVE_JOYSTICK = 0;
 	public static final int ROTATION_JOYSTICK = 1;
 	public static final int CONTROLLER = 2;
-	
-	public static final int ROBOT_RELATIVE_BUTTON = 1;
 
-	public static final int MOVE_ELEVATOR_UP_BUTTON = 6;
+	// These are on the rotation stick
+	public static final int MOVE_ELEVATOR_UP_BUTTON = 8;
 	public static final int MOVE_ELEVATOR_DOWN_BUTTON = 7;
 	
 	// Dead zone thresholds
 	public static final double DRIVE_DEAD_ZONE = 0.3;
 	public static final double ROTATION_DEAD_ZONE = 0.3;
 
-	public static final int FRONT_LEFT_MOTOR_BUTTON = 6;
-	public static final int REAR_LEFT_MOTOR_BUTTON = 7;
-	public static final int FRONT_RIGHT_MOTOR_BUTTON = 11;
+	// These are on the drive stick
+	public static final int ROBOT_RELATIVE_BUTTON = 1;
+	public static final int IN_GAME_REEL_IN_EXTENDER = 3;
+	public static final int FRONT_LEFT_MOTOR_BUTTON = 7;
+	public static final int REAR_LEFT_MOTOR_BUTTON = 9;
+	public static final int FRONT_RIGHT_MOTOR_BUTTON = 8;
 	public static final int REAR_RIGHT_MOTOR_BUTTON = 10;
+	public static final int PIT_PREP_SLOW_EXTENDER_IN = 11;
+	public static final int PIT_PREP_SLOW_EXTENDER_OUT = 12;
 	
 	/*
 	 * Arcade Box Buttons

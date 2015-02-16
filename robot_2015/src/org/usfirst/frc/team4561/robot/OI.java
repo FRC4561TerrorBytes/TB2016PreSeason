@@ -3,11 +3,13 @@ package org.usfirst.frc.team4561.robot;
 import org.usfirst.frc.team4561.robot.commands.ClawGrab;
 import org.usfirst.frc.team4561.robot.commands.ClawRelease;
 import org.usfirst.frc.team4561.robot.commands.ElevatorJog;
+import org.usfirst.frc.team4561.robot.commands.ExtenderPitPrep;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.JoggingPOV;
 import org.usfirst.frc.team4561.robot.commands.MoveElevator;
 import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
 import org.usfirst.frc.team4561.robot.commands.MovePos;
+import org.usfirst.frc.team4561.robot.commands.ReelInExtenderUnlimited;
 import org.usfirst.frc.team4561.robot.commands.RotatingPOV;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 import org.usfirst.frc.team4561.robot.triggers.JogPOVTrigger;
@@ -72,6 +74,12 @@ public class OI {
 			RobotMap.FRONT_RIGHT_MOTOR_BUTTON);
 	private JoystickButton driveRearRight = new JoystickButton(driveStick,
 			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
+	private JoystickButton inGameReelInExtender = new JoystickButton(driveStick,
+			RobotMap.IN_GAME_REEL_IN_EXTENDER);
+	private JoystickButton pitPrepSlowExtenderIn = new JoystickButton(driveStick,
+			RobotMap.PIT_PREP_SLOW_EXTENDER_IN);
+	private JoystickButton pitPrepSlowExtenderOut = new JoystickButton(driveStick,
+			RobotMap.PIT_PREP_SLOW_EXTENDER_OUT);
 	
 	private JoystickButton objectOnGroundButton = new JoystickButton(controller,
 			RobotMap.OBJECT_ON_GROUND_BUTTON);
@@ -131,6 +139,9 @@ public class OI {
 		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
 		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
 		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
+		inGameReelInExtender.whileHeld(new ReelInExtenderUnlimited());
+		pitPrepSlowExtenderIn.whileHeld(new ExtenderPitPrep(true));
+		pitPrepSlowExtenderOut.whileHeld(new ExtenderPitPrep(false));
 		
 		triggerJogPOV.whenActive(new JoggingPOV());
 		triggerRotatePOV.whenActive(new RotatingPOV());
