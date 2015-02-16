@@ -3,7 +3,7 @@ package org.usfirst.frc.team4561.robot;
 import org.usfirst.frc.team4561.robot.commands.Abstract4561AutomodeGroup;
 import org.usfirst.frc.team4561.robot.commands.AutoMode;
 import org.usfirst.frc.team4561.robot.commands.AutomodeDoNothing;
-import org.usfirst.frc.team4561.robot.commands.AutomodePushItemToZoneWithOpenClaw;
+import org.usfirst.frc.team4561.robot.commands.AutomodePushItemsToZoneSideways;
 import org.usfirst.frc.team4561.robot.subsystems.Claw;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
 		
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Do nothing", new AutomodeDoNothing());
-		autoChooser.addObject("Push item with claw", new AutomodePushItemToZoneWithOpenClaw());
+		autoChooser.addObject("Push items sideways", new AutomodePushItemsToZoneSideways());
 		autoChooser.addObject("Get RCs", new AutoMode());
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
 	}
