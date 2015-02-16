@@ -323,7 +323,7 @@ public class DriveTrain extends PIDSubsystem {
 		}
 		lastRotation = rot;
 		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
-		// pingGyro();
+		pingGyro();
 	}
 
 	public double getCurrentX() {
