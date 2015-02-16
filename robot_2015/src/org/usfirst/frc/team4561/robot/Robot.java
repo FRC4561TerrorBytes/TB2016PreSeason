@@ -59,7 +59,8 @@ public class Robot extends IterativeRobot {
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Do nothing", new AutomodeDoNothing());
 		autoChooser.addObject("Push item with claw", new AutomodePushItemToZoneWithOpenClaw());
-		autoChooser.addObject("Win match", new AutoMode());
+		autoChooser.addObject("Get RCs", new AutoMode());
+		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
 	}
 
 	public void disabledPeriodic() {
