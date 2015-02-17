@@ -7,6 +7,7 @@ import org.usfirst.frc.team4561.robot.commands.ExtenderPitPrep;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.JoggingPOV;
 import org.usfirst.frc.team4561.robot.commands.MoveElevator;
+import org.usfirst.frc.team4561.robot.commands.MoveElevatorNonPID;
 import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
 import org.usfirst.frc.team4561.robot.commands.MovePos;
 import org.usfirst.frc.team4561.robot.commands.ReelInExtenderUnlimited;
@@ -146,6 +147,9 @@ public class OI {
 //		triggerJogPOV.whenActive(new JoggingPOV());
 //		triggerRotatePOV.whenActive(new RotatingPOV());
 //		triggerMovePosPOV.whenActive(new MovePos());
+		
+		triggerMovePosPOV.whenActive(new MoveElevatorNonPID());
+		
 //		
 //		elevatorDownButton.whileHeld(new MoveElevator(-0.5));
 //		elevatorUpButton.whileHeld(new MoveElevator(0.5));
