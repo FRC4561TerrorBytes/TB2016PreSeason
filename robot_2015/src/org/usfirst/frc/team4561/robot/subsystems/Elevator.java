@@ -74,12 +74,12 @@ public class Elevator extends PIDSubsystem {
 	
 	public Elevator() {
 		super(0.1/MAX_HEIGHT - MIN_HEIGHT, 0.0, 0.0);
-		setInputRange(MIN_HEIGHT, MAX_HEIGHT);
+		setInputRange(0, MAX_HEIGHT);
 		getPIDController().setContinuous(false);
 		setAbsoluteTolerance(0.1);
 		enable();
 		elevatorEncoder.setDistancePerPulse(INCHES_PER_REVOLUTION/PULSES_PER_REVOLUTION);
-		setSetpoint(MIN_HEIGHT);
+		setSetpoint(getPosition());
 	}
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -167,9 +167,11 @@ public class Elevator extends PIDSubsystem {
 		i++;
 		if(i%10 == 0){
 //			System.out.println("Setpoint: " + getSetpoint());
-//			System.out.println("Encoder Inches: " + getElevatorEncoderInches());
-//			System.out.println("Encoder Raw: " + elevatorEncoder.get());
+			System.out.println("Encoder Inches: " + getElevatorEncoderInches());
+			System.out.println("Encoder Ticks: " + elevatorEncoder.get());
 //			System.out.println("Motor Power: " + elevatorMotorPower);
+			
+			
 		}
 	}
 }
