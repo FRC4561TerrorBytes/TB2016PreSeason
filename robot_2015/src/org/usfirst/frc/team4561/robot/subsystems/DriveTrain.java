@@ -316,18 +316,18 @@ public class DriveTrain extends PIDSubsystem {
 		}
 		i++;
 		if(i%10 == 0){
-//			System.out.println("Thread is running: " + gyroThread.isAlive());
-//			System.out.println("Set point: " + getSetpoint());
-//			//System.out.println("Gyro miss count: " + gyroMissCount);
-//			System.out.println("Last gyro raw data: " + gyroThread.getLastRawData());
-//			System.out.println("Last read gyro angle: " + /*lastGyroAngle*/ gyroThread.getLastGoodRotation());
-//			System.out.println("Gyro bias: " + /*gyroBias*/ gyroThread.getBias());
-//			//System.out.println("Raw gyro value: " + doubleYaw);
-//			System.out.println("Start angle: " + startAngle);
-//			System.out.println("Calculated non-norm angle: " + getAngle());
-//			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
-//			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
-//			System.out.println("Rot Power: " + rot); // motor power
+			System.out.println("Thread is running: " + gyroThread.isAlive());
+			System.out.println("Set point: " + getSetpoint());
+			//System.out.println("Gyro miss count: " + gyroMissCount);
+			System.out.println("Last gyro raw data: " + gyroThread.getLastRawData());
+			System.out.println("Last read gyro angle: " + /*lastGyroAngle*/ gyroThread.getLastGoodRotation());
+			System.out.println("Gyro bias: " + /*gyroBias*/ gyroThread.getBias());
+			//System.out.println("Raw gyro value: " + doubleYaw);
+			System.out.println("Start angle: " + startAngle);
+			System.out.println("Calculated non-norm angle: " + getAngle());
+			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
+			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
+			System.out.println("Rot Power: " + rot); // motor power
 			
 //			System.out.println("Rear Left Encoder Stopped: " + rearLeftEncoder.getStopped());
 //			System.out.println("Rear Left Encoder Inches: " + rearLeftEncoder.getDistance());
@@ -335,12 +335,12 @@ public class DriveTrain extends PIDSubsystem {
 //			System.out.println("Rear Right Encoder Stopped: " + rearRightEncoder.getStopped());
 //			System.out.println("Rear Right Encoder Inches: " + rearRightEncoder.getDistance());
 //			System.out.println("Rear Right Encoder Ticks: " + rearRightEncoder.get());
-			System.out.println("Front Right Encoder Stopped: " + frontRightEncoder.getStopped());
-			System.out.println("Front Right Encoder Inches: " + frontRightEncoder.getDistance());
-			System.out.println("Front Right Encoder Ticks: " + frontRightEncoder.get());
-			System.out.println("Front Left Encoder Stopped: " + frontLeftEncoder.getStopped());
-			System.out.println("Front Left Encoder Inches: " + frontLeftEncoder.getDistance());
-			System.out.println("Front Left Encoder Ticks: " + frontLeftEncoder.get());
+//			System.out.println("Front Right Encoder Stopped: " + frontRightEncoder.getStopped());
+//			System.out.println("Front Right Encoder Inches: " + frontRightEncoder.getDistance());
+//			System.out.println("Front Right Encoder Ticks: " + frontRightEncoder.get());
+//			System.out.println("Front Left Encoder Stopped: " + frontLeftEncoder.getStopped());
+//			System.out.println("Front Left Encoder Inches: " + frontLeftEncoder.getDistance());
+//			System.out.println("Front Left Encoder Ticks: " + frontLeftEncoder.get());
 		}
 		lastRotation = rot;
 		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
