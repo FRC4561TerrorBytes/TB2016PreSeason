@@ -15,10 +15,12 @@ public class GyroReadThread extends Thread {
 	private static final String BAD_DATA = "BAD_DATA";
 	private static final int PING_TO_READ_SLEEP_MS = 1;
 	private static final int NUMBER_NO_DATA_READS_UNTIL_REPING = 10;
+	private static final int READ_DONE_TO_NEXT_PING_MS = 50;
 	private SerialPort gyro = new SerialPort(38400, Port.kMXP);
 	double lastGoodRotation = 0.0;
 	boolean needToSaveBias = true;
 	double bias = 0.0;
+	private StringBuilder lineBuilder = new StringBuilder(100);
 	
 	// for test
 	String lastRawData = "";
@@ -91,6 +93,10 @@ public class GyroReadThread extends Thread {
 					}
 				}
 			}
+			try {
+				sleep(READ_DONE_TO_NEXT_PING_MS);
+			} catch (InterruptedException e) {
+			}
 		}
 	}
 
@@ -137,26 +143,36 @@ public class GyroReadThread extends Thread {
 	 * @return
 	 */
 	private String readGyroLine() {
-		StringBuilder strBldr = new StringBuilder(50);
 		String currentCharset = null;
-		boolean gotLine = false;
-		while (!gotLine) {
+		String line = null;
+		int consecutiveZeroCount = 0;
+		// Give up and return null if not getting any data
+		while (line == null  && consecutiveZeroCount < 10) {
 			if (!(gyro.getBytesReceived() == 0)) {
+				consecutiveZeroCount = 0;
 				currentCharset = gyro.readString();
 				if (currentCharset != null && !currentCharset.isEmpty()) {
 					int lastLineEnd = currentCharset.lastIndexOf(LINE_TERMINATOR);
 					if (lastLineEnd != -1) {
-						gotLine = true;
+						// have a line to return and process
+						lineBuilder.append(currentCharset.substring(0, lastLineEnd + 1));
+						line = lineBuilder.toString();
+						// reset the string builder and append anything past the line
+						lineBuilder.setLength(0);
+						lineBuilder.append(currentCharset.substring(lastLineEnd + 1));
+					} else {
+						// no complete line, so stash the data
+						lineBuilder.append(currentCharset);
 					}
-					strBldr.append(currentCharset);
 				}
 			} else {
+				consecutiveZeroCount++;
 				try {
 					sleep(0);
 				} catch (InterruptedException e) {
 				}
 			}
 		}
-		return strBldr.toString();
+		return line;
 	}
 }
