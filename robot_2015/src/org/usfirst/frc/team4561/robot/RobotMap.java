@@ -107,8 +107,10 @@ public class RobotMap {
 	 */
 	
 	public static final int GYRO_IN = 0; //analog 0
-	public static final int ELEVATOR_LIMIT_SW_BOTTOM = 10; //digital 10
-	public static final int ELEVATOR_LIMIT_SW_TOP = 11; //digital 11
+	
+	public static final int ELEVATOR_LIMIT_SW_BOTTOM = 10; //digital 10; corresponds to MXP 31
+	
+	public static final int ELEVATOR_LIMIT_SW_TOP = 11; //digital 11; corresponds to MXP 18
 	
 	/*
 	 * Controller axis mappings.
