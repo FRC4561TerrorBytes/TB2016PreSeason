@@ -22,7 +22,7 @@ public class GyroReadThread extends Thread {
 	
 	// for test
 	String lastRawData = "";
-	public String getLastRawData() {
+	public synchronized String getLastRawData() {
 		return lastRawData;
 	}
 	
@@ -40,6 +40,7 @@ public class GyroReadThread extends Thread {
 		lastGoodRotation = 0.0;
 		needToSaveBias = true;
 		bias = 0.0;
+		gyro.reset();
 	}
 	
 	public synchronized double getBias() {
@@ -58,6 +59,7 @@ public class GyroReadThread extends Thread {
 	 */
 	@Override
 	public void run() {
+		reset();
 		while (true) {
 			pingGyro();
 			String rawData = null;
@@ -126,16 +128,27 @@ public class GyroReadThread extends Thread {
 		}
 	}
 	
+	/**
+	 * Returns a terminated line. If the roborio and the arduino have gotten out
+	 * of sync on the number of commands (should never happen), this string or
+	 * the next one could be bad but we will quickly issue a fresh request and
+	 * get back in sync.
+	 * 
+	 * @return
+	 */
 	private String readGyroLine() {
 		StringBuilder strBldr = new StringBuilder(50);
-		String currentChar = null;
-		char c = ' ';
-		while (c != LINE_TERMINATOR) {
+		String currentCharset = null;
+		boolean gotLine = false;
+		while (!gotLine) {
 			if (!(gyro.getBytesReceived() == 0)) {
-				currentChar = gyro.readString(1);
-				if (currentChar != null && !currentChar.isEmpty()) {
-					c = currentChar.charAt(0);
-					strBldr.append(c);
+				currentCharset = gyro.readString();
+				if (currentCharset != null && !currentCharset.isEmpty()) {
+					int lastLineEnd = currentCharset.lastIndexOf(LINE_TERMINATOR);
+					if (lastLineEnd != -1) {
+						gotLine = true;
+					}
+					strBldr.append(currentCharset);
 				}
 			} else {
 				try {
