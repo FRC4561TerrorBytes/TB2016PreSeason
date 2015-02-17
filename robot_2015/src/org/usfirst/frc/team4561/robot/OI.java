@@ -14,6 +14,7 @@ import org.usfirst.frc.team4561.robot.commands.ReelInExtenderUnlimited;
 import org.usfirst.frc.team4561.robot.commands.RotatingPOV;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 import org.usfirst.frc.team4561.robot.triggers.JogPOVTrigger;
+import org.usfirst.frc.team4561.robot.triggers.MoveElevatorTriggerNonPID;
 import org.usfirst.frc.team4561.robot.triggers.MovePosPOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.RotatePOVTrigger;
 
@@ -116,7 +117,8 @@ public class OI {
 
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
-	private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
+	//private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
+	private MoveElevatorTriggerNonPID triggerMoveElevatorPOVNonPID = new MoveElevatorTriggerNonPID();
 	
 	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
 	// private Joystick xBoxRotaryStick = new Joystick(RobotMap.RIGHT_STICK);
@@ -148,7 +150,7 @@ public class OI {
 //		triggerRotatePOV.whenActive(new RotatingPOV());
 //		triggerMovePosPOV.whenActive(new MovePos());
 		
-		triggerMovePosPOV.whenActive(new MoveElevatorNonPID());
+		triggerMoveElevatorPOVNonPID.whileActive(new MoveElevatorNonPID());
 		
 //		
 //		elevatorDownButton.whileHeld(new MoveElevator(-0.5));

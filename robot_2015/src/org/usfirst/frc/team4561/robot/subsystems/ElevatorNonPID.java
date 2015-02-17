@@ -19,12 +19,22 @@ public class ElevatorNonPID extends Subsystem {
 		if(upperLimitSwitch.get() == true) {
 			elevatorMotor.set(0.5);
 		}
+		else {
+			stop();
+		}
 	}
 	
 	public void moveDown() {
 		if(lowerLimitSwitch.get() == true) {
 			elevatorMotor.set(-0.5);
 		}
+		else {
+			stop();
+		}
+	}
+	
+	public void stop() {
+		elevatorMotor.set(0);
 	}
     
 	
