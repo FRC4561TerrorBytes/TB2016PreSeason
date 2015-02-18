@@ -12,6 +12,7 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
 	private static final int INCHES_FOR_FULL_POWER = 36;
 	
 	int direction;
+	double maintainedRot;
 	double inches;
 	/**
 	 * Drive in a certain direction a certain length
@@ -23,7 +24,7 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
 	 * 4 = west
 	 * @param inches
 	 */
-    public AutoCardinalFieldRelativeDrive(int direction, double inches) {
+    public AutoCardinalFieldRelativeDrive(int direction, double inches, double maintainedRot) {
     	super(0.3/INCHES_FOR_FULL_POWER, 0, 0);
         requires(Robot.driveTrain);
         getPIDController().setAbsoluteTolerance(1);
@@ -70,19 +71,19 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
 		double motorPower = output;
 		//North
 		if(direction == 1) {
-			Robot.driveTrain.driveFieldRelative(0, motorPower, 0);
+			Robot.driveTrain.driveFieldRelative(0, motorPower, maintainedRot);
 		}
 		//East
 		if(direction == 2) {
-			Robot.driveTrain.driveFieldRelative(-motorPower, 0, 0);
+			Robot.driveTrain.driveFieldRelative(-motorPower, 0, maintainedRot);
 		}
 		//South
 		if(direction == 3) {
-			Robot.driveTrain.driveFieldRelative(0, -motorPower, 0);
+			Robot.driveTrain.driveFieldRelative(0, -motorPower, maintainedRot);
 		}
 		//West
 		if(direction == 4) {
-			Robot.driveTrain.driveFieldRelative(motorPower, 0, 0);
+			Robot.driveTrain.driveFieldRelative(motorPower, 0, maintainedRot);
 		}
 	}
 }

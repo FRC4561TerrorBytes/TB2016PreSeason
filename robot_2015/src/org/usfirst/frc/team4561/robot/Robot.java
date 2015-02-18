@@ -71,12 +71,19 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
-		autonomousCommand = (Abstract4561AutomodeGroup) autoChooser.getSelected();
-		// schedule the autonomous command (example)
-		if (autonomousCommand != null) {
-			driveTrain.setStartAngle(autonomousCommand.getStartAngle());
-			autonomousCommand.start();
-		}
+		Robot.driveTrain.leftFront.enableBrakeMode(true);
+		Robot.driveTrain.leftRear.enableBrakeMode(true);
+		Robot.driveTrain.rightRear.enableBrakeMode(true);
+		Robot.driveTrain.rightFront.enableBrakeMode(true);
+		AutoMode automode = new AutoMode();
+		driveTrain.setStartAngle(automode.getStartAngle());
+		automode.start();
+//		autonomousCommand = (Abstract4561AutomodeGroup) autoChooser.getSelected();
+//		// schedule the autonomous command (example)
+//		if (autonomousCommand != null) {
+//			driveTrain.setStartAngle(autonomousCommand.getStartAngle());
+//			autonomousCommand.start();
+//		}
 	}
 
 	/**

@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Extender extends Subsystem {
 	private static final double REEL_IN_POWER = -1.0;
-	private static final double PIT_PREP_POWER = 0.5;
+	private static final double PIT_PREP_POWER = 1.0;
 
 	private Talon motor = new Talon(RobotMap.EXTENDER_MOTOR);
 

@@ -7,7 +7,23 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 
 public class Claw extends Subsystem {
-	private DoubleSolenoid piston1 = new DoubleSolenoid(RobotMap.CLAW_PORT_1, RobotMap.CLAW_PORT_2);
+	
+//	private Solenoid piston = new Solenoid(RobotMap.CLAW_PORT_CAN, RobotMap.CLAW_PORT);
+//
+//	@Override
+//	protected void initDefaultCommand() {	
+//	}
+//	
+//	public void closeClaw() {
+//		piston.set(true);
+//		
+//	}
+//	
+//	public void openClaw() {
+//		piston.set(false);
+//	}
+	
+	private DoubleSolenoid piston = new DoubleSolenoid(RobotMap.CLAW_CAN, RobotMap.CLAW_PORT_1, RobotMap.CLAW_PORT_2);
 	  
 
 
@@ -16,16 +32,15 @@ public class Claw extends Subsystem {
 	}
 	
 	public void closeClaw() {
-		piston1.set(DoubleSolenoid.Value.kForward);
-		
+		piston.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public void openClaw() {
-		piston1.set(DoubleSolenoid.Value.kReverse);
+		piston.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void stop() {
-		piston1.set(DoubleSolenoid.Value.kOff);
+		piston.set(DoubleSolenoid.Value.kOff);
 	}
 
 }

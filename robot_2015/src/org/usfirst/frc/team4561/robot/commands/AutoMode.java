@@ -28,11 +28,8 @@ public class AutoMode extends Abstract4561AutomodeGroup {
     	// Starts on the edge of the Auto Zone
     	// Would rotate 90 degrees to face forward, and then drive forward
     	// 5 feet to be in the Auto Zone.
-    	
-    	addSequential(new RotateTo(0.0));
-    	//Possible bug: because RotateTo stops as soon as it's called, AutoModeCardinalFieldRelativeDrive may
-    	//run at the same time. 
-    	addSequential(new AutoCardinalFieldRelativeDrive(1, 60));
+    	addSequential(new RotateTo(180.0));
+    	//addSequential(new AutoCardinalFieldRelativeDrive(1, 5, 180));
     	
     }
 
