@@ -23,10 +23,6 @@ public class RobotMap {
 	public static final int DRIVE_JOYSTICK = 0;
 	public static final int ROTATION_JOYSTICK = 1;
 	public static final int CONTROLLER = 2;
-
-	// These are on the rotation stick
-	public static final int MOVE_ELEVATOR_UP_BUTTON = 8;
-	public static final int MOVE_ELEVATOR_DOWN_BUTTON = 7;
 	
 	// Dead zone thresholds
 	public static final double DRIVE_DEAD_ZONE = 0.3;
@@ -41,42 +37,6 @@ public class RobotMap {
 	public static final int REAR_RIGHT_MOTOR_BUTTON = 10;
 	public static final int PIT_PREP_SLOW_EXTENDER_IN = 11;
 	public static final int PIT_PREP_SLOW_EXTENDER_OUT = 12;
-	
-	/*
-	 * Arcade Box Buttons
-	 */
-
-//	public static final int OBJECT_ON_GROUND_BUTTON = 1; //PG
-//	public static final int OBJECT_ON_TOTE_BUTTON = 2; //PT
-//	public static final int RC_NOODLE_UPRIGHT = 3; //NU
-//	public static final int RC_NOODLE_SIDEWAYS = 4; //NS
-//	public static final int JOG_ELEVATOR_DOWN_BUTTON = 5; //JU
-//	public static final int POS_1_BUTTON = 6; //P1
-//	public static final int POS_2_BUTTON = 7; //P2
-//	public static final int JOG_ELEVATOR_UP_BUTTON = 8; //JD
-//	public static final int POS_3_BUTTON = 9; //P3
-//	public static final int POS_4_BUTTON = 10; //P4
-//	public static final int POS_5_BUTTON = 12; //P5
-//	public static final int POS_6_BUTTON = 11; //P6
-	
-	/*
-	 * Arcade Box's current layout
-	 * 
-	 *            PORT NUMBERS                               BUTTON MAPPINGS
-	 *  __________________________________         __________________________________
-	 * |                                  |       |                                  |
-	 * |      1      2      3      4      |       |     PG     PT     NU     NS      |
-	 * |                                  |       |                                  |
-	 * |                                  |       |                                  |
-	 * |                                  |       |                                  |
-	 * |      5      6      7      8      |       |     JU     P1     P2     JD      |
-	 * |                                  |       |                                  |
-	 * |                                  |       |                                  |
-	 * |                                  |       |                                  |
-	 * |      9     10     12     11      |       |     P3     P4     P5     P6      |
-	 * |__________________________________|       |__________________________________|
-	 * 
-	 */
 		
 	/*
 	 * Controller button mappings.
@@ -101,15 +61,13 @@ public class RobotMap {
 	public static final int OPEN_CLAW = BACK_BUTTON;
 	public static final int CLOSE_CLAW = START_BUTTON;
 	
-	
 	/*
 	 * Sensors stuff
 	 */
-	
 	public static final int GYRO_IN = 0; //analog 0
 	
+	// The following have taken over the right rear wheel encoder ports.
 	public static final int ELEVATOR_LIMIT_SW_BOTTOM = 4; //digital 10; corresponds to MXP 31
-	
 	public static final int ELEVATOR_LIMIT_SW_TOP = 5; //digital 11; corresponds to MXP 18
 	
 	/*

@@ -140,9 +140,7 @@ public class Elevator extends PIDSubsystem {
 	public void jogDown() {
 		setSetpoint(getSetpoint() - JOG_INCHES);
 	}
-	public void testMoveElevator(double motorSpeed) {
-			elevatorMotor.set(motorSpeed);
-	}
+	
 	public double getElevatorEncoderInches() {
 		return elevatorEncoder.getDistance();
 	}
