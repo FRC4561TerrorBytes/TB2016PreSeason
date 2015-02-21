@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 /**
  *
  */
-public class ElevatorNonPID extends Subsystem {
+public class ElevatorNonPID extends Subsystem implements IElevator {
 	
 	private Talon elevatorMotor = new Talon(RobotMap.ELEVATOR_MOTOR);
 	private DigitalInput lowerLimitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SW_BOTTOM);

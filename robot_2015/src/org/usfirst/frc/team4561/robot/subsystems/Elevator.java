@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
 import org.usfirst.frc.team4561.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -10,10 +12,12 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  * move modules vertically along a chain to preset point.
  * Also allows for micro-movements by the drive team.
  */
-public class Elevator extends PIDSubsystem {
+public class Elevator extends PIDSubsystem implements IElevator {
 	// private Talon elevatorMotor = new Talon(RobotMap.ELEVATOR_MOTOR_CAN);
 	private Talon elevatorMotor = new Talon(RobotMap.ELEVATOR_MOTOR);
 	private Encoder elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A_CHANNEL, RobotMap.ELEVATOR_ENCODER_B_CHANNEL);
+	private DigitalInput lowerLimitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SW_BOTTOM);
+	private DigitalInput upperLimitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SW_TOP);
 	
 	
 	private static final double HEIGHT_OF_PLATFORM = 2.0;
@@ -81,17 +85,33 @@ public class Elevator extends PIDSubsystem {
 		elevatorEncoder.setDistancePerPulse(INCHES_PER_REVOLUTION/PULSES_PER_REVOLUTION);
 		setSetpoint(getPosition());
 	}
+	
+	// START implement the basic IElevator interface.
+	
+	public void stop() {
+		setSetpoint(getPosition());
+	}
+	
+	public void moveUp() {
+		setSetpoint(MAX_HEIGHT);
+	}
+
+	public void moveDown() {
+		setSetpoint(MIN_HEIGHT);
+	}
+
+	
+	// END implement the basic IElevator interface.
+	
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	
 	public void initDefaultCommand() {
 		// No default command for the elevator.
 	}
+
 	public void moveTo(Position position) {
 		setSetpoint(position.target);
-	}
-	public void stop() {
-		setSetpoint(getPosition());
 	}
 	public void upOneScoringPos() {
 		if (getSetpoint() < SCORING_POSITION_1) {
@@ -152,15 +172,19 @@ public class Elevator extends PIDSubsystem {
 	int i = 0;
 	@Override
 	protected void usePIDOutput(double output) {
-
-		double elevatorMotorPower = output;
-		// TODO check limit switches here
-		// stop on contact and reset setPoint to current
-		if(getPIDController().onTarget() == false) {
-			elevatorMotor.set(elevatorMotorPower);
-		}
-		else {
+		// If moving down and hit lower or moving up and hit upper,
+		// need to stop
+		if ((!lowerLimitSwitch.get() && (output < 0))
+				|| (!upperLimitSwitch.get() && (output > 0))) {
+			stop();  // sets the set point to where we are
 			elevatorMotor.set(0);
+		} else {
+			double elevatorMotorPower = output;
+			if (getPIDController().onTarget() == false) {
+				elevatorMotor.set(elevatorMotorPower);
+			} else {
+				elevatorMotor.set(0);
+			}
 		}
 		i++;
 		if(i%10 == 0){
@@ -168,8 +192,6 @@ public class Elevator extends PIDSubsystem {
 			System.out.println("Encoder Inches: " + getElevatorEncoderInches());
 			System.out.println("Encoder Ticks: " + elevatorEncoder.get());
 //			System.out.println("Motor Power: " + elevatorMotorPower);
-			
-			
 		}
 	}
 }
