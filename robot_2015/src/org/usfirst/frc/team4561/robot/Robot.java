@@ -29,9 +29,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
-	// public static final Elevator elevator = new Elevator();
-	// public static final ElevatorNonPID elevatorNonPID = new ElevatorNonPID();
 	public static final IElevator commonElevator = new ElevatorNonPID();
+	//public static final IElevator commonElevator = new Elevator();
 	public static final Extender extender = new Extender();
 	public static final Claw claw = new Claw();
 	public static final SDLogging sdlogging = new SDLogging();
@@ -58,15 +57,8 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(extender);
-		// SmartDashboard.putData(elevator);
 		SmartDashboard.putData((Subsystem)commonElevator);
 		SmartDashboard.putData(claw);
-		
-		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Do nothing", new AutomodeDoNothing());
-		autoChooser.addObject("Push items sideways", new AutomodePushItemsToZoneSideways());
-		autoChooser.addObject("Get RCs", new AutoMode());
-		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
 	}
 
 	public void disabledPeriodic() {
@@ -81,12 +73,6 @@ public class Robot extends IterativeRobot {
 		AutoMode automode = new AutoMode();
 		driveTrain.setStartAngle(automode.getStartAngle());
 		automode.start();
-//		autonomousCommand = (Abstract4561AutomodeGroup) autoChooser.getSelected();
-//		// schedule the autonomous command (example)
-//		if (autonomousCommand != null) {
-//			driveTrain.setStartAngle(autonomousCommand.getStartAngle());
-//			autonomousCommand.start();
-//		}
 	}
 
 	/**

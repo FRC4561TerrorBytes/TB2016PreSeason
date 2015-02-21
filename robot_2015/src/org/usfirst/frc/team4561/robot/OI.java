@@ -2,13 +2,13 @@ package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.ClawGrab;
 import org.usfirst.frc.team4561.robot.commands.ClawRelease;
-// import org.usfirst.frc.team4561.robot.commands.ElevatorJog;
+import org.usfirst.frc.team4561.robot.commands.ElevatorJog;
 import org.usfirst.frc.team4561.robot.commands.ExtenderPitPrep;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.JoggingPOV;
 import org.usfirst.frc.team4561.robot.commands.MoveElevatorNonPID;
-// import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
-// import org.usfirst.frc.team4561.robot.commands.MovePos;
+import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
+import org.usfirst.frc.team4561.robot.commands.MovePos;
 import org.usfirst.frc.team4561.robot.commands.ReelInExtenderUnlimited;
 import org.usfirst.frc.team4561.robot.commands.RotatingPOV;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
@@ -78,19 +78,21 @@ public class OI {
 	private JoystickButton pitPrepSlowExtenderOut = new JoystickButton(driveStick,
 			RobotMap.PIT_PREP_SLOW_EXTENDER_OUT);
 	
-//	private JoystickButton objectOnGroundButton = new JoystickButton(controller,
-//			RobotMap.OBJECT_ON_GROUND_BUTTON);
-//	private JoystickButton objectOnToteButton = new JoystickButton(controller,
-//			RobotMap.OBJECT_ON_TOTE_BUTTON);
-//	private JoystickButton noodleChuteSidewaysButton = new JoystickButton(controller,
-//			RobotMap.RC_NOODLE_SIDEWAYS);
-//	private JoystickButton noodleChuteUprightButton = new JoystickButton(controller,
-//			RobotMap.RC_NOODLE_UPRIGHT);
-	
-//	private JoystickButton jogElevatorUpButton = new JoystickButton(controller,
-//			RobotMap.JOG_ELEVATOR_UP_BUTTON);
-//	private JoystickButton jogElevatorDownButton = new JoystickButton(controller,
-//			RobotMap.JOG_ELEVATOR_DOWN_BUTTON);
+	// The next 7 are only wired to commands if the elevator subsystem
+	// is actually the PID subsystem.
+	private JoystickButton objectOnGroundButton = new JoystickButton(controller,
+			RobotMap.OBJECT_ON_GROUND_BUTTON);
+	private JoystickButton objectOnToteButton = new JoystickButton(controller,
+			RobotMap.OBJECT_ON_TOTE_BUTTON);
+	private JoystickButton noodleChuteSidewaysButton = new JoystickButton(controller,
+			RobotMap.RC_NOODLE_SIDEWAYS);
+	private JoystickButton noodleChuteUprightButton = new JoystickButton(controller,
+			RobotMap.RC_NOODLE_UPRIGHT);
+	private JoystickButton jogElevatorUpButton = new JoystickButton(controller,
+			RobotMap.JOG_ELEVATOR_UP_BUTTON);
+	private JoystickButton jogElevatorDownButton = new JoystickButton(controller,
+			RobotMap.JOG_ELEVATOR_DOWN_BUTTON);
+	private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
 	
 	private JoystickButton openClawButton = new JoystickButton(controller,
 			RobotMap.OPEN_CLAW);
@@ -100,7 +102,6 @@ public class OI {
 
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
-	//private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
 	private MoveElevatorTriggerNonPID triggerMoveElevatorPOVNonPID = new MoveElevatorTriggerNonPID();
 
 	/**
@@ -134,13 +135,16 @@ public class OI {
 		triggerMoveElevatorPOVNonPID.whileActive(new MoveElevatorNonPID());
 		
 		// PID elevator trigger and buttons
-//		triggerMovePosPOV.whenActive(new MovePos());
-//		objectOnGroundButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
-//		objectOnToteButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUpOffTote));
-//		noodleChuteUprightButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
-//		noodleChuteSidewaysButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
-//		jogElevatorUpButton.whenPressed(new ElevatorJog(true));
-//		jogElevatorDownButton.whenPressed(new ElevatorJog(false));
+		if (Robot.commonElevator instanceof Elevator) {
+			triggerMovePosPOV.whenActive(new MovePos());
+			objectOnGroundButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
+			objectOnToteButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUpOffTote));
+			noodleChuteUprightButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
+			noodleChuteSidewaysButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
+			jogElevatorUpButton.whenPressed(new ElevatorJog(true));
+			jogElevatorDownButton.whenPressed(new ElevatorJog(false));
+		}
+		
 		openClawButton.whenPressed(new ClawRelease());
 		closeClawButton.whenPressed(new ClawGrab());
 	}
