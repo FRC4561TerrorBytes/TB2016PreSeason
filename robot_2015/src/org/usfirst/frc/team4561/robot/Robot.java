@@ -9,10 +9,12 @@ import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 import org.usfirst.frc.team4561.robot.subsystems.ElevatorNonPID;
 import org.usfirst.frc.team4561.robot.subsystems.Extender;
+import org.usfirst.frc.team4561.robot.subsystems.IElevator;
 import org.usfirst.frc.team4561.robot.subsystems.SDLogging;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,7 +30,8 @@ public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
 	// public static final Elevator elevator = new Elevator();
-	 public static final ElevatorNonPID elevatorNonPID = new ElevatorNonPID();
+	// public static final ElevatorNonPID elevatorNonPID = new ElevatorNonPID();
+	public static final IElevator commonElevator = new ElevatorNonPID();
 	public static final Extender extender = new Extender();
 	public static final Claw claw = new Claw();
 	public static final SDLogging sdlogging = new SDLogging();
@@ -56,7 +59,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(extender);
 		// SmartDashboard.putData(elevator);
-		SmartDashboard.putData(elevatorNonPID);
+		SmartDashboard.putData((Subsystem)commonElevator);
 		SmartDashboard.putData(claw);
 		
 		autoChooser = new SendableChooser();

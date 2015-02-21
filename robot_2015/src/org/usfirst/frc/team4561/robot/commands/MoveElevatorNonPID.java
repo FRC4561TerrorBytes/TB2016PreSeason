@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 import org.usfirst.frc.team4561.robot.Robot;
 
 /**
@@ -20,7 +22,7 @@ public class MoveElevatorNonPID extends Command {
 	private int currentDirection = FORWARD;
 	
     public MoveElevatorNonPID() {
-        requires(Robot.elevatorNonPID);
+        requires((Subsystem)Robot.commonElevator);
     }
 
     // Called just before this Command runs the first time
@@ -31,10 +33,10 @@ public class MoveElevatorNonPID extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(currentDirection == FORWARD || currentDirection == FORWARD_LEFT || currentDirection == FORWARD_RIGHT) {
-    		Robot.elevatorNonPID.moveUp();
+    		Robot.commonElevator.moveUp();
     	}
     	if(currentDirection == BACKWARD || currentDirection == BACKWARD_LEFT || currentDirection == BACKWARD_RIGHT) {
-    		Robot.elevatorNonPID.moveDown();
+    		Robot.commonElevator.moveDown();
     	}
     }
 
@@ -45,7 +47,7 @@ public class MoveElevatorNonPID extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevatorNonPID.stop();
+    	Robot.commonElevator.stop();
     }
 
     // Called when another command which requires one or more of the same
