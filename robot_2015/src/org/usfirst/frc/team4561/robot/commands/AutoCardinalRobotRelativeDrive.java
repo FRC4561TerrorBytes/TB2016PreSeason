@@ -12,7 +12,7 @@ public class AutoCardinalRobotRelativeDrive extends PIDCommand {
 	double inches;
 	/**
 	 * Drive in a certain direction a certain length
-	 * To be used only in the AutoMode command
+	 * To be used only in the {@link AutoMode} command
 	 * @param direction
 	 * 1 = north
 	 * 2 = east

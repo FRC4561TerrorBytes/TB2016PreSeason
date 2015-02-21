@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot.commands;
 /**
  * Uses the AutoModeCardinalFieldRelativeDrive command in junction with the
  * RotateTo command to achieve movement.
+ * 
  */
 public class AutoMode extends Abstract4561AutomodeGroup {
     
