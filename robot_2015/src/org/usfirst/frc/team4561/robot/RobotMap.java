@@ -81,13 +81,6 @@ public class RobotMap {
 	public static final int RIGHT_STICK_Y = 5; // up: -, down, +
 
 	/*
-	 * DriveTrain Talon mappings.
-	 */
-	public static final int REAR_LEFT_MOTOR = 0;
-	public static final int FRONT_LEFT_MOTOR = 1;
-	public static final int REAR_RIGHT_MOTOR = 2;
-	public static final int FRONT_RIGHT_MOTOR = 3;
-	/*
 	 * Drivetrain TalonSRX mappings.
 	 */
 	public static final int REAR_LEFT_MOTOR_CAN = 1;
