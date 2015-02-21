@@ -102,9 +102,6 @@ public class OI {
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	//private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
 	private MoveElevatorTriggerNonPID triggerMoveElevatorPOVNonPID = new MoveElevatorTriggerNonPID();
-	
-	// private Joystick xBoxDriveStick = new Joystick(RobotMap.LEFT_STICK);
-	// private Joystick xBoxRotaryStick = new Joystick(RobotMap.RIGHT_STICK);
 
 	/**
 	 * Returns true if driving should be robot relative (vs field relative).
@@ -157,6 +154,13 @@ public class OI {
 	}
 	public int getDpadPOV() {
 		return controller.getPOV();
+	}
+	public double getControllerRightStickY() {
+		double yStick = controller.getRawAxis(RobotMap.RIGHT_STICK_Y);
+		if(Math.abs(yStick) < RobotMap.DRIVE_DEAD_ZONE) {
+			yStick = 0.0;
+		}
+		return yStick;
 	}
 	/**
 	 * Returns the drive stick Y axis magnitude [-1..1] where negative is

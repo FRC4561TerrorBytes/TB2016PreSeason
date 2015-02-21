@@ -7,17 +7,8 @@
 // *
 // */
 //public class MovePos extends Command {
-//
-//	private static final int FORWARD = 0;
-//	private static final int FORWARD_RIGHT = 45;
-//	//private static final int RIGHT = 90;
-//	private static final int BACKWARD_RIGHT = 135;
-//	private static final int BACKWARD = 180;
-//	private static final int BACKWARD_LEFT = 225;
-//	//private static final int LEFT = 270;
-//	private static final int FORWARD_LEFT = 315;
 //	
-//	private int currentDirection = FORWARD;
+//	private boolean currentDirectionForward = true;
 //	
 //    public MovePos() {
 //        requires(Robot.elevator);
@@ -25,15 +16,14 @@
 //
 //    // Called just before this Command runs the first time
 //    protected void initialize() {
-//    	currentDirection = Robot.oi.getDpadPOV();
+//    	currentDirection = (Robot.oi.getControllerRightStickY() < 0.0);
 //    }
 //
 //    // Called repeatedly when this Command is scheduled to run
 //    protected void execute() {
-//    	if(currentDirection == FORWARD || currentDirection == FORWARD_LEFT || currentDirection == FORWARD_RIGHT) {
+//    	if(currentDirection) {
 //    		Robot.elevator.upOneScoringPos();
-//    	}
-//    	if(currentDirection == BACKWARD || currentDirection == BACKWARD_LEFT || currentDirection == BACKWARD_RIGHT) {
+//    	} else {
 //    		Robot.elevator.downOneScoringPos();
 //    	}
 //    }
