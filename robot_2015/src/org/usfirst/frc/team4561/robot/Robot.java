@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.Abstract4561AutomodeGroup;
-import org.usfirst.frc.team4561.robot.commands.AutoMode;
+import org.usfirst.frc.team4561.robot.commands.AutoOneCan;
 import org.usfirst.frc.team4561.robot.commands.AutomodeDoNothing;
 import org.usfirst.frc.team4561.robot.commands.AutomodePushItemsToZoneSideways;
 import org.usfirst.frc.team4561.robot.commands.ReelOutExtenderEndOfMatch;
@@ -95,7 +95,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new AutomodePushItemsToZoneSideways();
 			break;
 		default:
-			autonomousCommand = new AutoMode();
+			autonomousCommand = new AutoOneCan();
 			break;
 		}
 		

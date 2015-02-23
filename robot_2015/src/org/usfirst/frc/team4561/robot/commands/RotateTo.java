@@ -12,6 +12,7 @@ public class RotateTo extends Command {
 	
     public RotateTo(double angle) {
         requires(Robot.driveTrain);
+        Robot.driveTrain.fullEncoderReset();
         this.angle = angle;
     }
 
@@ -38,6 +39,7 @@ public class RotateTo extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrain.setAbsoluteTolerance(2.0);
+    	Robot.driveTrain.fullEncoderReset();
     }
 
     // Called when another command which requires one or more of the same

@@ -5,6 +5,8 @@ import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.MecanumDrive;
 import org.usfirst.frc.team4561.robot.Robot;
 
+
+import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -41,6 +43,8 @@ public class DriveTrain extends PIDSubsystem {
 	 private RobotDrive robotDrive = new RobotDrive(leftFront, leftRear,
 			rightFront, rightRear);
 	 
+	 private DigitalInput whiteTapeDetector = new DigitalInput(RobotMap.TAPE_SENSOR_PORT);
+	 
 	 private double currentX = 0.0;
 	 private double currentY = 0.0;
 	 private double lastRotation = 0.0;
@@ -52,6 +56,7 @@ public class DriveTrain extends PIDSubsystem {
 	 private double startAngle = 0.0;
 	 //private long gyroMissCount = 0;
 	 //private boolean pingPending = false;
+	 public boolean hasSeenTape = false;
 	 
 	 //Gyroscope
 	 //private SerialPort gyro = new SerialPort(38400, Port.kMXP);
@@ -71,8 +76,8 @@ public class DriveTrain extends PIDSubsystem {
 	 //Encoders
 	 public Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL,
 			 										RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
-	 public Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL,
-													RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
+//	 public Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL,
+//													RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
 //	 public Encoder rearLeftEncoder = new Encoder(RobotMap.REAR_LEFT_ENCODER_A_CHANNEL,
 //			 										RobotMap.REAR_LEFT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
 //	 public Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL,
@@ -99,7 +104,7 @@ public class DriveTrain extends PIDSubsystem {
 		rightFront.enableBrakeMode(true);
 		rightRear.enableBrakeMode(true);
 		frontLeftEncoder.setDistancePerPulse(INCHES_PER_PULSE);
-		frontRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
+//		frontRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
 //		rearLeftEncoder.setDistancePerPulse(INCHES_PER_PULSE);
 //		rearRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
 		
@@ -228,7 +233,7 @@ public class DriveTrain extends PIDSubsystem {
 		double[] encoderInches;
 		encoderInches = new double[4];
 		encoderInches[0] = frontLeftEncoder.getDistance();
-		encoderInches[1]= frontRightEncoder.getDistance();
+//		encoderInches[1]= frontRightEncoder.getDistance();
 //		encoderInches[2]= rearLeftEncoder.getDistance();
 //		encoderInches[3]= rearRightEncoder.getDistance();
 		return encoderInches[id];
@@ -242,7 +247,7 @@ public class DriveTrain extends PIDSubsystem {
 		double[] encoderInches;
 		encoderInches = new double[4];
 		encoderInches[0] = frontLeftEncoder.get();
-		encoderInches[1]= frontRightEncoder.get();
+//		encoderInches[1]= frontRightEncoder.get();
 //		encoderInches[2]= rearLeftEncoder.get();
 //		encoderInches[3]= rearRightEncoder.get();
 		return encoderInches[id];
@@ -255,7 +260,7 @@ public class DriveTrain extends PIDSubsystem {
 		double[] encoderInches;
 		encoderInches = new double[4];
 		encoderInches[0] = frontLeftEncoder.getDistance();
-		encoderInches[1]= frontRightEncoder.getDistance();
+//		encoderInches[1]= frontRightEncoder.getDistance();
 //		encoderInches[2]= rearLeftEncoder.getDistance();
 //		encoderInches[3]= rearRightEncoder.getDistance();
 		return encoderInches;
@@ -268,7 +273,7 @@ public class DriveTrain extends PIDSubsystem {
 		double[] encoderInches;
 		encoderInches = new double[4];
 		encoderInches[0] = frontLeftEncoder.get();
-		encoderInches[1]= frontRightEncoder.get();
+//		encoderInches[1]= frontRightEncoder.get();
 //		encoderInches[2]= rearLeftEncoder.get();
 //		encoderInches[3]= rearRightEncoder.get();
 		return encoderInches;
@@ -293,13 +298,25 @@ public class DriveTrain extends PIDSubsystem {
 	
 	public void fullEncoderReset() {
 		frontLeftEncoder.reset();
-		frontRightEncoder.reset();
+//		frontRightEncoder.reset();
 //		rearLeftEncoder.reset();
 //		rearRightEncoder.reset();
+	}
+	
+	public boolean hasSeenTape() {
+		if(whiteTapeDetector.get() == false) {
+			hasSeenTape = true;
+		}
+		return hasSeenTape;
+	}
+	
+	public void resetSeenTape() {
+		hasSeenTape = false;
 	}
 
 	@Override
 	protected double returnPIDInput() {
+		hasSeenTape();
 		//readGyro();
 		return getNormalizedGyroAngle();
 	}

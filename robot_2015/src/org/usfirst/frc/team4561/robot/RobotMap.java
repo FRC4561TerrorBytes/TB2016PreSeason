@@ -62,6 +62,11 @@ public class RobotMap {
 	public static final int CLOSE_CLAW = START_BUTTON;
 	
 	/*
+	 * Tape Sensor
+	 */
+	public static final int TAPE_SENSOR_PORT = 2;
+	
+	/*
 	 * Sensors stuff
 	 */
 	public static final int GYRO_IN = 0; //analog 0
@@ -104,8 +109,8 @@ public class RobotMap {
 	public static final int REAR_LEFT_ENCODER_A_CHANNEL = 0;
 	public static final int FRONT_LEFT_ENCODER_A_CHANNEL = 6;
 	public static final int REAR_RIGHT_ENCODER_A_CHANNEL = 4;
-	public static final int FRONT_RIGHT_ENCODER_A_CHANNEL = 2;
-
+	public static final int FRONT_RIGHT_ENCODER_A_CHANNEL = 2; // taken over by tape sensor
+	//ALL RIGHTS NOT USED
 	public static final int REAR_LEFT_ENCODER_B_CHANNEL = 1;
 	public static final int FRONT_LEFT_ENCODER_B_CHANNEL = 7;
 	public static final int REAR_RIGHT_ENCODER_B_CHANNEL = 5;
