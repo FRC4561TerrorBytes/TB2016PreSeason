@@ -4,6 +4,7 @@ import org.usfirst.frc.team4561.robot.commands.Abstract4561AutomodeGroup;
 import org.usfirst.frc.team4561.robot.commands.AutoMode;
 import org.usfirst.frc.team4561.robot.commands.AutomodeDoNothing;
 import org.usfirst.frc.team4561.robot.commands.AutomodePushItemsToZoneSideways;
+import org.usfirst.frc.team4561.robot.commands.ReelOutExtenderEndOfMatch;
 import org.usfirst.frc.team4561.robot.subsystems.Claw;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
@@ -118,6 +119,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		ReelOutExtenderEndOfMatch prepForTransport = new ReelOutExtenderEndOfMatch();
+		prepForTransport.start();
 	}
 
 	/**
