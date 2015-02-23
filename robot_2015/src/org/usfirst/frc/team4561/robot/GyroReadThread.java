@@ -42,6 +42,7 @@ public class GyroReadThread extends Thread {
 		lastGoodRotation = 0.0;
 		needToSaveBias = true;
 		bias = 0.0;
+		lineBuilder = new StringBuilder(100);
 		gyro.reset();
 	}
 	
