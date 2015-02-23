@@ -116,6 +116,28 @@ public class RobotMap {
 	 */
 	public static final int ELEVATOR_ENCODER_A_CHANNEL = 8;
 	public static final int ELEVATOR_ENCODER_B_CHANNEL = 9;
+	
+	// Elevator selection driver station button
+	public static final String USE_PID_ELEVATOR = "DB/Button 0";
 
-
+	/*
+	 * Automode selection controls. Slider values will be rounded and added for
+	 * selection of automodes 0 through 10.
+	 * 0) do nothing
+	 * 1) push items sideways
+	 * 2) get one bin
+	 * 3) get two bins
+	 * 4) get two bins with fling
+	 * 5) get three bins
+	 * 6 or more) get three bins with fling
+	 */
+	public static final String AUTO_SLIDER_0 = "DB/Slider 0";
+	public static final String AUTO_SLIDER_1 = "DB/Slider 1";
+	public static final int AUTO_DO_NOTHING = 0;
+	public static final int AUTO_PUSH_ITEMS_SIDEWAYS = 1;
+	public static final int AUTO_GET_ONE_BIN = 2;
+	public static final int AUTO_GET_TWO_BINS = 3;
+	public static final int AUTO_GET_TWO_BINS_FLING = 4;
+	public static final int AUTO_GET_THREE_BINS = 5;
+	public static final int AUTO_GET_THREE_BINS_FLING = 6;
 }

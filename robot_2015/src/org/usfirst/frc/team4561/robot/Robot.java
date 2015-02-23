@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -24,20 +23,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * functions corresponding to each mode, as described in the IterativeRobot
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the manifest file in the resource
- * directory..
+ * directory.
  */
 public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final IElevator commonElevator = new ElevatorNonPID();
-	//public static final IElevator commonElevator = new Elevator();
+	public static IElevator commonElevator = null;
+	static {
+		boolean pidElevator = false;
+		try {
+			pidElevator = SmartDashboard.getBoolean(RobotMap.USE_PID_ELEVATOR);
+		} catch (Throwable t) {
+		}
+		if (pidElevator)
+			commonElevator = new Elevator();
+		else
+			commonElevator = new ElevatorNonPID();
+	}
 	public static final Extender extender = new Extender();
 	public static final Claw claw = new Claw();
 	public static final SDLogging sdlogging = new SDLogging();
 	public static OI oi;
 
 	Abstract4561AutomodeGroup autonomousCommand;
-	SendableChooser autoChooser;
 	
 	private static Robot robotSingleton;
 	
@@ -52,8 +60,6 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		robotSingleton = this;
 		oi = new OI();
-		// instantiate the command used for the autonomous period
-		autonomousCommand = null;
 		
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(extender);
@@ -70,9 +76,32 @@ public class Robot extends IterativeRobot {
 		Robot.driveTrain.leftRear.enableBrakeMode(true);
 		Robot.driveTrain.rightRear.enableBrakeMode(true);
 		Robot.driveTrain.rightFront.enableBrakeMode(true);
-		AutoMode automode = new AutoMode();
-		driveTrain.setStartAngle(automode.getStartAngle());
-		automode.start();
+		
+		// instantiate the command used for the autonomous period
+		int autoChoosen = RobotMap.AUTO_DO_NOTHING;
+		try {
+			double auto1 = SmartDashboard.getNumber(RobotMap.AUTO_SLIDER_0);
+			double auto2 = SmartDashboard.getNumber(RobotMap.AUTO_SLIDER_1);
+			autoChoosen = (int)(Math.round(auto1) + Math.round(auto2));
+		} catch(Throwable t) {
+		}
+		
+		switch (autoChoosen) {
+		case RobotMap.AUTO_DO_NOTHING:
+			autonomousCommand = new AutomodeDoNothing();
+			break;
+		case RobotMap.AUTO_PUSH_ITEMS_SIDEWAYS:
+			autonomousCommand = new AutomodePushItemsToZoneSideways();
+			break;
+		default:
+			autonomousCommand = new AutoMode();
+			break;
+		}
+		
+		if (autonomousCommand != null) {
+			driveTrain.setStartAngle(autonomousCommand.getStartAngle());
+			autonomousCommand.start();
+		}
 	}
 
 	/**
