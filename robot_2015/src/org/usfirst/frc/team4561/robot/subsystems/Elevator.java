@@ -51,7 +51,7 @@ public class Elevator extends PIDSubsystem implements IElevator {
 	//Encoder Mounts
 	private static final double GEAR_SIZE = 1.5; //inches //TODO Is this the radius or diameter?
 	private static final double INCHES_PER_REVOLUTION = Math.PI * 2 * GEAR_SIZE;
-	private static final double PULSES_PER_REVOLUTION = 2048;
+	private static final double PULSES_PER_REVOLUTION = 25;
 	
 	public enum Position {
 		//On Ground
