@@ -2,6 +2,10 @@ package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.Abstract4561AutomodeGroup;
 import org.usfirst.frc.team4561.robot.commands.AutoOneCan;
+import org.usfirst.frc.team4561.robot.commands.AutoThreeCan;
+import org.usfirst.frc.team4561.robot.commands.AutoThreeCanFling;
+import org.usfirst.frc.team4561.robot.commands.AutoTwoCan;
+import org.usfirst.frc.team4561.robot.commands.AutoTwoCanFling;
 import org.usfirst.frc.team4561.robot.commands.AutomodeDoNothing;
 import org.usfirst.frc.team4561.robot.commands.AutomodePushItemsToZoneSideways;
 import org.usfirst.frc.team4561.robot.commands.ReelOutExtenderEndOfMatch;
@@ -94,8 +98,20 @@ public class Robot extends IterativeRobot {
 		case RobotMap.AUTO_PUSH_ITEMS_SIDEWAYS:
 			autonomousCommand = new AutomodePushItemsToZoneSideways();
 			break;
-		default:
+		case RobotMap.AUTO_GET_ONE_BIN:
 			autonomousCommand = new AutoOneCan();
+			break;
+		case RobotMap.AUTO_GET_TWO_BINS:
+			autonomousCommand = new AutoTwoCan();
+			break;
+		case RobotMap.AUTO_GET_TWO_BINS_FLING:
+			autonomousCommand = new AutoTwoCanFling();
+			break;
+		case RobotMap.AUTO_GET_THREE_BINS:
+			autonomousCommand = new AutoThreeCan();
+			break;
+		default:
+			autonomousCommand = new AutoThreeCanFling();
 			break;
 		}
 		
