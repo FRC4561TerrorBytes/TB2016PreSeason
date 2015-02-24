@@ -11,11 +11,13 @@ import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
 import org.usfirst.frc.team4561.robot.commands.MovePos;
 import org.usfirst.frc.team4561.robot.commands.ReelInExtenderUnlimited;
 import org.usfirst.frc.team4561.robot.commands.RotatingPOV;
+import org.usfirst.frc.team4561.robot.commands.ResetGyro;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 import org.usfirst.frc.team4561.robot.triggers.JogPOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.MoveElevatorTriggerNonPID;
 import org.usfirst.frc.team4561.robot.triggers.MovePosPOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.RotatePOVTrigger;
+import org.usfirst.frc.team4561.robot.triggers.ResetGyroTrigger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -78,6 +80,12 @@ public class OI {
 	private JoystickButton pitPrepSlowExtenderOut = new JoystickButton(driveStick,
 			RobotMap.PIT_PREP_SLOW_EXTENDER_OUT);
 	
+	private JoystickButton gyroResetButton1 = new JoystickButton(rotationStick,
+			RobotMap.GYRO_RESET_BUTTON_1);
+	private JoystickButton gyroResetButton2 = new JoystickButton(rotationStick,
+			RobotMap.GYRO_RESET_BUTTON_2);
+	
+	
 	// The next 7 are only wired to commands if the elevator subsystem
 	// is actually the PID subsystem.
 	private JoystickButton objectOnGroundButton = new JoystickButton(controller,
@@ -103,6 +111,7 @@ public class OI {
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	private MoveElevatorTriggerNonPID triggerMoveElevatorPOVNonPID = new MoveElevatorTriggerNonPID();
+	private ResetGyroTrigger triggerResetGyro = new ResetGyroTrigger();
 
 	/**
 	 * Returns true if driving should be robot relative (vs field relative).
@@ -133,6 +142,9 @@ public class OI {
 		
 		// Non-PID elevator trigger
 		triggerMoveElevatorPOVNonPID.whileActive(new MoveElevatorNonPID());
+		
+		//Reset Gyro Trigger
+		triggerResetGyro.whileActive(new ResetGyro());
 		
 		// PID elevator trigger and buttons
 		if (Robot.commonElevator instanceof Elevator) {
@@ -211,6 +223,10 @@ public class OI {
 			return rotationStick.getDirectionDegrees();
 		else
 			return Robot.driveTrain.getNormalizedGyroAngle();
+	}
+	
+	public boolean getGyroResetLockPressed() {
+		return gyroResetButton1.get() && gyroResetButton2.get();
 	}
 
 }

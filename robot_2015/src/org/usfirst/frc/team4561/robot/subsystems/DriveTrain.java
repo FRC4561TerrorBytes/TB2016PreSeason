@@ -320,6 +320,10 @@ public class DriveTrain extends PIDSubsystem {
 		//readGyro();
 		return getNormalizedGyroAngle();
 	}
+	
+	public void resetGyro() {
+		gyroThread.reset();
+	}
 	int i = 0;
 	@Override
 	protected void usePIDOutput(double output) {

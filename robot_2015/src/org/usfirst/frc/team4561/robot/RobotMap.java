@@ -38,6 +38,11 @@ public class RobotMap {
 	public static final int PIT_PREP_SLOW_EXTENDER_IN = 11;
 	public static final int PIT_PREP_SLOW_EXTENDER_OUT = 12;
 		
+	
+	//These are on the rot stick
+	public static final int GYRO_RESET_BUTTON_1 = 7;
+	public static final int GYRO_RESET_BUTTON_2 = 12;
+	
 	/*
 	 * Controller button mappings.
 	 */
