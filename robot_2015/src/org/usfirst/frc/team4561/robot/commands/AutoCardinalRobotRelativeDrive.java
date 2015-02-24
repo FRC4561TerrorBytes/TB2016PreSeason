@@ -8,6 +8,8 @@ import org.usfirst.frc.team4561.robot.Robot;
  */
 public class AutoCardinalRobotRelativeDrive extends PIDCommand {
 	
+	private static final double MIN_ABSOLUTE_POWER = 0.1;
+	
 	int direction;
 	double inches;
 	/**
@@ -73,6 +75,12 @@ public class AutoCardinalRobotRelativeDrive extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		double motorPower = output;
+		if (Math.abs(output) < MIN_ABSOLUTE_POWER) {
+			if (output > 0)
+				motorPower = MIN_ABSOLUTE_POWER;
+			else
+				motorPower = -MIN_ABSOLUTE_POWER;
+		}
 		//North
 		if(direction == 1) {
 			Robot.driveTrain.driveRobotRelative(0, motorPower);
