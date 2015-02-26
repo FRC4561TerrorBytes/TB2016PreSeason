@@ -75,7 +75,7 @@ public class AutoCardinalRobotRelativeDrive extends PIDCommand {
 		double motorPower = output;
 		//North
 		if(direction == 1) {
-			Robot.driveTrain.driveRobotRelative(0, motorPower);
+			Robot.driveTrain.driveRobotRelative(0, -motorPower);
 		}
 		//East
 		if(direction == 2) {
@@ -83,7 +83,7 @@ public class AutoCardinalRobotRelativeDrive extends PIDCommand {
 		}
 		//South
 		if(direction == 3) {
-			Robot.driveTrain.driveRobotRelative(0, -motorPower);
+			Robot.driveTrain.driveRobotRelative(0, motorPower);
 		}
 		//West
 		if(direction == 4) {

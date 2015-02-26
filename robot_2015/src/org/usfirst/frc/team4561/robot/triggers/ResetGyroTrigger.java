@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4561.robot.triggers;
 
 import org.usfirst.frc.team4561.robot.Robot;
-import org.usfirst.frc.team4561.robot.OI;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**

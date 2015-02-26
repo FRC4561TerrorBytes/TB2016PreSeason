@@ -16,6 +16,7 @@ import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 import org.usfirst.frc.team4561.robot.triggers.JogPOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.MoveElevatorTriggerNonPID;
 import org.usfirst.frc.team4561.robot.triggers.MovePosPOVTrigger;
+import org.usfirst.frc.team4561.robot.triggers.RobotRelativeTrigger;
 import org.usfirst.frc.team4561.robot.triggers.RotatePOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.ResetGyroTrigger;
 
@@ -55,6 +56,8 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 
+	private boolean robotIsRelative = false;
+	
 	/*
 	 * MecanumDrive system controls
 	 */
@@ -112,13 +115,22 @@ public class OI {
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	private MoveElevatorTriggerNonPID triggerMoveElevatorPOVNonPID = new MoveElevatorTriggerNonPID();
 	private ResetGyroTrigger triggerResetGyro = new ResetGyroTrigger();
+	private RobotRelativeTrigger triggerRobotRelative = new RobotRelativeTrigger();
 
 	/**
 	 * Returns true if driving should be robot relative (vs field relative).
 	 * 
 	 * @return true if in robot relative driving mode
 	 */
+	
 	public boolean isRobotRelative() {
+		if(triggerRobotRelative.get()) {
+			robotIsRelative = (robotIsRelative) ? false:true;
+		}
+		return robotIsRelative;
+	}
+	
+	public boolean isRobotRelativeButtonPressed() {
 		return robotRelativeButton.get();
 	}
 	
@@ -227,6 +239,10 @@ public class OI {
 	
 	public boolean getGyroResetLockPressed() {
 		return gyroResetButton1.get() && gyroResetButton2.get();
+	}
+	
+	public double getRotX() {
+		return rotationStick.getX();
 	}
 
 }

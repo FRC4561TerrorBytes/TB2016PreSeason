@@ -22,21 +22,26 @@ public class Elevator extends PIDSubsystem implements IElevator {
 	
 	private static final double HEIGHT_OF_PLATFORM = 2.0;
 	private static final double HEIGHT_OF_TOTE = 12.0;
+	private static final double LITTER_CHUTE_CENTER = 57.0;
 	
 	//Elevator Presets (inches)
 	
+	//Starting Position
+	private static final double START_POS = 10.5;
+	
 	//On Ground
-	private static final double OBJECT_ON_GROUND = 8.0;
-	
+	private static final double OBJECT_ON_GROUND = START_POS;
+
 	//Human Player Station
-	private static final double NOODLE_CHUTE_RC_UPRIGHT = 16.0; //Change
-	private static final double NOODLE_CHUTE_RC_SIDEWAYS = 24.0; //Change
-	
+	private static final double NOODLE_CHUTE_RC_UPRIGHT = LITTER_CHUTE_CENTER - 23.5;
+	private static final double NOODLE_CHUTE_RC_SIDEWAYS = LITTER_CHUTE_CENTER - 13.85;
+
 	//On Totes
 	private static final double OBJECT_ON_SINGLE_TOTE = OBJECT_ON_GROUND + HEIGHT_OF_TOTE;
 
+
 	
-	//Scoring Positions (Upright)
+	//Scoring Positions
 	private static final double SCORING_POSITION_1 = HEIGHT_OF_PLATFORM + HEIGHT_OF_TOTE + OBJECT_ON_GROUND;
 	private static final double SCORING_POSITION_2 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*2.0)+OBJECT_ON_GROUND;
 	private static final double SCORING_POSITION_3 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*3.0)+OBJECT_ON_GROUND;
@@ -44,9 +49,9 @@ public class Elevator extends PIDSubsystem implements IElevator {
 	private static final double SCORING_POSITION_5 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*5.0)+OBJECT_ON_GROUND;
 	private static final double SCORING_POSITION_6 = HEIGHT_OF_PLATFORM +(HEIGHT_OF_TOTE*6.0)+OBJECT_ON_GROUND;
 
-	private static final double MIN_HEIGHT = OBJECT_ON_GROUND - 2.0;
+	private static final double MIN_HEIGHT = 0;
 	private static final double MAX_HEIGHT = SCORING_POSITION_5 + 4.0;
-	private static final double JOG_INCHES = 0.5;
+	private static final double JOG_INCHES = 1.0;
 	
 	//Encoder Mounts
 	private static final double GEAR_SIZE = 1.5; //inches //TODO Is this the radius or diameter?
@@ -167,7 +172,7 @@ public class Elevator extends PIDSubsystem implements IElevator {
 	
 	@Override
 	protected double returnPIDInput() {
-		return getElevatorEncoderInches();
+		return getElevatorEncoderInches() + START_POS;
 	}
 	int i = 0;
 	@Override

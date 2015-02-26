@@ -29,7 +29,7 @@ public class RobotMap {
 	public static final double ROTATION_DEAD_ZONE = 0.3;
 
 	// These are on the drive stick
-	public static final int ROBOT_RELATIVE_BUTTON = 1;
+	public static final int ROBOT_RELATIVE_BUTTON = 6;
 	public static final int IN_GAME_REEL_IN_EXTENDER = 3;
 	public static final int FRONT_LEFT_MOTOR_BUTTON = 7;
 	public static final int REAR_LEFT_MOTOR_BUTTON = 9;

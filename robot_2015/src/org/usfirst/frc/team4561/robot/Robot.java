@@ -33,18 +33,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
-	public static IElevator commonElevator = null;
-	static {
-		boolean pidElevator = false;
-		try {
-			pidElevator = SmartDashboard.getBoolean(RobotMap.USE_PID_ELEVATOR);
-		} catch (Throwable t) {
-		}
-		if (pidElevator)
-			commonElevator = new Elevator();
-		else
-			commonElevator = new ElevatorNonPID();
-	}
+	public static IElevator commonElevator = new ElevatorNonPID();
+//	static {
+//		boolean pidElevator = false;
+//		try {
+//			pidElevator = SmartDashboard.getBoolean(RobotMap.USE_PID_ELEVATOR);
+//		} catch (Throwable t) {
+//		}
+//		if (pidElevator)
+//			commonElevator = new Elevator();
+//		else
+//			commonElevator = new ElevatorNonPID();
+//	}
 	public static final Extender extender = new Extender();
 	public static final Claw claw = new Claw();
 	public static final SDLogging sdlogging = new SDLogging();
@@ -135,8 +135,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		ReelOutExtenderEndOfMatch prepForTransport = new ReelOutExtenderEndOfMatch();
-		prepForTransport.start();
+//		ReelOutExtenderEndOfMatch prepForTransport = new ReelOutExtenderEndOfMatch();
+//		prepForTransport.start();
 	}
 
 	/**
