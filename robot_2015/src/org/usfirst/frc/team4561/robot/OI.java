@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot;
 import org.usfirst.frc.team4561.robot.commands.ClawGrab;
 import org.usfirst.frc.team4561.robot.commands.ClawRelease;
 import org.usfirst.frc.team4561.robot.commands.ElevatorJog;
+import org.usfirst.frc.team4561.robot.commands.EnterTouringMode;
 import org.usfirst.frc.team4561.robot.commands.ExtenderPitPrep;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.JoggingPOV;
@@ -150,7 +151,7 @@ public class OI {
 		inGameReelInExtender.whileHeld(new ReelInExtenderUnlimited());
 		pitPrepSlowExtenderIn.whileHeld(new ExtenderPitPrep(true));
 		pitPrepSlowExtenderOut.whileHeld(new ExtenderPitPrep(false));
-		
+		touringModeButton.whileHeld(new EnterTouringMode());		
 		// Robot relative jogging triggers
 		triggerJogPOV.whenActive(new JoggingPOV());
 		triggerRotatePOV.whenActive(new RotatingPOV());
