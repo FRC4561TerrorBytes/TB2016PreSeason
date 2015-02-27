@@ -158,7 +158,7 @@ public class OI {
 		triggerMoveElevatorPOVNonPID.whileActive(new MoveElevatorNonPID());
 		
 		//Reset Gyro Trigger
-		triggerResetGyro.whileActive(new ResetGyro());
+		triggerResetGyro.whenActive(new ResetGyro());
 		
 		// PID elevator trigger and buttons
 		if (Robot.commonElevator instanceof Elevator) {
