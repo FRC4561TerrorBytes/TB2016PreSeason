@@ -149,7 +149,7 @@ public class DriveTrain extends PIDSubsystem {
 		double newSetpoint = getSetpoint() + deltaRotation;
 		setSetpoint(normalizeAngle(newSetpoint));
 	}
-	
+
 	public void stop() {
 //		currentX = 0.0;
 //		currentY = 0.0;
@@ -370,7 +370,7 @@ public class DriveTrain extends PIDSubsystem {
 //			System.out.println("Front Left Encoder Ticks: " + frontLeftEncoder.get());
 		}
 		lastRotation = rot;
-		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
+		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, (fieldRelative) ? getNormalizedGyroAngle() : 0);
 		//pingGyro();
 	}
 

@@ -57,6 +57,8 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 
 	private boolean robotIsRelative = false;
+	private static final double TOURING_MODE_MULTIPLIER = 0.5;
+	private boolean isTouringMode = false;
 	
 	/*
 	 * MecanumDrive system controls
@@ -244,5 +246,19 @@ public class OI {
 	public double getRotX() {
 		return rotationStick.getX();
 	}
+	
+	public boolean isTouringMode() {
+		return isTouringMode;
+	}
+	
+	public void setTouringMode(boolean on) {
+		if(on) {
+			isTouringMode = true;
+		}
+		else {
+			isTouringMode = false;
+		}
+	}
+	
 
 }
