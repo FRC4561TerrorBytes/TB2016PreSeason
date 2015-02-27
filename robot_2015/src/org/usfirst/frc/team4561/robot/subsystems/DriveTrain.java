@@ -332,13 +332,25 @@ public class DriveTrain extends PIDSubsystem {
 		double rot = 0.0;
 		if (!getPIDController().onTarget()) {
 			if (fieldRelative || deltaRotating) {
-				rot = output;
+				if(Robot.oi.isTouringMode()) {
+					rot = output * Robot.oi.getTouringPower();
+				}
+				else {
+					rot = output;
+				}
+
 			}
-		} else {
+		} 
+		else {
 			deltaRotating = false;
 		}
 		if(!fieldRelative) {
-			rot = robotRelRotX * 0.5;
+			if(Robot.oi.isTouringMode()) {
+				rot = robotRelRotX * 0.7 * Robot.oi.getTouringPower();
+			}
+			else {
+				rot = robotRelRotX * 0.7;
+			}
 		}
 		i++;
 		if(i%10 == 0){

@@ -84,6 +84,7 @@ public class OI {
 			RobotMap.PIT_PREP_SLOW_EXTENDER_IN);
 	private JoystickButton pitPrepSlowExtenderOut = new JoystickButton(driveStick,
 			RobotMap.PIT_PREP_SLOW_EXTENDER_OUT);
+	private JoystickButton touringModeButton = new JoystickButton(driveStick, RobotMap.TOURING_MODE_BUTTON);
 	
 	private JoystickButton gyroResetButton1 = new JoystickButton(rotationStick,
 			RobotMap.GYRO_RESET_BUTTON_1);
@@ -252,12 +253,11 @@ public class OI {
 	}
 	
 	public void setTouringMode(boolean on) {
-		if(on) {
-			isTouringMode = true;
-		}
-		else {
-			isTouringMode = false;
-		}
+		isTouringMode = on;
+	}
+	
+	public double getTouringPower() {
+		return TOURING_MODE_MULTIPLIER;
 	}
 	
 

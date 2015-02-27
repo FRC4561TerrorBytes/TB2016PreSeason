@@ -37,6 +37,7 @@ public class RobotMap {
 	public static final int REAR_RIGHT_MOTOR_BUTTON = 10;
 	public static final int PIT_PREP_SLOW_EXTENDER_IN = 11;
 	public static final int PIT_PREP_SLOW_EXTENDER_OUT = 12;
+	public static final int TOURING_MODE_BUTTON = 2;
 		
 	
 	//These are on the rot stick

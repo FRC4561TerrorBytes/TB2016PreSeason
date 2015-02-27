@@ -22,11 +22,24 @@ public class MecanumDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (Robot.oi.isRobotRelative()) {
-			Robot.driveTrain.driveRobotRelative(Robot.oi.getDriveX(),
-					Robot.oi.getDriveY());
-		} else {
-			Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX(),
-					Robot.oi.getDriveY(), Robot.oi.getRotationDegrees());
+			if(Robot.oi.isTouringMode())
+			Robot.driveTrain.driveRobotRelative(Robot.oi.getDriveX() * Robot.oi.getTouringPower(),
+					Robot.oi.getDriveY() * Robot.oi.getTouringPower());
+			else {
+				Robot.driveTrain.driveRobotRelative(Robot.oi.getDriveX(), Robot.oi.getDriveY());
+			}
+		} 
+		else {
+			if(Robot.oi.isTouringMode()) {
+				Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX() * Robot.oi.getTouringPower(),
+						Robot.oi.getDriveY() * Robot.oi.getTouringPower(), 
+						Robot.oi.getRotationDegrees() * Robot.oi.getTouringPower());
+			}
+			else {
+				Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX(),
+						Robot.oi.getDriveY(), Robot.oi.getRotationDegrees());
+			}
+
 		}
 	}
 
