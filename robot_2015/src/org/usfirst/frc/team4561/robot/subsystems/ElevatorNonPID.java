@@ -17,7 +17,7 @@ public class ElevatorNonPID extends Subsystem implements IElevator {
 	
 	public void moveUp() {
 		if(upperLimitSwitch.get() == true) {
-			elevatorMotor.set(0.5);
+			elevatorMotor.set(1);
 		}
 		else {
 			stop();
@@ -26,7 +26,7 @@ public class ElevatorNonPID extends Subsystem implements IElevator {
 	
 	public void moveDown() {
 		if(lowerLimitSwitch.get() == true) {
-			elevatorMotor.set(-0.5);
+			elevatorMotor.set(-1);
 		}
 		else {
 			stop();

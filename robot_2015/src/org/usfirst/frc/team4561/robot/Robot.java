@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.Abstract4561AutomodeGroup;
+import org.usfirst.frc.team4561.robot.commands.AutoGripCan;
 import org.usfirst.frc.team4561.robot.commands.AutoOneCan;
 import org.usfirst.frc.team4561.robot.commands.AutoThreeCan;
 import org.usfirst.frc.team4561.robot.commands.AutoThreeCanFling;
@@ -109,6 +110,9 @@ public class Robot extends IterativeRobot {
 			break;
 		case RobotMap.AUTO_GET_THREE_BINS:
 			autonomousCommand = new AutoThreeCan();
+			break;
+		case RobotMap.AUTO_GRIP_CAN:
+			autonomousCommand = new AutoGripCan();
 			break;
 		default:
 			autonomousCommand = new AutoThreeCanFling();

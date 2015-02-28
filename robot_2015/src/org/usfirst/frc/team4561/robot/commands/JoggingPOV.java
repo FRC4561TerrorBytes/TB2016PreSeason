@@ -21,6 +21,7 @@ public class JoggingPOV extends Command {
 	//private static final int FORWARD_LEFT = 315;
 	
 	private int currentDirection = FORWARD;
+
 	
 	private AutoCardinalRobotRelativeDrive forwardDrive = new AutoCardinalRobotRelativeDrive(
 			1, 0.5);

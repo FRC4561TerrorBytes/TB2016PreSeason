@@ -146,9 +146,11 @@ public class RobotMap {
 	public static final String AUTO_SLIDER_1 = "DB/Slider 1";
 	public static final int AUTO_DO_NOTHING = 0;
 	public static final int AUTO_PUSH_ITEMS_SIDEWAYS = 1;
-	public static final int AUTO_GET_ONE_BIN = 2;
-	public static final int AUTO_GET_TWO_BINS = 3;
-	public static final int AUTO_GET_TWO_BINS_FLING = 4;
-	public static final int AUTO_GET_THREE_BINS = 5;
-	public static final int AUTO_GET_THREE_BINS_FLING = 6;
+	public static final int AUTO_GRIP_CAN = 2;
+	public static final int AUTO_GET_ONE_BIN = 3;
+	public static final int AUTO_GET_TWO_BINS = 4;
+	public static final int AUTO_GET_TWO_BINS_FLING = 5;
+	public static final int AUTO_GET_THREE_BINS = 6;
+	public static final int AUTO_GET_THREE_BINS_FLING = 7;
+
 }

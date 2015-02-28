@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
  * not finish on its own and is expected to be used via a button and whileHeld.
  */
 public class ExtenderPitPrep extends Command {
-	private boolean inward = true;
+	private boolean outward = true;
 
 	public ExtenderPitPrep(boolean inward) {
 		requires(Robot.extender);
-		this.inward = inward;
+		this.outward = inward;
 	}
 
 	// Called just before this Command runs the first time
@@ -23,7 +23,7 @@ public class ExtenderPitPrep extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (inward)
+		if (outward)
 			Robot.extender.pitPrepIn();
 		else
 			Robot.extender.pitPrepOut();

@@ -6,6 +6,7 @@ import org.usfirst.frc.team4561.robot.commands.ElevatorJog;
 import org.usfirst.frc.team4561.robot.commands.EnterTouringMode;
 import org.usfirst.frc.team4561.robot.commands.ExtenderPitPrep;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
+import org.usfirst.frc.team4561.robot.commands.JogTimed;
 import org.usfirst.frc.team4561.robot.commands.JoggingPOV;
 import org.usfirst.frc.team4561.robot.commands.MoveElevatorNonPID;
 import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
@@ -116,7 +117,7 @@ public class OI {
 	
 
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
-	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
+//	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	private MoveElevatorTriggerNonPID triggerMoveElevatorPOVNonPID = new MoveElevatorTriggerNonPID();
 	private ResetGyroTrigger triggerResetGyro = new ResetGyroTrigger();
 	private RobotRelativeTrigger triggerRobotRelative = new RobotRelativeTrigger();
@@ -149,12 +150,13 @@ public class OI {
 		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
 		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
 		inGameReelInExtender.whileHeld(new ReelInExtenderUnlimited());
-		pitPrepSlowExtenderIn.whileHeld(new ExtenderPitPrep(true));
-		pitPrepSlowExtenderOut.whileHeld(new ExtenderPitPrep(false));
+		pitPrepSlowExtenderIn.whileHeld(new ExtenderPitPrep(false));
+		pitPrepSlowExtenderOut.whileHeld(new ExtenderPitPrep(true));
 		touringModeButton.whileHeld(new EnterTouringMode());		
 		// Robot relative jogging triggers
-		triggerJogPOV.whenActive(new JoggingPOV());
-		triggerRotatePOV.whenActive(new RotatingPOV());
+		// triggerJogPOV.whenActive(new JoggingPOV());
+//		triggerRotatePOV.whenActive(new RotatingPOV());
+		triggerJogPOV.whenActive(new JogTimed(0.1));
 		
 		// Non-PID elevator trigger
 		triggerMoveElevatorPOVNonPID.whileActive(new MoveElevatorNonPID());

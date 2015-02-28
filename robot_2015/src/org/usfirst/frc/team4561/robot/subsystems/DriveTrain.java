@@ -125,6 +125,14 @@ public class DriveTrain extends PIDSubsystem {
 		fieldRelative = false;
 		setSetpoint(getNormalizedGyroAngle());
 	}
+	
+	public void driveRobotRelativeJog(double x_v, double y_v) {
+		currentX = x_v;
+		currentY = y_v;	
+		robotRelRotX = 0;
+		fieldRelative = false;
+		setSetpoint(getNormalizedGyroAngle());
+	}
 
 	public void driveFieldRelative(double x_v, double y_v, double rotationDegrees) {
 		currentX = x_v;
@@ -354,7 +362,7 @@ public class DriveTrain extends PIDSubsystem {
 		}
 		i++;
 		if(i%10 == 0){
-			System.out.println("Robot Rel: " + fieldRelative);
+			System.out.println("Field Rel: " + fieldRelative);
 			System.out.println("Thread is running: " + gyroThread.isAlive());
 			System.out.println("Set point: " + getSetpoint());
 			//System.out.println("Gyro miss count: " + gyroMissCount);
