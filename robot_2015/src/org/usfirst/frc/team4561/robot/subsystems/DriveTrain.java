@@ -133,6 +133,14 @@ public class DriveTrain extends PIDSubsystem {
 		fieldRelative = false;
 		setSetpoint(getNormalizedGyroAngle());
 	}
+	
+	public void rotateRobotRelativeJog(double rot) {
+		currentX = 0;
+		currentY = 0;	
+		robotRelRotX = rot;
+		fieldRelative = false;
+		setSetpoint(getNormalizedGyroAngle());
+	}
 
 	public void driveFieldRelative(double x_v, double y_v, double rotationDegrees) {
 		currentX = x_v;

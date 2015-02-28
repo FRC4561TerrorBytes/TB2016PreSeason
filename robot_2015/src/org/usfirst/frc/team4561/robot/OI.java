@@ -12,6 +12,7 @@ import org.usfirst.frc.team4561.robot.commands.MoveElevatorNonPID;
 import org.usfirst.frc.team4561.robot.commands.MoveElevatorTo;
 import org.usfirst.frc.team4561.robot.commands.MovePos;
 import org.usfirst.frc.team4561.robot.commands.ReelInExtenderUnlimited;
+import org.usfirst.frc.team4561.robot.commands.RotatePOVTimed;
 import org.usfirst.frc.team4561.robot.commands.RotatingPOV;
 import org.usfirst.frc.team4561.robot.commands.ResetGyro;
 import org.usfirst.frc.team4561.robot.subsystems.Elevator;
@@ -117,7 +118,7 @@ public class OI {
 	
 
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
-//	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
+	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	private MoveElevatorTriggerNonPID triggerMoveElevatorPOVNonPID = new MoveElevatorTriggerNonPID();
 	private ResetGyroTrigger triggerResetGyro = new ResetGyroTrigger();
 	private RobotRelativeTrigger triggerRobotRelative = new RobotRelativeTrigger();
@@ -156,6 +157,7 @@ public class OI {
 		// Robot relative jogging triggers
 		// triggerJogPOV.whenActive(new JoggingPOV());
 //		triggerRotatePOV.whenActive(new RotatingPOV());
+		triggerRotatePOV.whenActive(new RotatePOVTimed(0.1));
 		triggerJogPOV.whenActive(new JogTimed(0.1));
 		
 		// Non-PID elevator trigger
