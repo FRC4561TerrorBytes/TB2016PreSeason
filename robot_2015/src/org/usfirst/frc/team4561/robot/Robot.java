@@ -99,6 +99,9 @@ public class Robot extends IterativeRobot {
 		case RobotMap.AUTO_PUSH_ITEMS_SIDEWAYS:
 			autonomousCommand = new AutomodePushItemsToZoneSideways();
 			break;
+		case RobotMap.AUTO_GRIP_CAN:
+			autonomousCommand = new AutoGripCan();
+			break;
 		case RobotMap.AUTO_GET_ONE_BIN:
 			autonomousCommand = new AutoOneCan();
 			break;
@@ -111,9 +114,8 @@ public class Robot extends IterativeRobot {
 		case RobotMap.AUTO_GET_THREE_BINS:
 			autonomousCommand = new AutoThreeCan();
 			break;
-		case RobotMap.AUTO_GRIP_CAN:
-			autonomousCommand = new AutoGripCan();
-			break;
+
+			
 		default:
 			autonomousCommand = new AutoThreeCanFling();
 			break;

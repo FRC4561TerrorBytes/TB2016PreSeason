@@ -11,15 +11,21 @@ public class AutoTwoCan extends Abstract4561AutomodeGroup {
     	//Rotate: extender faces step
     	addSequential(new RotateTo(180.0));
     	//Drive Forward until hit totes, back up a bit if didn't see tape
-    	addSequential(new AutoCardinalFieldRelativeDrive(1, 28, 180, 8));
+    	//addSequential(new AutoCardinalFieldRelativeDrive(1, 28, 180, 8));
+    	//Drive Forward until hit totes
+    	addSequential(new AutoCardinalFieldRelativeDrive(1, 28, 180));
+    	//Back up a bit
+    	addSequential(new AutoCardinalFieldRelativeDrive(1, 8, 180));
     	//Strafe to "hook" easternmost can.
     	addSequential(new AutoCardinalFieldRelativeDrive(2, 25, 180));
     	//Pull first can back.
     	addSequential(new AutoCardinalFieldRelativeDrive(3, 22, 180));
     	//Strafe to gap between first and second bins
     	addSequential(new AutoCardinalFieldRelativeDrive(4, 25, 180));
-    	//Drive Forward until hit totes, back up a bit if didn't see tape
-    	addSequential(new AutoCardinalFieldRelativeDrive(1, 22, 180, 8));
+    	//Drive Forward until hit totes
+    	addSequential(new AutoCardinalFieldRelativeDrive(1, 28, 180));
+    	//Back up a bit
+    	addSequential(new AutoCardinalFieldRelativeDrive(1, 8, 180));
     	//Strafe to second can.
     	addSequential(new AutoCardinalFieldRelativeDrive(4, 25, 180));
     	//Pull second can back

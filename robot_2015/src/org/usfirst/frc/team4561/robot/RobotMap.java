@@ -131,6 +131,8 @@ public class RobotMap {
 	// Elevator selection driver station button
 	public static final String USE_PID_ELEVATOR = "DB/Button 0";
 
+	//Extender limit switch
+	public static final int EXTENDER_LIMIT_SWITCH = 3;
 	/*
 	 * Automode selection controls. Slider values will be rounded and added for
 	 * selection of automodes 0 through 10.

@@ -1,9 +1,11 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
+import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 /**
  * The long telescoping pole that will pull recycling cans 
  * off the step and over totes, preferably in automode. 
@@ -11,6 +13,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * by a button at the will of the drive team.
  */
 public class Extender extends Subsystem {
+	
+	private DigitalInput extenderLimitSwitch = new DigitalInput(RobotMap.EXTENDER_LIMIT_SWITCH);
+	
 	private static final double REEL_IN_POWER = 1.0;
 	private static final double PIT_PREP_POWER = 1.0;
 
@@ -34,5 +39,8 @@ public class Extender extends Subsystem {
 	
 	public void pitPrepOut() {
 		motor.set(PIT_PREP_POWER);
+	}
+	public boolean isLimitSwitchPressed() {
+		return extenderLimitSwitch.get();
 	}
 }

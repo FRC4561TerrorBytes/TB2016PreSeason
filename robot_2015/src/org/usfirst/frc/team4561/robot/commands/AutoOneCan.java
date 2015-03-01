@@ -10,8 +10,13 @@ public class AutoOneCan extends Abstract4561AutomodeGroup {
     	
     	//Rotate: extender faces step
     	addSequential(new RotateTo(180.0));
+    	
     	//Drive Forward until hit totes, back up a bit if didn't see tape
-    	addSequential(new AutoCardinalFieldRelativeDrive(1, 28, 180, 8));
+    	//addSequential(new AutoCardinalFieldRelativeDrive(1, 28, 180, 8));
+    	
+    	//Drive Forward until hit totes, back up a bit
+    	addSequential(new AutoCardinalFieldRelativeDrive(1, 28, 180));
+    	addSequential(new AutoCardinalFieldRelativeDrive(3, 8, 180));
     	//Strafe to "hook" easternmost can.
     	addSequential(new AutoCardinalFieldRelativeDrive(2, 25, 180));
     	//Pull can back.

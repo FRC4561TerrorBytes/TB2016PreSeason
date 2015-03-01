@@ -36,10 +36,10 @@ public class JogTimed extends Command {
         	Robot.driveTrain.driveRobotRelativeJog(0, -0.5);
     	}
     	else if(currentDirection == RIGHT) {
-        	Robot.driveTrain.driveRobotRelativeJog(0.5, 0);
+        	Robot.driveTrain.driveRobotRelativeJog(1, 0);
     	}
     	else if(currentDirection == BACKWARD) {
-        	Robot.driveTrain.driveRobotRelativeJog(0, 0.5);
+        	Robot.driveTrain.driveRobotRelativeJog(0, 1);
     	}
     	else if(currentDirection == LEFT) {
         	Robot.driveTrain.driveRobotRelativeJog(-0.5, 0);

@@ -32,10 +32,10 @@ public class RotatePOVTimed extends Command {
     protected void execute() {
     	currentDirection = Robot.oi.getRotatePOV();
     	if(currentDirection == RIGHT || currentDirection == RIGHT_FORWARD || currentDirection == BACKWARD_RIGHT) {
-        	Robot.driveTrain.rotateRobotRelativeJog(-0.5);
+        	Robot.driveTrain.rotateRobotRelativeJog(0.5);
     	}
     	else if(currentDirection == LEFT || currentDirection == FORWARD_LEFT || currentDirection == LEFT_BACKWARD) {
-        	Robot.driveTrain.rotateRobotRelativeJog(0.5);
+        	Robot.driveTrain.rotateRobotRelativeJog(-0.5);
     	}
     }
 
