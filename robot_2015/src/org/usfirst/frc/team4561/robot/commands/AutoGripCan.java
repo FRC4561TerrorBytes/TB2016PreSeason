@@ -3,8 +3,13 @@ package org.usfirst.frc.team4561.robot.commands;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 
-/**
- *
+/** 
+ * Command to be run during autonomous mode
+ * 
+ * START: Elevator facing south, above tote level. Extender unextended.
+ * Claw around RC in the western staging zone.
+ * 
+ * END: Claw facing eastern guardrail.
  */
 public class AutoGripCan extends Abstract4561AutomodeGroup {
     
