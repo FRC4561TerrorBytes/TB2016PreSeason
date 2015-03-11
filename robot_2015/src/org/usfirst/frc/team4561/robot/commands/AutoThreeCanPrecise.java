@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4561.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-
 /** 
  * Command to be run during autonomous mode
  * 

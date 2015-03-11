@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4561.robot.commands;
 
-import edu.wpi.first.wpilibj.command.WaitCommand;
-
 
 /** 
  * Command to be run during autonomous mode
