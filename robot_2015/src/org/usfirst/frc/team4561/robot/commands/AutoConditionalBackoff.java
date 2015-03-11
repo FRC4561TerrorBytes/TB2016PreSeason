@@ -11,25 +11,24 @@ public class AutoConditionalBackoff extends PIDCommand {
 
 	private static final double INCHES_FOR_FULL_POWER = 12;
 	private static final double MIN_ABSOLUTE_POWER = 0.1;
-	private boolean sawTape;
 	private double maintainedRot;
 	private double seenTapeInches;
 	private double notSeenTapeInches;
-
+	private AutoCardinalFieldRelativeDriveWithTape driveToTapeCommand;
 	
-    public AutoConditionalBackoff(double seenTapeInches, double notSeenTapeInches, AutoCardinalFieldRelativeDrive driveCommand) {
+    public AutoConditionalBackoff(double seenTapeInches, double notSeenTapeInches, AutoCardinalFieldRelativeDriveWithTape driveToTapeCommand) {
     	super(0.3/INCHES_FOR_FULL_POWER, 0, 0);
     	requires(Robot.driveTrain);
     	getPIDController().setOutputRange(-0.8, 0.8);
         Robot.driveTrain.fullEncoderReset();
         getPIDController().setAbsoluteTolerance(1);
-        this.sawTape = driveCommand.hasSeenTape;
-        this.maintainedRot = driveCommand.maintainedRot;
+        this.maintainedRot = driveToTapeCommand.maintainedRot;
+        this.driveToTapeCommand = driveToTapeCommand;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(sawTape) {
+    	if(this.driveToTapeCommand.didSeeTape()) {
     		setSetpoint(seenTapeInches);
     	}
     	else {
@@ -77,6 +76,7 @@ public class AutoConditionalBackoff extends PIDCommand {
 			else
 				motorPower = -MIN_ABSOLUTE_POWER;
 		}
+		// Assumed direction of 3 (aka south)
 		Robot.driveTrain.driveFieldRelative(0, motorPower, maintainedRot);
 		
 	}

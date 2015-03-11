@@ -16,7 +16,7 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
 	int direction;
 	double maintainedRot;
 	double inches;
-	boolean hasSeenTape = false;
+	
 	/**
 	 * Drive in a certain direction a certain length
 	 * To be used only in the AutoMode command
@@ -45,7 +45,6 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	hasSeenTape = Robot.driveTrain.hasSeenTape;
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -67,6 +66,7 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 
 	@Override
