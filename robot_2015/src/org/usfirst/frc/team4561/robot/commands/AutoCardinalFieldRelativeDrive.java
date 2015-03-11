@@ -16,9 +16,7 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
 	int direction;
 	double maintainedRot;
 	double inches;
-	double backOff;
 	boolean hasSeenTape = false;
-	boolean backingOff = false;
 	/**
 	 * Drive in a certain direction a certain length
 	 * To be used only in the AutoMode command
@@ -29,7 +27,7 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
 	 * 4 = west
 	 * @param inches
 	 */
-    public AutoCardinalFieldRelativeDrive(int direction, double inches, double maintainedRot, double backOff) {
+    public AutoCardinalFieldRelativeDrive(int direction, double inches, double maintainedRot) {
     	super(0.3/INCHES_FOR_FULL_POWER, 0, 0);
         requires(Robot.driveTrain);
         getPIDController().setOutputRange(-0.8, 0.8);
@@ -38,11 +36,6 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
         this.direction = direction;
         this.inches = inches;
         this.maintainedRot = maintainedRot;
-        this.backOff = backOff;
-    }
-    
-    public AutoCardinalFieldRelativeDrive(int direction, double inches, double maintainedRot) {
-    	this(direction, inches, maintainedRot, 0);
     }
 
     // Called just before this Command runs the first time
@@ -53,38 +46,12 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	hasSeenTape = Robot.driveTrain.hasSeenTape;
-    	if(backingOff) {
-    		direction = 3; 
-    		setSetpoint(backOff);
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(backOff != 0 && hasSeenTape) {
+    	if(getPIDController().onTarget()) {
     		return true;
-    	}
-    	if(backOff != 0 && getPIDController().onTarget()){
-    		backingOff = true;
-    		return false;
-    	}
-    	if(!hasSeenTape && !getPIDController().onTarget()){
-    		return false;
-    	}
-    	//Start backing off
-    	if(backOff != 0 && !hasSeenTape && getPIDController().onTarget() && !backingOff) {
-    		backingOff = true;
-    		return false;
-    	}
-    	//Done backing off
-    	if(backOff != 0 && !hasSeenTape && getPIDController().onTarget() && backingOff) {
-    		return true;
-    	}
-    	if(backOff == 0 && getPIDController().onTarget()) {
-    		return true;
-    	}
-    	if(backOff == 0 && !getPIDController().onTarget()) {
-    		return false;
     	}
     	else {
     		return false;

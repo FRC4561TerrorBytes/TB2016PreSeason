@@ -19,8 +19,10 @@ public class AutoThreeCanFling extends Abstract4561AutomodeGroup {
     	addSequential(new CommonAutoOneCan());
     	//Get second can
     	addSequential(new CommonAutoTwoCan());
-    	//Drive Forward until hit totes, back up a bit if didn't see tape
-    	addSequential(new AutoCardinalFieldRelativeDrive(1, 24, 180, 0.5));
+    	//Drive Forward until hit totes
+    	addSequential(new AutoCardinalFieldRelativeDrive(1, 24, 180));
+    	//Back up a bit if didn't see tape
+    	addSequential(new AutoCardinalFieldRelativeDrive(3, 0.5, 180));
     	//Strafe into gap
     	addSequential(new AutoCardinalFieldRelativeDrive(4, 79.8, 180));
     	//Drive into gap
