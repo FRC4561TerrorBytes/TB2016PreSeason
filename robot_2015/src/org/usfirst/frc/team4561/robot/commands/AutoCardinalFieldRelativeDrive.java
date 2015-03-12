@@ -13,9 +13,9 @@ public class AutoCardinalFieldRelativeDrive extends PIDCommand {
 	
 	private static final double MIN_ABSOLUTE_POWER = 0.1;
 	
-	int direction;
-	double maintainedRot;
-	double inches;
+	private int direction;
+	private double maintainedRot;
+	private double inches;
 	
 	/**
 	 * Drive in a certain direction a certain length

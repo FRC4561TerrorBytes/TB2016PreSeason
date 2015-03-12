@@ -9,7 +9,7 @@ import org.usfirst.frc.team4561.robot.Robot;
  *
  */
 public class AutoCardinalFieldRelativeDriveWithTape extends
-		AutoCardinalFieldRelativeDrive {
+		AutoCardinalFieldRelativeDrive implements ISensorStoppableDriveCommand {
 	
 	private boolean hasSeenTape = false;
 
@@ -38,7 +38,7 @@ public class AutoCardinalFieldRelativeDriveWithTape extends
 	 * Call this after this command has finished.
 	 * @return
 	 */
-	public boolean didSeeTape() {
+	public boolean didSensorStop() {
 		return hasSeenTape;
 	}
 

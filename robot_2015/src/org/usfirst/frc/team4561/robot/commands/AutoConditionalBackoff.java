@@ -12,27 +12,29 @@ public class AutoConditionalBackoff extends PIDCommand {
 	private static final double INCHES_FOR_FULL_POWER = 12;
 	private static final double MIN_ABSOLUTE_POWER = 0.1;
 	private double maintainedRot;
-	private double seenTapeInches;
-	private double notSeenTapeInches;
-	private AutoCardinalFieldRelativeDriveWithTape driveToTapeCommand;
+	private double sensorStoppedInches;
+	private double notSensorStoppedInches;
+	private ISensorStoppableDriveCommand sensorStoppableCommand;
 	
-    public AutoConditionalBackoff(double seenTapeInches, double notSeenTapeInches, AutoCardinalFieldRelativeDriveWithTape driveToTapeCommand) {
+    public AutoConditionalBackoff(double sensorStoppedInches, double notSensorStoppedInches, double maintainedRot, ISensorStoppableDriveCommand sensorStoppableCommand) {
     	super(0.3/INCHES_FOR_FULL_POWER, 0, 0);
     	requires(Robot.driveTrain);
     	getPIDController().setOutputRange(-0.8, 0.8);
         Robot.driveTrain.fullEncoderReset();
         getPIDController().setAbsoluteTolerance(1);
-        this.maintainedRot = driveToTapeCommand.maintainedRot;
-        this.driveToTapeCommand = driveToTapeCommand;
+        this.sensorStoppedInches = sensorStoppedInches;
+        this.notSensorStoppedInches = notSensorStoppedInches;
+        this.maintainedRot = maintainedRot;
+        this.sensorStoppableCommand = sensorStoppableCommand;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(this.driveToTapeCommand.didSeeTape()) {
-    		setSetpoint(seenTapeInches);
+    	if(this.sensorStoppableCommand.didSensorStop()) {
+    		setSetpoint(sensorStoppedInches);
     	}
     	else {
-    		setSetpoint(notSeenTapeInches);
+    		setSetpoint(notSensorStoppedInches);
     	}
     }
 
