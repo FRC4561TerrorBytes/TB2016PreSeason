@@ -22,7 +22,7 @@ public class AutoThreeCan extends Abstract4561AutomodeGroup {
     	//Back up a bit
     	addSequential(new AutoCardinalFieldRelativeDrive(3, 1.5, 180));
     	//Strafe into gap
-    	addSequential(new AutoCardinalFieldRelativeDrive(4, 79.8, 180));
+    	addSequential(new AutoCardinalFieldRelativeDrive(4, 129.8, 180));
     	//Drive into gap
     	addSequential(new AutoCardinalFieldRelativeDrive(1, 12, 180));
     	//Rotate to "hook" third can

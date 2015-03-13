@@ -25,7 +25,7 @@ public class AutoFourCan extends CommandGroup {
     	//Back up a bit
     	addSequential(new AutoCardinalFieldRelativeDrive(3, 1.5, 180));
     	//Precisely strafe between landfill and scoring platform to "hook" third can
-    	addSequential(new AutoCardinalFieldRelativeDrive(4, 111, 180));
+    	addSequential(new AutoCardinalFieldRelativeDrive(4, 161, 180));
     	//Pull third can back
     	addSequential(new AutoCardinalFieldRelativeDrive(3, 22, 180));
     	//Drive Forward until hit totes
