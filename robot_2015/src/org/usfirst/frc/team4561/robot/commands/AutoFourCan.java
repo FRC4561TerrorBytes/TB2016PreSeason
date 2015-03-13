@@ -21,17 +21,21 @@ public class AutoFourCan extends CommandGroup {
     	//Get second can
     	addSequential(new CommonAutoTwoCan());
     	//Drive Forward until hit totes
-    	addSequential(new AutoCardinalFieldRelativeDrive(1, 22, 180));
+    	AutoCardinalFieldRelativeDriveWithTape forward = new AutoCardinalFieldRelativeDriveWithTape(1, 22, 180);
+    	addSequential(forward);
     	//Back up a bit
-    	addSequential(new AutoCardinalFieldRelativeDrive(3, 1.5, 180));
+    	addSequential(new AutoConditionalBackoff(0, 2, 180, forward));
+    	//TODO AutoConditionalBackoff will accept a 0 for movement, right?
     	//Precisely strafe between landfill and scoring platform to "hook" third can
     	addSequential(new AutoCardinalFieldRelativeDrive(4, 161, 180));
     	//Pull third can back
     	addSequential(new AutoCardinalFieldRelativeDrive(3, 22, 180));
     	//Drive Forward until hit totes
-    	addSequential(new AutoCardinalFieldRelativeDrive(1, 28, 180));
+    	forward = new AutoCardinalFieldRelativeDriveWithTape(1, 28, 180);
+    	addSequential(forward);
     	//Back up a bit
-    	addSequential(new AutoCardinalFieldRelativeDrive(3, 1.5, 180));
+    	addSequential(new AutoConditionalBackoff(0, 2, 180, forward));
+    	//TODO AutoConditionalBackoff will accept a 0 for movement, right?
     	//Precisely strafe to "hook" the fourth and final can
     	addSequential(new AutoCardinalFieldRelativeDrive(4, 63, 180));
     	//Pull fourth can back

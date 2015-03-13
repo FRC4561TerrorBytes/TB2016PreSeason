@@ -18,9 +18,10 @@ public class AutoThreeCanPrecise extends Abstract4561AutomodeGroup {
     	//Get second can
     	addSequential(new CommonAutoTwoCan());
     	//Drive Forward until hit totes
-    	addSequential(new AutoCardinalFieldRelativeDrive(1, 22, 180));
+    	AutoCardinalFieldRelativeDriveWithTape forward = new AutoCardinalFieldRelativeDriveWithTape(1, 22, 180);
+    	addSequential(forward);
     	//Back up a bit
-    	addSequential(new AutoCardinalFieldRelativeDrive(3, 1.5, 180));
+    	addSequential(new AutoConditionalBackoff(1, 3, 180, forward));
     	//Precisely strafe between landfill and scoring platform to "hook" third can
     	addSequential(new AutoCardinalFieldRelativeDrive(4, 161, 180));
     	//Pull third can back

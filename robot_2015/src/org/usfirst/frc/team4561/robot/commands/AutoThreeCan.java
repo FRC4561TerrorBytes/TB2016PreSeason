@@ -18,9 +18,10 @@ public class AutoThreeCan extends Abstract4561AutomodeGroup {
     	//Get second can
     	addSequential(new CommonAutoTwoCan());
     	//Drive Forward until hit totes
-    	addSequential(new AutoCardinalFieldRelativeDrive(1, 22, 180));
+    	AutoCardinalFieldRelativeDriveWithTape forward = new AutoCardinalFieldRelativeDriveWithTape(1, 22, 180);
+    	addSequential(forward);
     	//Back up a bit
-    	addSequential(new AutoCardinalFieldRelativeDrive(3, 1.5, 180));
+    	addSequential(new AutoConditionalBackoff(1, 3, 180, forward));
     	//Strafe into gap
     	addSequential(new AutoCardinalFieldRelativeDrive(4, 129.8, 180));
     	//Drive into gap
