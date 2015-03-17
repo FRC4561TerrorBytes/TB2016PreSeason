@@ -16,18 +16,8 @@ public class AutoTwoCanFling extends Abstract4561AutomodeGroup {
     public  AutoTwoCanFling() {
 
     	addSequential(new CommonAutoOneCan());
-    	//Strafe to gap between first and second bins
-    	addSequential(new AutoCardinalFieldRelativeDrive(4, 25, 180));
-    	//Drive Forward until hit totes
-    	//Drive Forward until hit totes
-    	AutoCardinalFieldRelativeDriveWithTape forward = new AutoCardinalFieldRelativeDriveWithTape(1, 22, 180);
-    	addSequential(forward);
-    	//Back up a bit
-    	addSequential(new AutoConditionalBackoff(3, 8, 180, forward));
-    	//Strafe to second can
-    	addSequential(new AutoCardinalFieldRelativeDrive(4, 25, 180));
-    	//Pull second can back
-    	addSequential(new AutoCardinalFieldRelativeDrive(3, 22, 180));
+    	//Get second can
+    	addSequential(new CommonAutoTwoCan());
     	//Drive to autozone while flinging
     	addSequential(new AutoCardinalFieldRelativeDrive(3, 48.5, 90));
     }

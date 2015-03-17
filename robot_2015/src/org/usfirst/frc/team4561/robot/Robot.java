@@ -1,18 +1,18 @@
 package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.commands.Abstract4561AutomodeGroup;
+import org.usfirst.frc.team4561.robot.commands.AutoFourCan;
 import org.usfirst.frc.team4561.robot.commands.AutoGripCan;
 import org.usfirst.frc.team4561.robot.commands.AutoOneCan;
 import org.usfirst.frc.team4561.robot.commands.AutoThreeCan;
 import org.usfirst.frc.team4561.robot.commands.AutoThreeCanFling;
+import org.usfirst.frc.team4561.robot.commands.AutoThreeCanPrecise;
 import org.usfirst.frc.team4561.robot.commands.AutoTwoCan;
 import org.usfirst.frc.team4561.robot.commands.AutoTwoCanFling;
 import org.usfirst.frc.team4561.robot.commands.AutomodeDoNothing;
 import org.usfirst.frc.team4561.robot.commands.AutomodePushItemsToZoneSideways;
-import org.usfirst.frc.team4561.robot.commands.ReelOutExtenderEndOfMatch;
 import org.usfirst.frc.team4561.robot.subsystems.Claw;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 import org.usfirst.frc.team4561.robot.subsystems.ElevatorNonPID;
 import org.usfirst.frc.team4561.robot.subsystems.Extender;
 import org.usfirst.frc.team4561.robot.subsystems.IElevator;
@@ -114,10 +114,17 @@ public class Robot extends IterativeRobot {
 		case RobotMap.AUTO_GET_THREE_BINS:
 			autonomousCommand = new AutoThreeCan();
 			break;
-
-			
-		default:
+		case RobotMap.AUTO_GET_THREE_BINS_FLING:
 			autonomousCommand = new AutoThreeCanFling();
+			break;
+		case RobotMap.AUTO_GET_THREE_BINS_PRECISE:
+			autonomousCommand = new AutoThreeCanPrecise();
+			break;
+		case RobotMap.AUTO_GET_FOUR_BINS:
+			autonomousCommand = new AutoFourCan();
+			break;
+		default:
+			autonomousCommand = new AutoFourCan();
 			break;
 		}
 		

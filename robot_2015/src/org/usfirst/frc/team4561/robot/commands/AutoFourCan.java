@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4561.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /** 
  * Command to be run during autonomous mode
@@ -12,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * END: Claw facing western guardrail, Extender out 80"(6'8"), robot positioned in western half
  * of the autozone.
  */
-public class AutoFourCan extends CommandGroup {
+public class AutoFourCan extends Abstract4561AutomodeGroup {
     
     public  AutoFourCan() {
 
@@ -48,4 +47,9 @@ public class AutoFourCan extends CommandGroup {
     	// ACHEIVE EPIC WIN   	
     	
     }
+
+	@Override
+	public double getStartAngle() {
+		return 90.0;
+	}
 }

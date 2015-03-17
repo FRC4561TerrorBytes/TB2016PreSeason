@@ -154,5 +154,7 @@ public class RobotMap {
 	public static final int AUTO_GET_TWO_BINS_FLING = 5;
 	public static final int AUTO_GET_THREE_BINS = 6;
 	public static final int AUTO_GET_THREE_BINS_FLING = 7;
+	public static final int AUTO_GET_THREE_BINS_PRECISE = 8;
+	public static final int AUTO_GET_FOUR_BINS = 9;
 
 }
