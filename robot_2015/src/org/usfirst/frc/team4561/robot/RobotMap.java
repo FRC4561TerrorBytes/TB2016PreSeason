@@ -66,6 +66,7 @@ public class RobotMap {
 	public static final int JOG_ELEVATOR_UP_BUTTON = RIGHT_BUMPER; //JD
 	public static final int OPEN_CLAW = BACK_BUTTON;
 	public static final int CLOSE_CLAW = START_BUTTON;
+	public static final int ELEVATOR_TOURING_MODE_BUTTON = RIGHT_BUMPER;
 	
 	/*
 	 * Tape Sensor

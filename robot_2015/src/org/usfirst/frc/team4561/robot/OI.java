@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot;
 import org.usfirst.frc.team4561.robot.commands.ClawGrab;
 import org.usfirst.frc.team4561.robot.commands.ClawRelease;
 import org.usfirst.frc.team4561.robot.commands.ElevatorJog;
+import org.usfirst.frc.team4561.robot.commands.EnterElevatorTouringMode;
 import org.usfirst.frc.team4561.robot.commands.EnterTouringMode;
 import org.usfirst.frc.team4561.robot.commands.ExtenderPitPrep;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
@@ -61,7 +62,9 @@ public class OI {
 
 	private boolean robotIsRelative = false;
 	private static final double TOURING_MODE_MULTIPLIER = 0.5;
+	private static final double ELEVATOR_TOURING_MODE_MULTIPLIER = 0.7;
 	private boolean isTouringMode = false;
+	private boolean isElevatorTouringMode = false;
 	
 	/*
 	 * MecanumDrive system controls
@@ -97,24 +100,28 @@ public class OI {
 	
 	// The next 7 are only wired to commands if the elevator subsystem
 	// is actually the PID subsystem.
-	private JoystickButton objectOnGroundButton = new JoystickButton(controller,
-			RobotMap.OBJECT_ON_GROUND_BUTTON);
-	private JoystickButton objectOnToteButton = new JoystickButton(controller,
-			RobotMap.OBJECT_ON_TOTE_BUTTON);
-	private JoystickButton noodleChuteSidewaysButton = new JoystickButton(controller,
-			RobotMap.RC_NOODLE_SIDEWAYS);
-	private JoystickButton noodleChuteUprightButton = new JoystickButton(controller,
-			RobotMap.RC_NOODLE_UPRIGHT);
-	private JoystickButton jogElevatorUpButton = new JoystickButton(controller,
-			RobotMap.JOG_ELEVATOR_UP_BUTTON);
-	private JoystickButton jogElevatorDownButton = new JoystickButton(controller,
-			RobotMap.JOG_ELEVATOR_DOWN_BUTTON);
+//	private JoystickButton objectOnGroundButton = new JoystickButton(controller,
+//			RobotMap.OBJECT_ON_GROUND_BUTTON);
+//	private JoystickButton objectOnToteButton = new JoystickButton(controller,
+//			RobotMap.OBJECT_ON_TOTE_BUTTON);
+//	private JoystickButton noodleChuteSidewaysButton = new JoystickButton(controller,
+//			RobotMap.RC_NOODLE_SIDEWAYS);
+//	private JoystickButton noodleChuteUprightButton = new JoystickButton(controller,
+//			RobotMap.RC_NOODLE_UPRIGHT);
+//	private JoystickButton jogElevatorUpButton = new JoystickButton(controller,
+//			RobotMap.JOG_ELEVATOR_UP_BUTTON);
+//	private JoystickButton jogElevatorDownButton = new JoystickButton(controller,
+//			RobotMap.JOG_ELEVATOR_DOWN_BUTTON);
 	private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
 	
 	private JoystickButton openClawButton = new JoystickButton(controller,
 			RobotMap.OPEN_CLAW);
 	private JoystickButton closeClawButton = new JoystickButton(controller,
 			RobotMap.CLOSE_CLAW);
+	
+	private JoystickButton elevatorTouringModeButton = new JoystickButton(controller,
+			RobotMap.ELEVATOR_TOURING_MODE_BUTTON);
+	
 	
 
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
@@ -153,7 +160,8 @@ public class OI {
 		inGameReelInExtender.whileHeld(new ReelInExtenderUnlimited());
 		pitPrepSlowExtenderIn.whileHeld(new ExtenderPitPrep(false));
 		pitPrepSlowExtenderOut.whileHeld(new ExtenderPitPrep(true));
-		touringModeButton.whileHeld(new EnterTouringMode());		
+		touringModeButton.whileHeld(new EnterTouringMode());
+		elevatorTouringModeButton.whileHeld(new EnterElevatorTouringMode());
 		// Robot relative jogging triggers
 		// triggerJogPOV.whenActive(new JoggingPOV());
 //		triggerRotatePOV.whenActive(new RotatingPOV());
@@ -169,12 +177,12 @@ public class OI {
 		// PID elevator trigger and buttons
 		if (Robot.commonElevator instanceof Elevator) {
 			triggerMovePosPOV.whenActive(new MovePos());
-			objectOnGroundButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
-			objectOnToteButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUpOffTote));
-			noodleChuteUprightButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
-			noodleChuteSidewaysButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
-			jogElevatorUpButton.whenPressed(new ElevatorJog(true));
-			jogElevatorDownButton.whenPressed(new ElevatorJog(false));
+//			objectOnGroundButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
+//			objectOnToteButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUpOffTote));
+//			noodleChuteUprightButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
+//			noodleChuteSidewaysButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
+//			jogElevatorUpButton.whenPressed(new ElevatorJog(true));
+//			jogElevatorDownButton.whenPressed(new ElevatorJog(false));
 		}
 		
 		openClawButton.whenPressed(new ClawRelease());
@@ -265,5 +273,16 @@ public class OI {
 		return TOURING_MODE_MULTIPLIER;
 	}
 	
+	public boolean isElevatorTouringMode() {
+		return isElevatorTouringMode;
+	}
+	
+	public void setElevatorTouringMode(boolean on) {
+		isElevatorTouringMode = on;
+	}
+	
+	public double getElevatorTouringPower() {
+		return ELEVATOR_TOURING_MODE_MULTIPLIER;
+	}
 
 }
