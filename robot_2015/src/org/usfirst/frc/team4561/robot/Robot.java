@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot;
 import org.usfirst.frc.team4561.robot.commands.Abstract4561AutomodeGroup;
 import org.usfirst.frc.team4561.robot.commands.AutoFourCan;
 import org.usfirst.frc.team4561.robot.commands.AutoGripCan;
+import org.usfirst.frc.team4561.robot.commands.AutoNudgeExtOut;
 import org.usfirst.frc.team4561.robot.commands.AutoOneCan;
 import org.usfirst.frc.team4561.robot.commands.AutoThreeCan;
 import org.usfirst.frc.team4561.robot.commands.AutoThreeCanFling;
@@ -103,7 +104,8 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new AutoGripCan();
 			break;
 		case RobotMap.AUTO_GET_ONE_BIN:
-			autonomousCommand = new AutoOneCan();
+//			autonomousCommand = new AutoOneCan();
+			autonomousCommand = new AutoNudgeExtOut();
 			break;
 		case RobotMap.AUTO_GET_TWO_BINS:
 			autonomousCommand = new AutoTwoCan();
@@ -124,11 +126,12 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new AutoFourCan();
 			break;
 		default:
-			autonomousCommand = new AutoFourCan();
+			autonomousCommand = new AutomodeDoNothing();
 			break;
 		}
 		
 		if (autonomousCommand != null) {
+			driveTrain.setP(10/180.0);
 			driveTrain.setStartAngle(autonomousCommand.getStartAngle());
 			autonomousCommand.start();
 		}
@@ -146,8 +149,10 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
+			driveTrain.setP(1.6/180.0);
+		}
 //		ReelOutExtenderEndOfMatch prepForTransport = new ReelOutExtenderEndOfMatch();
 //		prepForTransport.start();
 	}

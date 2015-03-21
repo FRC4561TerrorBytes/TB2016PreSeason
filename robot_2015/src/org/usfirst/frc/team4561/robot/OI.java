@@ -66,6 +66,7 @@ public class OI {
 	private boolean isTouringMode = false;
 	private boolean isElevatorTouringMode = false;
 	
+	private final double DRIVE_STICK_REDUCTION = 0.1;
 	/*
 	 * MecanumDrive system controls
 	 */
@@ -218,6 +219,12 @@ public class OI {
 		if(Math.abs(driveStickY) < RobotMap.DRIVE_DEAD_ZONE) {
 			driveStickY = 0;
 		}
+		if(driveStickY > 0) {
+			driveStickY = driveStickY - DRIVE_STICK_REDUCTION;
+		}
+		else if(driveStickY < 0) {
+			driveStickY = driveStickY + DRIVE_STICK_REDUCTION;
+		}
 		return driveStickY;
 		// return xBoxDriveStick.getY();
 	}
@@ -233,6 +240,12 @@ public class OI {
 		double driveStickX = driveStick.getX();
 		if(Math.abs(driveStickX) < RobotMap.DRIVE_DEAD_ZONE) {
 			driveStickX = 0;
+		}
+		if(driveStickX > 0) {
+			driveStickX = driveStickX - DRIVE_STICK_REDUCTION;
+		}
+		else if(driveStickX < 0) {
+			driveStickX = driveStickX + DRIVE_STICK_REDUCTION;
 		}
 		return driveStickX;
 		// return xBoxDriveStick.getX();

@@ -16,7 +16,7 @@ public class CommonAutoOneCan extends CommandGroup {
     	//Back up a bit
     	addSequential(new AutoConditionalBackoff(3, 8, 180, forward));
     	//Strafe to "hook" second-to-easternmost can.
-    	addSequential(new AutoCardinalFieldRelativeDrive(4, 25, 180));
+    	addSequential(new AutoCardinalFieldRelativeDrive(4, 35, 180));
     	//Pull can back.
     	addSequential(new AutoCardinalFieldRelativeDrive(3, 22, 180));
     }

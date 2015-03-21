@@ -23,7 +23,7 @@ public class AutoOneCan extends Abstract4561AutomodeGroup {
     	//Drive to autozone
     	addSequential(new AutoCardinalFieldRelativeDrive(3, 48.5, 180));
     	//Rotate to fit in autozone
-    	addSequential(new RotateTo(-90.0));
+    	addSequential(new RotateTo(90.0));
     	//TODO should this end facing west wall?
     }
 

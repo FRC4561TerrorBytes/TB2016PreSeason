@@ -9,8 +9,8 @@ import org.usfirst.frc.team4561.robot.Robot;
  */
 public class AutoConditionalBackoff extends PIDCommand {
 
-	private static final double INCHES_FOR_FULL_POWER = 12;
-	private static final double MIN_ABSOLUTE_POWER = 0.1;
+	private static final double INCHES_FOR_FULL_POWER = 4;
+	private static final double MIN_ABSOLUTE_POWER = 0.4;
 	private double maintainedRot;
 	private double sensorStoppedInches;
 	private double notSensorStoppedInches;

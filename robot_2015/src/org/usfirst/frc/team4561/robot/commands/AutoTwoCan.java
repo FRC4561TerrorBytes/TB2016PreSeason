@@ -19,7 +19,7 @@ public class AutoTwoCan extends Abstract4561AutomodeGroup {
     	//Get second can
     	addSequential(new CommonAutoTwoCan());
     	//Drive to autozone
-    	addSequential(new AutoCardinalFieldRelativeDrive(3, 48.5, 180));
+    	addSequential(new AutoCardinalFieldRelativeDrive(3, 20, 180));
     	//Rotate to fit in autozone
     	addSequential(new RotateTo(90.0));
     }
