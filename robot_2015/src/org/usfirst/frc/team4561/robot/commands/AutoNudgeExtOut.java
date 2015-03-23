@@ -8,7 +8,7 @@ package org.usfirst.frc.team4561.robot.commands;
 public class AutoNudgeExtOut extends Abstract4561AutomodeGroup {
     
     public  AutoNudgeExtOut() {
-        addSequential(new AutoCardinalFieldRelativeDrive(3, 48, 90));
+        addSequential(new AutoCardinalFieldRelativeDrive(3, 80, 90));
         addSequential(new ClawGrab());
     }
 
