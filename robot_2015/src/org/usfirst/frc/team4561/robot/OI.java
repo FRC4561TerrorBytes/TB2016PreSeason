@@ -23,6 +23,7 @@ import org.usfirst.frc.team4561.robot.triggers.MovePosPOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.RobotRelativeTrigger;
 import org.usfirst.frc.team4561.robot.triggers.RotatePOVTrigger;
 import org.usfirst.frc.team4561.robot.triggers.ResetGyroTrigger;
+import org.usfirst.frc.team4561.robot.triggers.TouringModeTrigger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -77,6 +78,7 @@ public class OI {
 	private JoystickButton robotRelativeButton = new JoystickButton(driveStick,
 			RobotMap.ROBOT_RELATIVE_BUTTON);
 	
+	//Individual Motor Drive Buttons
 	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
 			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
 	private JoystickButton driveRearLeft = new JoystickButton(driveStick,
@@ -85,19 +87,29 @@ public class OI {
 			RobotMap.FRONT_RIGHT_MOTOR_BUTTON);
 	private JoystickButton driveRearRight = new JoystickButton(driveStick,
 			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
+	
+	//Extender Buttons
 	private JoystickButton inGameReelInExtender = new JoystickButton(driveStick,
 			RobotMap.IN_GAME_REEL_IN_EXTENDER);
 	private JoystickButton pitPrepSlowExtenderIn = new JoystickButton(driveStick,
 			RobotMap.PIT_PREP_SLOW_EXTENDER_IN);
 	private JoystickButton pitPrepSlowExtenderOut = new JoystickButton(driveStick,
 			RobotMap.PIT_PREP_SLOW_EXTENDER_OUT);
-	private JoystickButton touringModeButton = new JoystickButton(driveStick, RobotMap.TOURING_MODE_BUTTON);
 	
+	//Touring Mode Buttons
+	private JoystickButton touringModeButton = new JoystickButton(driveStick, RobotMap.TOURING_MODE_BUTTON);
+	private JoystickButton elevatorTouringModeButton = new JoystickButton(controller, RobotMap.ELEVATOR_TOURING_MODE_BUTTON);
+	//Gyro Reset Combo
 	private JoystickButton gyroResetButton1 = new JoystickButton(rotationStick,
 			RobotMap.GYRO_RESET_BUTTON_1);
 	private JoystickButton gyroResetButton2 = new JoystickButton(rotationStick,
 			RobotMap.GYRO_RESET_BUTTON_2);
 	
+	//Claw Buttons
+	private JoystickButton openClawButton = new JoystickButton(controller,
+			RobotMap.OPEN_CLAW);
+	private JoystickButton closeClawButton = new JoystickButton(controller,
+			RobotMap.CLOSE_CLAW);
 	
 	// The next 7 are only wired to commands if the elevator subsystem
 	// is actually the PID subsystem.
@@ -115,28 +127,20 @@ public class OI {
 //			RobotMap.JOG_ELEVATOR_DOWN_BUTTON);
 	private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
 	
-	private JoystickButton openClawButton = new JoystickButton(controller,
-			RobotMap.OPEN_CLAW);
-	private JoystickButton closeClawButton = new JoystickButton(controller,
-			RobotMap.CLOSE_CLAW);
-	
-	private JoystickButton elevatorTouringModeButton = new JoystickButton(controller,
-			RobotMap.ELEVATOR_TOURING_MODE_BUTTON);
-	
-	
-
+	//Triggers
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
 	private RotatePOVTrigger triggerRotatePOV = new RotatePOVTrigger();
 	private MoveElevatorTriggerNonPID triggerMoveElevatorPOVNonPID = new MoveElevatorTriggerNonPID();
 	private ResetGyroTrigger triggerResetGyro = new ResetGyroTrigger();
 	private RobotRelativeTrigger triggerRobotRelative = new RobotRelativeTrigger();
+	private TouringModeTrigger triggerTouringMode = new TouringModeTrigger();
 
+	//Robot Relative Toggle Methods
 	/**
 	 * Returns true if driving should be robot relative (vs field relative).
 	 * 
 	 * @return true if in robot relative driving mode
 	 */
-	
 	public boolean isRobotRelative() {
 		if(triggerRobotRelative.get()) {
 			robotIsRelative = (robotIsRelative) ? false:true;
@@ -154,17 +158,24 @@ public class OI {
 	 * commands is made here.
 	 */
 	public OI() {
+		
+		//Individual Motor Movement (test commands)
 		driveFrontLeft.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_LEFT_MOTOR_CAN));
 		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
 		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
 		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
+		
+		//Extender Commands
 		inGameReelInExtender.whileHeld(new ReelInExtenderUnlimited());
 		pitPrepSlowExtenderIn.whileHeld(new ExtenderPitPrep(false));
 		pitPrepSlowExtenderOut.whileHeld(new ExtenderPitPrep(true));
-		touringModeButton.whileHeld(new EnterTouringMode());
+		
+		//Touring Mode Commands
+		triggerTouringMode.whileActive(new EnterTouringMode());
 		elevatorTouringModeButton.whileHeld(new EnterElevatorTouringMode());
+		
 		// Robot relative jogging triggers
-		// triggerJogPOV.whenActive(new JoggingPOV());
+//		triggerJogPOV.whenActive(new JoggingPOV());
 //		triggerRotatePOV.whenActive(new RotatingPOV());
 		triggerRotatePOV.whenActive(new RotatePOVTimed(0.1));
 		triggerJogPOV.whenActive(new JogTimed(0.1));
@@ -186,10 +197,12 @@ public class OI {
 //			jogElevatorDownButton.whenPressed(new ElevatorJog(false));
 		}
 		
+		//Claw Commands
 		openClawButton.whenPressed(new ClawRelease());
 		closeClawButton.whenPressed(new ClawGrab());
 	}
 	
+	//POV status retrieval methods
 	public int getDrivePOV(){
 		return driveStick.getPOV();
 	}
@@ -200,6 +213,8 @@ public class OI {
 	public int getDpadPOV() {
 		return controller.getPOV();
 	}
+	
+	//Controller joystick retrieval methods
 	public double getControllerRightStickY() {
 		double yStick = controller.getRawAxis(RobotMap.RIGHT_STICK_Y);
 		if(Math.abs(yStick) < RobotMap.DRIVE_DEAD_ZONE) {
@@ -207,6 +222,8 @@ public class OI {
 		}
 		return yStick;
 	}
+	
+	//Drive joystick retrieval methods
 	/**
 	 * Returns the drive stick Y axis magnitude [-1..1] where negative is
 	 * forward and backward is positive.
@@ -251,6 +268,7 @@ public class OI {
 		// return xBoxDriveStick.getX();
 	}
 	
+	//Rotation joystick retrival methods
 	/**
 	 * Returns the degrees from 0 to the current direction of the rotation
 	 * stick. If the stick is currently neutral, the last value is returned.
@@ -266,16 +284,22 @@ public class OI {
 			return Robot.driveTrain.getNormalizedGyroAngle();
 	}
 	
-	public boolean getGyroResetLockPressed() {
-		return gyroResetButton1.get() && gyroResetButton2.get();
-	}
-	
 	public double getRotX() {
 		return rotationStick.getX();
 	}
 	
+	//Gyro reset combo method
+	public boolean getGyroResetLockPressed() {
+		return gyroResetButton1.get() && gyroResetButton2.get();
+	}
+	
+	//Drive touring mode methods
 	public boolean isTouringMode() {
 		return isTouringMode;
+	}
+	
+	public boolean isTouringModeButtonPressed() {
+		return touringModeButton.get();
 	}
 	
 	public void setTouringMode(boolean on) {
@@ -286,6 +310,7 @@ public class OI {
 		return TOURING_MODE_MULTIPLIER;
 	}
 	
+	//Elevator touring mode methods
 	public boolean isElevatorTouringMode() {
 		return isElevatorTouringMode;
 	}

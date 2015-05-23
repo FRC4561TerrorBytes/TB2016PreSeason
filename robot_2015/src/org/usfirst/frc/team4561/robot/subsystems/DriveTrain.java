@@ -93,13 +93,16 @@ public class DriveTrain extends PIDSubsystem {
 	
 
 	public DriveTrain() {
+		//Give PID to the controller
 		super(1.6/180.0, 0/*0.02/180.0*/, 0); //TODO add "i" constant
+		//Set input and output restraints
 		setInputRange(-180.0, 180.0);
 		setOutputRange(-0.5, 0.5);
 		getPIDController().setContinuous(true);
 		setAbsoluteTolerance(2.0);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+		//Enable brake mode(as opposed to coast)
 		leftFront.enableBrakeMode(true);
 		leftRear.enableBrakeMode(true);
 		rightFront.enableBrakeMode(true);

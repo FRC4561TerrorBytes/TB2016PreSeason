@@ -58,12 +58,12 @@ public class RobotMap {
 	public static final int LEFT_STICK = 9;
 	public static final int RIGHT_STICK = 10;
 	
-	public static final int OBJECT_ON_GROUND_BUTTON = A_BUTTON; //PG
-	public static final int OBJECT_ON_TOTE_BUTTON = B_BUTTON; //PT
-	public static final int RC_NOODLE_UPRIGHT = X_BUTTON; //NU
-	public static final int RC_NOODLE_SIDEWAYS = Y_BUTTON; //NS
-	public static final int JOG_ELEVATOR_DOWN_BUTTON = LEFT_BUMPER; //JU
-	public static final int JOG_ELEVATOR_UP_BUTTON = RIGHT_BUMPER; //JD
+	public static final int OBJECT_ON_GROUND_BUTTON = A_BUTTON;
+	public static final int OBJECT_ON_TOTE_BUTTON = B_BUTTON;
+	public static final int RC_NOODLE_UPRIGHT = X_BUTTON;
+	public static final int RC_NOODLE_SIDEWAYS = Y_BUTTON;
+	public static final int JOG_ELEVATOR_DOWN_BUTTON = LEFT_BUMPER;
+	public static final int JOG_ELEVATOR_UP_BUTTON = RIGHT_BUMPER;
 	public static final int OPEN_CLAW = BACK_BUTTON;
 	public static final int CLOSE_CLAW = START_BUTTON;
 	public static final int ELEVATOR_TOURING_MODE_BUTTON = RIGHT_BUMPER;
@@ -74,7 +74,7 @@ public class RobotMap {
 	public static final int TAPE_SENSOR_PORT = 2;
 	
 	/*
-	 * Sensors stuff
+	 * Gyroscope
 	 */
 	public static final int GYRO_IN = 0; //analog 0
 	

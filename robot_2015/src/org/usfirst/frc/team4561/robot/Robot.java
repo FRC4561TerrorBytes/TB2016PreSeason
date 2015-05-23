@@ -68,6 +68,7 @@ public class Robot extends IterativeRobot {
 		robotSingleton = this;
 		oi = new OI();
 		
+		//Put subsystem data to the SmartDashboard
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(extender);
 		SmartDashboard.putData((Subsystem)commonElevator);
@@ -79,12 +80,13 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
+		//Enable brake mode on TalonSRXs (as opposed to coast)
 		Robot.driveTrain.leftFront.enableBrakeMode(true);
 		Robot.driveTrain.leftRear.enableBrakeMode(true);
 		Robot.driveTrain.rightRear.enableBrakeMode(true);
 		Robot.driveTrain.rightFront.enableBrakeMode(true);
 		
-		// instantiate the command used for the autonomous period
+		//Instantiate the command used for the autonomous period
 		int autoChoosen = RobotMap.AUTO_DO_NOTHING;
 		try {
 			double auto1 = SmartDashboard.getNumber(RobotMap.AUTO_SLIDER_0);
@@ -132,7 +134,9 @@ public class Robot extends IterativeRobot {
 		
 		if (autonomousCommand != null) {
 			driveTrain.setP(10/180.0);
+			//Prepare gyro for automode
 			driveTrain.setStartAngle(autonomousCommand.getStartAngle());
+			//Start automode
 			autonomousCommand.start();
 		}
 	}
@@ -150,6 +154,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != null) {
+			//End automode
 			autonomousCommand.cancel();
 			driveTrain.setP(1.6/180.0);
 		}

@@ -33,7 +33,7 @@ public class MecanumDrive extends Command {
 			if(Robot.oi.isTouringMode()) {
 				Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX() * Robot.oi.getTouringPower(),
 						Robot.oi.getDriveY() * Robot.oi.getTouringPower(), 
-						Robot.oi.getRotationDegrees() * Robot.oi.getTouringPower());
+						Robot.oi.getRotationDegrees());
 			}
 			else {
 				Robot.driveTrain.driveFieldRelative(Robot.oi.getDriveX(),

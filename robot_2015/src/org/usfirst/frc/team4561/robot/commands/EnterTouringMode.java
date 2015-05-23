@@ -13,7 +13,13 @@ public class EnterTouringMode extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.oi.setTouringMode(true);
+    	if(!Robot.oi.isTouringMode()) {
+    		Robot.oi.setTouringMode(true);
+    	}
+    	else {
+    		Robot.oi.setTouringMode(false);
+    	}
+
     }
 
     // Called repeatedly when this Command is scheduled to run
