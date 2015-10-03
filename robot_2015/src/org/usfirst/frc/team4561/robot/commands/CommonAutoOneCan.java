@@ -11,10 +11,9 @@ public class CommonAutoOneCan extends CommandGroup {
     	//Rotate: extender faces step
     	addSequential(new RotateTo(180.0));
     	//Drive Forward until hit totes
-    	AutoCardinalFieldRelativeDriveWithTape forward = new AutoCardinalFieldRelativeDriveWithTape(1, 28, 180);
-    	addSequential(forward);
+    	addSequential(new AutoCardinalFieldRelativeDrive(1, 28, 180));
     	//Back up a bit
-    	addSequential(new AutoConditionalBackoff(3, 8, 180, forward));
+    	addSequential(new AutoCardinalFieldRelativeDrive(3, 8, 180 ));
     	//Strafe to "hook" second-to-easternmost can.
     	addSequential(new AutoCardinalFieldRelativeDrive(4, 35, 180));
     	//Pull can back.

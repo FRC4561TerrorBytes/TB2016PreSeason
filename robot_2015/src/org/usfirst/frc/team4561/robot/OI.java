@@ -99,6 +99,7 @@ public class OI {
 	//Touring Mode Buttons
 	private JoystickButton touringModeButton = new JoystickButton(driveStick, RobotMap.TOURING_MODE_BUTTON);
 	private JoystickButton elevatorTouringModeButton = new JoystickButton(controller, RobotMap.ELEVATOR_TOURING_MODE_BUTTON);
+	
 	//Gyro Reset Combo
 	private JoystickButton gyroResetButton1 = new JoystickButton(rotationStick,
 			RobotMap.GYRO_RESET_BUTTON_1);
@@ -125,7 +126,7 @@ public class OI {
 //			RobotMap.JOG_ELEVATOR_UP_BUTTON);
 //	private JoystickButton jogElevatorDownButton = new JoystickButton(controller,
 //			RobotMap.JOG_ELEVATOR_DOWN_BUTTON);
-	private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
+//	private MovePosPOVTrigger triggerMovePosPOV = new MovePosPOVTrigger();
 	
 	//Triggers
 	private JogPOVTrigger triggerJogPOV = new JogPOVTrigger(); 
@@ -187,15 +188,15 @@ public class OI {
 		triggerResetGyro.whenActive(new ResetGyro());
 		
 		// PID elevator trigger and buttons
-		if (Robot.commonElevator instanceof Elevator) {
-			triggerMovePosPOV.whenActive(new MovePos());
+//		if (Robot.commonElevator instanceof Elevator) {
+//			triggerMovePosPOV.whenActive(new MovePos());
 //			objectOnGroundButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUp));
 //			objectOnToteButton.whenPressed(new MoveElevatorTo(Elevator.Position.pickUpOffTote));
 //			noodleChuteUprightButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
 //			noodleChuteSidewaysButton.whenPressed(new MoveElevatorTo(Elevator.Position.getLitterUpright));
 //			jogElevatorUpButton.whenPressed(new ElevatorJog(true));
 //			jogElevatorDownButton.whenPressed(new ElevatorJog(false));
-		}
+//		}
 		
 		//Claw Commands
 		openClawButton.whenPressed(new ClawRelease());

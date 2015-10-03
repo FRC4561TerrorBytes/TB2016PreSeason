@@ -12,10 +12,9 @@ public class CommonAutoTwoCan extends CommandGroup {
     	//Strafe to gap between first and second bins
     	addSequential(new AutoCardinalFieldRelativeDrive(2, 30, 180));
     	//Drive Forward until hit totes
-    	AutoCardinalFieldRelativeDriveWithTape forward = new AutoCardinalFieldRelativeDriveWithTape(1, 22, 180);
-    	addSequential(forward);
+    	addSequential(new AutoCardinalFieldRelativeDrive(1, 22, 180));
     	//Back up a bit
-    	addSequential(new AutoConditionalBackoff(3, 8, 180, forward));
+    	addSequential(new AutoCardinalFieldRelativeDrive(3, 8, 180));
     	//Strafe to second can.
     	addSequential(new AutoCardinalFieldRelativeDrive(2, 30, 180));
     	//Pull second can back
