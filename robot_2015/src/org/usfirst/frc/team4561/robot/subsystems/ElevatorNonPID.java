@@ -31,6 +31,15 @@ public class ElevatorNonPID extends Subsystem implements IElevator {
 		}
 	}
 	
+	public void moveUpPower(double power) {
+		if(upperLimitSwitch.get() == true) {
+			elevatorMotor.set(power);
+		}
+		else {
+			stop();
+		}
+	}
+	
 	public void moveDown() {
 		if(lowerLimitSwitch.get() == true) {
 			if(Robot.oi.isElevatorTouringMode()) {
@@ -56,5 +65,14 @@ public class ElevatorNonPID extends Subsystem implements IElevator {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+
+	public void moveUpAnalog(double power) {
+		if(upperLimitSwitch.get() == true) {
+			elevatorMotor.set(power);
+		}
+		else {
+			stop();
+		}
+	}
 }
 

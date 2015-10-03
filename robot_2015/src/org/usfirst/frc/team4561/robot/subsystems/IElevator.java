@@ -19,6 +19,8 @@ public interface IElevator {
 	 * Forces the elevator to move downward unless at the lower limit switch.
 	 */
 	public void moveDown();
+	
+	public void moveUpAnalog(double power);
 
 	/**
 	 * Forces the elevator to stop.

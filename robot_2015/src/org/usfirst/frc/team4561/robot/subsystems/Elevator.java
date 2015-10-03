@@ -114,6 +114,15 @@ public class Elevator extends PIDSubsystem implements IElevator {
 	public void initDefaultCommand() {
 		// No default command for the elevator.
 	}
+	
+	public void moveUpAnalog(double power) {
+		if(upperLimitSwitch.get() == true) {
+			elevatorMotor.set(power);
+		}
+		else {
+			stop();
+		}
+	}
 
 	public void moveTo(Position position) {
 		setSetpoint(position.target);
