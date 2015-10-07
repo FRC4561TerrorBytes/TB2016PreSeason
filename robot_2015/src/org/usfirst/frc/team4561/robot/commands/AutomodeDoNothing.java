@@ -12,7 +12,7 @@ public class AutomodeDoNothing extends Abstract4561AutomodeGroup {
 	@Override
 	public double getStartAngle() {
 		// Starts facing straight up field
-		return 0.0;
+		return 90.0;
 	}
 
 }

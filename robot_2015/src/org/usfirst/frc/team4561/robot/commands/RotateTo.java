@@ -12,11 +12,13 @@ public class RotateTo extends Command {
 	
     public RotateTo(double angle) {
         requires(Robot.driveTrain);
+        Robot.driveTrain.fullEncoderReset();
         this.angle = angle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.driveTrain.setAbsoluteTolerance(10);
     	Robot.driveTrain.rotateTo(angle);
     }
 
@@ -36,10 +38,13 @@ public class RotateTo extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.driveTrain.setAbsoluteTolerance(2.0);
+    	Robot.driveTrain.fullEncoderReset();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

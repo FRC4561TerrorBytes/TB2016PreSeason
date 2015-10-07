@@ -8,7 +8,7 @@ import org.usfirst.frc.team4561.robot.Robot;
 public class ClawRelease extends Command {
 	
 	public ClawRelease() {
-		setTimeout(2);
+		setTimeout(1);
 		requires(Robot.claw);
 	}
 
@@ -21,7 +21,6 @@ public class ClawRelease extends Command {
 	@Override
 	protected void execute() {
 		Robot.claw.openClaw();
-		
 	}
 
 	@Override

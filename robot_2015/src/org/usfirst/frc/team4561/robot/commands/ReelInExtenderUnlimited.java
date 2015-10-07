@@ -21,7 +21,12 @@ public class ReelInExtenderUnlimited extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.extender.reelItIn();
+		if(Robot.extender.isLimitSwitchPressed() == true) {
+			Robot.extender.reelItIn();
+		}
+		else {
+			Robot.extender.stop();
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -39,6 +44,6 @@ public class ReelInExtenderUnlimited extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		end(); //TODO Remove this? Nothing else should ever use the extender.
+		end();
 	}
 }

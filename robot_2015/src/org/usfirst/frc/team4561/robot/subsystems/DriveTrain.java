@@ -5,6 +5,8 @@ import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.MecanumDrive;
 import org.usfirst.frc.team4561.robot.Robot;
 
+
+import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -41,6 +43,8 @@ public class DriveTrain extends PIDSubsystem {
 	 private RobotDrive robotDrive = new RobotDrive(leftFront, leftRear,
 			rightFront, rightRear);
 	 
+	 private DigitalInput whiteTapeDetector = new DigitalInput(RobotMap.TAPE_SENSOR_PORT);
+	 
 	 private double currentX = 0.0;
 	 private double currentY = 0.0;
 	 private double lastRotation = 0.0;
@@ -52,6 +56,8 @@ public class DriveTrain extends PIDSubsystem {
 	 private double startAngle = 0.0;
 	 //private long gyroMissCount = 0;
 	 //private boolean pingPending = false;
+	 public boolean hasSeenTape = false;
+	 private double robotRelRotX = 0.0;
 	 
 	 //Gyroscope
 	 //private SerialPort gyro = new SerialPort(38400, Port.kMXP);
@@ -71,12 +77,12 @@ public class DriveTrain extends PIDSubsystem {
 	 //Encoders
 	 public Encoder frontLeftEncoder = new Encoder(RobotMap.FRONT_LEFT_ENCODER_A_CHANNEL,
 			 										RobotMap.FRONT_LEFT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
-	 public Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL,
-													RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
-	 public Encoder rearLeftEncoder = new Encoder(RobotMap.REAR_LEFT_ENCODER_A_CHANNEL,
-			 										RobotMap.REAR_LEFT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
-	 public Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL,
-			 										RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
+//	 public Encoder frontRightEncoder = new Encoder(RobotMap.FRONT_RIGHT_ENCODER_A_CHANNEL,
+//													RobotMap.FRONT_RIGHT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
+//	 public Encoder rearLeftEncoder = new Encoder(RobotMap.REAR_LEFT_ENCODER_A_CHANNEL,
+//			 										RobotMap.REAR_LEFT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
+//	 public Encoder rearRightEncoder = new Encoder(RobotMap.REAR_RIGHT_ENCODER_A_CHANNEL,
+//			 										RobotMap.REAR_RIGHT_ENCODER_B_CHANNEL, REVERSE_DIRECTION);
 	 
 	 
 	private static final double INCHES_PER_REVOLUTION = Math.PI * 2 * 4;
@@ -87,21 +93,24 @@ public class DriveTrain extends PIDSubsystem {
 	
 
 	public DriveTrain() {
+		//Give PID to the controller
 		super(1.6/180.0, 0/*0.02/180.0*/, 0); //TODO add "i" constant
+		//Set input and output restraints
 		setInputRange(-180.0, 180.0);
 		setOutputRange(-0.5, 0.5);
 		getPIDController().setContinuous(true);
 		setAbsoluteTolerance(2.0);
-		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+		robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
+		robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
+		//Enable brake mode(as opposed to coast)
 		leftFront.enableBrakeMode(true);
 		leftRear.enableBrakeMode(true);
 		rightFront.enableBrakeMode(true);
 		rightRear.enableBrakeMode(true);
 		frontLeftEncoder.setDistancePerPulse(INCHES_PER_PULSE);
-		frontRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
-		rearLeftEncoder.setDistancePerPulse(INCHES_PER_PULSE);
-		rearRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
+//		frontRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
+//		rearLeftEncoder.setDistancePerPulse(INCHES_PER_PULSE);
+//		rearRightEncoder.setDistancePerPulse(INCHES_PER_PULSE);
 		
 		gyroThread.start();
 	 }
@@ -114,7 +123,24 @@ public class DriveTrain extends PIDSubsystem {
 
 	public void driveRobotRelative(double x_v, double y_v) {
 		currentX = x_v;
-		currentY = y_v;		
+		currentY = y_v;	
+		robotRelRotX = Robot.oi.getRotX();
+		fieldRelative = false;
+		setSetpoint(getNormalizedGyroAngle());
+	}
+	
+	public void driveRobotRelativeJog(double x_v, double y_v) {
+		currentX = x_v;
+		currentY = y_v;	
+		robotRelRotX = 0;
+		fieldRelative = false;
+		setSetpoint(getNormalizedGyroAngle());
+	}
+	
+	public void rotateRobotRelativeJog(double rot) {
+		currentX = 0;
+		currentY = 0;	
+		robotRelRotX = rot;
 		fieldRelative = false;
 		setSetpoint(getNormalizedGyroAngle());
 	}
@@ -130,6 +156,10 @@ public class DriveTrain extends PIDSubsystem {
 		setSetpoint(angle);
 	}
 	
+	public void setP(double p) {
+		super.getPIDController().setPID(p, 0, 0);
+	}
+	
 	/**
 	 * Change the rotation target by the deltaRotation. A negative value moves
 	 * the target left (counter clockwise) and a positive value moves the target
@@ -142,7 +172,7 @@ public class DriveTrain extends PIDSubsystem {
 		double newSetpoint = getSetpoint() + deltaRotation;
 		setSetpoint(normalizeAngle(newSetpoint));
 	}
-	
+
 	public void stop() {
 //		currentX = 0.0;
 //		currentY = 0.0;
@@ -228,9 +258,9 @@ public class DriveTrain extends PIDSubsystem {
 		double[] encoderInches;
 		encoderInches = new double[4];
 		encoderInches[0] = frontLeftEncoder.getDistance();
-		encoderInches[1]= frontRightEncoder.getDistance();
-		encoderInches[2]= rearLeftEncoder.getDistance();
-		encoderInches[3]= rearRightEncoder.getDistance();
+//		encoderInches[1]= frontRightEncoder.getDistance();
+//		encoderInches[2]= rearLeftEncoder.getDistance();
+//		encoderInches[3]= rearRightEncoder.getDistance();
 		return encoderInches[id];
 	}
 	/**
@@ -242,9 +272,9 @@ public class DriveTrain extends PIDSubsystem {
 		double[] encoderInches;
 		encoderInches = new double[4];
 		encoderInches[0] = frontLeftEncoder.get();
-		encoderInches[1]= frontRightEncoder.get();
-		encoderInches[2]= rearLeftEncoder.get();
-		encoderInches[3]= rearRightEncoder.get();
+//		encoderInches[1]= frontRightEncoder.get();
+//		encoderInches[2]= rearLeftEncoder.get();
+//		encoderInches[3]= rearRightEncoder.get();
 		return encoderInches[id];
 	}
 	 /**
@@ -255,9 +285,9 @@ public class DriveTrain extends PIDSubsystem {
 		double[] encoderInches;
 		encoderInches = new double[4];
 		encoderInches[0] = frontLeftEncoder.getDistance();
-		encoderInches[1]= frontRightEncoder.getDistance();
-		encoderInches[2]= rearLeftEncoder.getDistance();
-		encoderInches[3]= rearRightEncoder.getDistance();
+//		encoderInches[1]= frontRightEncoder.getDistance();
+//		encoderInches[2]= rearLeftEncoder.getDistance();
+//		encoderInches[3]= rearRightEncoder.getDistance();
 		return encoderInches;
 	}
 	 /**
@@ -268,9 +298,9 @@ public class DriveTrain extends PIDSubsystem {
 		double[] encoderInches;
 		encoderInches = new double[4];
 		encoderInches[0] = frontLeftEncoder.get();
-		encoderInches[1]= frontRightEncoder.get();
-		encoderInches[2]= rearLeftEncoder.get();
-		encoderInches[3]= rearRightEncoder.get();
+//		encoderInches[1]= frontRightEncoder.get();
+//		encoderInches[2]= rearLeftEncoder.get();
+//		encoderInches[3]= rearRightEncoder.get();
 		return encoderInches;
 	}
 	
@@ -279,12 +309,12 @@ public class DriveTrain extends PIDSubsystem {
 		
 		double frontLeftEncoderInches = Math.abs(frontLeftEncoder.getDistance());
 		//double frontRightEncoderInches = Math.abs(frontLeftEncoder.getDistance());
-		double rearLeftEncoderInches = Math.abs(frontLeftEncoder.getDistance());
+		//double rearLeftEncoderInches = Math.abs(frontLeftEncoder.getDistance());
 		//double rearRightEncoderInches = Math.abs(frontLeftEncoder.getDistance());
 		
-		double encoderSumInches = frontLeftEncoderInches //+ frontRightEncoderInches 
-									+ rearLeftEncoderInches; // + rearRightEncoderInches; TODO right encoders fried
-		double encoderAverageInches = encoderSumInches /2; // / 4;
+		double encoderSumInches = frontLeftEncoderInches; //+ frontRightEncoderInches 
+//									+ rearLeftEncoderInches + rearRightEncoderInches; TODO right encoders fried
+		double encoderAverageInches = encoderSumInches /1; // / 4;
 		
 		return encoderAverageInches;
 	}
@@ -293,15 +323,31 @@ public class DriveTrain extends PIDSubsystem {
 	
 	public void fullEncoderReset() {
 		frontLeftEncoder.reset();
-		frontRightEncoder.reset();
-		rearLeftEncoder.reset();
-		rearRightEncoder.reset();
+//		frontRightEncoder.reset();
+//		rearLeftEncoder.reset();
+//		rearRightEncoder.reset();
+	}
+	
+	public boolean hasSeenTape() {
+		if(whiteTapeDetector.get() == false) {
+			hasSeenTape = true;
+		}
+		return hasSeenTape;
+	}
+	
+	public void resetSeenTape() {
+		hasSeenTape = false;
 	}
 
 	@Override
 	protected double returnPIDInput() {
+		hasSeenTape();
 		//readGyro();
 		return getNormalizedGyroAngle();
+	}
+	
+	public void resetGyro() {
+		gyroThread.reset();
 	}
 	int i = 0;
 	@Override
@@ -309,28 +355,57 @@ public class DriveTrain extends PIDSubsystem {
 		double rot = 0.0;
 		if (!getPIDController().onTarget()) {
 			if (fieldRelative || deltaRotating) {
-				rot = output;
+				if(Robot.oi.isTouringMode()) {
+					rot = output * Robot.oi.getTouringPower();
+				}
+				else {
+					rot = output;
+				}
+
 			}
-		} else {
+		} 
+		else {
 			deltaRotating = false;
+		}
+		if(!fieldRelative) {
+			if(Robot.oi.isTouringMode()) {
+				rot = robotRelRotX * 0.7 * Robot.oi.getTouringPower();
+			}
+			else {
+				rot = robotRelRotX * 0.7;
+			}
 		}
 		i++;
 		if(i%10 == 0){
-			System.out.println("Thread is running: " + gyroThread.isAlive());
-			System.out.println("Set point: " + getSetpoint());
+//			System.out.println("Field Rel: " + fieldRelative);
+//			System.out.println("Thread is running: " + gyroThread.isAlive());
+//			System.out.println("Set point: " + getSetpoint());
 			//System.out.println("Gyro miss count: " + gyroMissCount);
-			System.out.println("Last gyro raw data: " + gyroThread.getLastRawData());
-			System.out.println("Last read gyro angle: " + /*lastGyroAngle*/ gyroThread.getLastGoodRotation());
-			System.out.println("Gyro bias: " + /*gyroBias*/ gyroThread.getBias());
+//			System.out.println("Last gyro raw data: " + gyroThread.getLastRawData());
+//			System.out.println("Last read gyro angle: " + /*lastGyroAngle*/ gyroThread.getLastGoodRotation());
+//			System.out.println("Gyro bias: " + /*gyroBias*/ gyroThread.getBias());
 			//System.out.println("Raw gyro value: " + doubleYaw);
-			System.out.println("Start angle: " + startAngle);
-			System.out.println("Calculated non-norm angle: " + getAngle());
-			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
-			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
-			System.out.println("Rot Power: " + rot); // motor power
+//			System.out.println("Start angle: " + startAngle);
+//			System.out.println("Calculated non-norm angle: " + getAngle());
+//			System.out.println("NormalizedGyroAngle: " +  getNormalizedGyroAngle()); // print new gyro angle);
+//			System.out.println("Rot Stick Degrees: " + Robot.oi.getRotationDegrees()); //rot stick degrees
+//			System.out.println("Rot Power: " + rot); // motor power
+			
+//			System.out.println("Rear Left Encoder Stopped: " + rearLeftEncoder.getStopped());
+//			System.out.println("Rear Left Encoder Inches: " + rearLeftEncoder.getDistance());
+//			System.out.println("Rear Left Encoder Ticks: " + rearLeftEncoder.get());
+//			System.out.println("Rear Right Encoder Stopped: " + rearRightEncoder.getStopped());
+//			System.out.println("Rear Right Encoder Inches: " + rearRightEncoder.getDistance());
+//			System.out.println("Rear Right Encoder Ticks: " + rearRightEncoder.get());
+//			System.out.println("Front Right Encoder Stopped: " + frontRightEncoder.getStopped());
+//			System.out.println("Front Right Encoder Inches: " + frontRightEncoder.getDistance());
+//			System.out.println("Front Right Encoder Ticks: " + frontRightEncoder.get());
+			System.out.println("Front Left Encoder Stopped: " + frontLeftEncoder.getStopped());
+			System.out.println("Front Left Encoder Inches: " + frontLeftEncoder.getDistance());
+//			System.out.println("Front Left Encoder Ticks: " + frontLeftEncoder.get());
 		}
 		lastRotation = rot;
-		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, getNormalizedGyroAngle());
+		robotDrive.mecanumDrive_Cartesian(currentX, currentY, rot, (fieldRelative) ? getNormalizedGyroAngle() : 0);
 		//pingGyro();
 	}
 

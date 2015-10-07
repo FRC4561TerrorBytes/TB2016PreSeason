@@ -21,6 +21,7 @@ public class JoggingPOV extends Command {
 	//private static final int FORWARD_LEFT = 315;
 	
 	private int currentDirection = FORWARD;
+
 	
 	private AutoCardinalRobotRelativeDrive forwardDrive = new AutoCardinalRobotRelativeDrive(
 			1, 0.5);
@@ -40,26 +41,34 @@ public class JoggingPOV extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	currentDirection = Robot.oi.getDrivePOV();
-		if (currentDirection == FORWARD) {
-			if (forwardDrive.isRunning())
+		if(currentDirection == FORWARD) {
+			if(forwardDrive.isRunning()) {
 				forwardDrive.bump();
-			else
+			}
+			else {
 				forwardDrive.start();
-		} else if (currentDirection == RIGHT) {
-			if (rightDrive.isRunning())
+			}
+		} 
+		else if(currentDirection == RIGHT) {
+			if(rightDrive.isRunning())
 				rightDrive.bump();
-			else
+			else {
 				rightDrive.start();
-		} else if (currentDirection == BACKWARD) {
-			if (backwardDrive.isRunning())
+			}
+		} 
+		else if(currentDirection == BACKWARD) {
+			if(backwardDrive.isRunning())
 				backwardDrive.bump();
 			else
 				backwardDrive.start();
-		} else if (currentDirection == LEFT) {
-			if (leftDrive.isRunning())
+		} 
+		else if(currentDirection == LEFT) {
+			if(leftDrive.isRunning()) {
 				leftDrive.bump();
-			else
+			}
+			else {
 				leftDrive.start();
+			}
 		}
     }
 

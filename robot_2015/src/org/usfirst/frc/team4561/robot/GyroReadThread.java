@@ -15,14 +15,16 @@ public class GyroReadThread extends Thread {
 	private static final String BAD_DATA = "BAD_DATA";
 	private static final int PING_TO_READ_SLEEP_MS = 1;
 	private static final int NUMBER_NO_DATA_READS_UNTIL_REPING = 10;
+	private static final int READ_DONE_TO_NEXT_PING_MS = 50;
 	private SerialPort gyro = new SerialPort(38400, Port.kMXP);
 	double lastGoodRotation = 0.0;
 	boolean needToSaveBias = true;
 	double bias = 0.0;
+	private StringBuilder lineBuilder = new StringBuilder(100);
 	
 	// for test
 	String lastRawData = "";
-	public String getLastRawData() {
+	public synchronized String getLastRawData() {
 		return lastRawData;
 	}
 	
@@ -40,6 +42,8 @@ public class GyroReadThread extends Thread {
 		lastGoodRotation = 0.0;
 		needToSaveBias = true;
 		bias = 0.0;
+		lineBuilder = new StringBuilder(100);
+		gyro.reset();
 	}
 	
 	public synchronized double getBias() {
@@ -58,6 +62,7 @@ public class GyroReadThread extends Thread {
 	 */
 	@Override
 	public void run() {
+		reset();
 		while (true) {
 			pingGyro();
 			String rawData = null;
@@ -88,6 +93,10 @@ public class GyroReadThread extends Thread {
 						}
 					}
 				}
+			}
+			try {
+				sleep(READ_DONE_TO_NEXT_PING_MS);
+			} catch (InterruptedException e) {
 			}
 		}
 	}
@@ -126,24 +135,45 @@ public class GyroReadThread extends Thread {
 		}
 	}
 	
+	/**
+	 * Returns a terminated line. If the roborio and the arduino have gotten out
+	 * of sync on the number of commands (should never happen), this string or
+	 * the next one could be bad but we will quickly issue a fresh request and
+	 * get back in sync.
+	 * 
+	 * @return
+	 */
 	private String readGyroLine() {
-		StringBuilder strBldr = new StringBuilder(50);
-		String currentChar = null;
-		char c = ' ';
-		while (c != LINE_TERMINATOR) {
+		String currentCharset = null;
+		String line = null;
+		int consecutiveZeroCount = 0;
+		// Give up and return null if not getting any data
+		while (line == null  && consecutiveZeroCount < 10) {
 			if (!(gyro.getBytesReceived() == 0)) {
-				currentChar = gyro.readString(1);
-				if (currentChar != null && !currentChar.isEmpty()) {
-					c = currentChar.charAt(0);
-					strBldr.append(c);
+				consecutiveZeroCount = 0;
+				currentCharset = gyro.readString();
+				if (currentCharset != null && !currentCharset.isEmpty()) {
+					int lastLineEnd = currentCharset.lastIndexOf(LINE_TERMINATOR);
+					if (lastLineEnd != -1) {
+						// have a line to return and process
+						lineBuilder.append(currentCharset.substring(0, lastLineEnd + 1));
+						line = lineBuilder.toString();
+						// reset the string builder and append anything past the line
+						lineBuilder.setLength(0);
+						lineBuilder.append(currentCharset.substring(lastLineEnd + 1));
+					} else {
+						// no complete line, so stash the data
+						lineBuilder.append(currentCharset);
+					}
 				}
 			} else {
+				consecutiveZeroCount++;
 				try {
 					sleep(0);
 				} catch (InterruptedException e) {
 				}
 			}
 		}
-		return strBldr.toString();
+		return line;
 	}
 }

@@ -8,7 +8,7 @@ import org.usfirst.frc.team4561.robot.Robot;
 public class ClawGrab extends Command {
 	
 	public ClawGrab() {
-		setTimeout(2);
+		setTimeout(1);
 		requires(Robot.claw);
 	}
 

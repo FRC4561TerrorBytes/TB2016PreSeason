@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 /**
  *
  */
-public class RotatePOVTrigger extends Trigger {
+public class RobotRelativeTrigger extends Trigger {
 	
 	private boolean lastSeenAsActive = false;
     
-	public boolean get() {
-		boolean fire = false;
+    public boolean get() {
+    	boolean fire = false;
 		if (Robot.oi != null) {
-			boolean nowActive = Robot.oi.getRotatePOV() != -1;
+			boolean nowActive = Robot.oi.isRobotRelativeButtonPressed();
 			if (lastSeenAsActive) {
 				if (!nowActive)
 					lastSeenAsActive = false;
@@ -26,5 +26,5 @@ public class RotatePOVTrigger extends Trigger {
 			}
 		}
 		return fire;
-	}
+    }
 }

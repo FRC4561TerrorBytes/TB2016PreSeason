@@ -4,7 +4,9 @@ public class AutomodePushItemsToZoneSideways extends Abstract4561AutomodeGroup {
 
 	public AutomodePushItemsToZoneSideways() {
 		super();
-		addSequential(new AutoCardinalFieldRelativeDrive(1, 135.0));
+		
+		addSequential(new AutoCardinalFieldRelativeDrive(1, 195, 90.0));
+		addSequential(new ClawGrab());
 	}
 
 	@Override

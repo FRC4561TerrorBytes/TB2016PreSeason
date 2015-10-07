@@ -14,7 +14,7 @@ public class MovePosPOVTrigger extends Trigger {
     public boolean get() {
     	boolean fire = false;
 		if (Robot.oi != null) {
-			boolean nowActive = Robot.oi.getDpadPOV() != -1;
+			boolean nowActive = Robot.oi.getControllerRightStickY() != 0.0;
 			if (lastSeenAsActive) {
 				if (!nowActive)
 					lastSeenAsActive = false;

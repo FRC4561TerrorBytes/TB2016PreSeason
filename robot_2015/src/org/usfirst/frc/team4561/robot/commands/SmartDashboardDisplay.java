@@ -32,12 +32,12 @@ public class SmartDashboardDisplay extends Command {
 				Double.toString(Robot.driveTrain.getLastRotation()));
 		logger.displayData(SDLogging.Key.GyroValue,
 				Double.toString(Robot.driveTrain.getNormalizedGyroAngle()));
-		logger.displayData(SDLogging.Key.ElevatorPosition,
-				Double.toString(Robot.elevator.getPosition()));
-		logger.displayData(SDLogging.Key.ElevatorDirection, (Robot.elevator
-				.getSetpoint() - Robot.elevator.getPosition()) >= 0 ? "up"
-				: "down");
-		logger.displayData(SDLogging.Key.ClawState, "???");
+//		logger.displayData(SDLogging.Key.ElevatorPosition,
+//				Double.toString(Robot.elevator.getPosition()));
+//		logger.displayData(SDLogging.Key.ElevatorDirection, (Robot.elevator
+//				.getSetpoint() - Robot.elevator.getPosition()) >= 0 ? "up"
+//				: "down");
+//		logger.displayData(SDLogging.Key.ClawState, "???");
 		logger.displayData(SDLogging.Key.ExtenderPosition, "???");
 	}
 

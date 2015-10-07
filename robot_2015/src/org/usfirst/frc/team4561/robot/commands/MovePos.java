@@ -1,40 +1,33 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.subsystems.Elevator;
 
 /**
  *
  */
 public class MovePos extends Command {
-
-	private static final int FORWARD = 0;
-	private static final int FORWARD_RIGHT = 45;
-	//private static final int RIGHT = 90;
-	private static final int BACKWARD_RIGHT = 135;
-	private static final int BACKWARD = 180;
-	private static final int BACKWARD_LEFT = 225;
-	//private static final int LEFT = 270;
-	private static final int FORWARD_LEFT = 315;
 	
-	private int currentDirection = FORWARD;
+	private boolean currentDirectionForward = true;
 	
     public MovePos() {
-        requires(Robot.elevator);
+        requires((Subsystem) Robot.commonElevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	currentDirection = Robot.oi.getDpadPOV();
+    	currentDirectionForward = (Robot.oi.getControllerRightStickY() < 0.0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(currentDirection == FORWARD || currentDirection == FORWARD_LEFT || currentDirection == FORWARD_RIGHT) {
-    		Robot.elevator.upOneScoringPos();
-    	}
-    	if(currentDirection == BACKWARD || currentDirection == BACKWARD_LEFT || currentDirection == BACKWARD_RIGHT) {
-    		Robot.elevator.downOneScoringPos();
+    	if(currentDirectionForward) {
+    		((Elevator)Robot.commonElevator).upOneScoringPos();
+    	} else {
+    		((Elevator)Robot.commonElevator).downOneScoringPos();
     	}
     }
 

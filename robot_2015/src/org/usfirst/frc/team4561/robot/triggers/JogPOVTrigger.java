@@ -13,7 +13,7 @@ public class JogPOVTrigger extends Trigger {
     
     public boolean get() {
     	boolean fire = false;
-		if ((Robot.oi != null) && (Robot.oi.isRobotRelative())) {
+		if (Robot.oi != null) {
 			boolean nowActive = Robot.oi.getDrivePOV() != -1;
 			if (lastSeenAsActive) {
 				if (!nowActive)
