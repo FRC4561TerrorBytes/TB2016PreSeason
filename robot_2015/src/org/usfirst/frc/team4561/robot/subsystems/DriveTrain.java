@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
  *
  */
 public class DriveTrain extends Subsystem {
-    
+	
 	Victor frontRight = new Victor(RobotMap.FRONT_RIGHT_VICTOR);
 	Victor frontLeft = new Victor(RobotMap.FRONT_LEFT_VICTOR);
 	Victor rearRight = new Victor(RobotMap.REAR_RIGHT_VICTOR);
@@ -22,17 +22,17 @@ public class DriveTrain extends Subsystem {
 	RobotDrive robotDrive = new RobotDrive(frontLeft, rearLeft, 
 											frontRight, rearRight);
 
-    public void initDefaultCommand() {
-    	 setDefaultCommand(new ArcadeDrive());
-    }
+	public void initDefaultCommand() {
+		 setDefaultCommand(new ArcadeDrive());
+	}
 
-    public void driveArcade(double x, double rot) {
-    	robotDrive.arcadeDrive(x, rot);
-    }
-    
-    public void stop() {
-    	robotDrive.arcadeDrive(0, 0);
-    }
+	public void driveArcade(double x, double rot) {
+		robotDrive.arcadeDrive(x, rot);
+	}
+	
+	public void stop() {
+		robotDrive.arcadeDrive(0, 0);
+	}
 }
 
 
