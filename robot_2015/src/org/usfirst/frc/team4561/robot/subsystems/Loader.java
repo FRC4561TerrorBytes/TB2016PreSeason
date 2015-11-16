@@ -1,9 +1,9 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
+import org.usfirst.frc.team4561.robot.RobotMap;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.DigitalOutput;
 
 /**
  * Takes a Boolean value.  Turns the loader belt on or off.  
@@ -22,6 +22,13 @@ public class Loader extends Subsystem {
     public void moveBelt(boolean x){
     	if(x==true){
     		beltMotor.set(1);//TO-DO need to add speed
+    		beltMotor.set(1);//TO-DO need to add speed
+    	}
+    	else if(x==false){
+    		beltMotor.set(0);
+    	}
+    }
+}
     	}
     	else if(x==false){
     		beltMotor.set(0);
