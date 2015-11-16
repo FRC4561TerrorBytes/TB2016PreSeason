@@ -3,7 +3,7 @@ package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.SDLogging;
-
+import org.usfirst.frc.team4561.robot.subsystems.Shooter;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.EnterTouringMode;
 
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import org.usfirst.frc.team4561.robot.subsystems.Shooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +26,7 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static OI oi;
 	public static final SDLogging sdlogging = new SDLogging();
+	public static final Shooter shooter = new Shooter();
 	
 	/**
 	 * This function is run when the robot is first started up and should be
