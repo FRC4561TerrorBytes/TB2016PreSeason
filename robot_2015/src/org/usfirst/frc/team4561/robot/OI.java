@@ -50,7 +50,7 @@ public class OI {
 		return rotValue;
 	}
 	public double getDriveThrottle() {
-		return driveStick.getZ();
+		return driveStick.getThrottle();
 	}
 	public double getFlyWheelRPS() {
 		return Robot.shooter.getFlyWheelRPS();
