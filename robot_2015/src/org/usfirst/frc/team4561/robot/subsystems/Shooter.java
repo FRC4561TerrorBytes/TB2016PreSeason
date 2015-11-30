@@ -34,7 +34,7 @@ public class Shooter extends PIDSubsystem {
     // Initialize your subsystem here
     public Shooter() {
     	super(0,0,0);
-    	getPIDController().setPID(0,0,0,0);
+    	getPIDController().setPID(0,0,0,1);
     	constructMotorControllers();
     	shooterEncoder.setDistancePerPulse(INCHES_PER_PULSE);
         // Use these to get going:
@@ -65,12 +65,14 @@ public class Shooter extends PIDSubsystem {
     
     double rps;
     public double getFlyWheelRPS() {
-    	rps = shooterEncoder.getRate() / WHEEL_CIRCUMFERENCE;
+    	//rps = shooterEncoder.getRate() / WHEEL_CIRCUMFERENCE;
+    	rps = shooterEncoder.get();
     	return rps;
     }
     double speed;
     public double getFlyWheelSpeed() {
-    	speed = shooterEncoder.getRate();
+    	//speed = shooterEncoder.getRate();
+    	speed = shooterEncoder.get();
     	return speed;
     }
     protected double returnPIDInput() {
