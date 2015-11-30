@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class FlyWheelSpeed extends Command {
 
     public FlyWheelSpeed() {    	
-    	requires(Robot.shooter);  
+    	requires(Robot.shooter);
 
     	// Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -22,7 +22,7 @@ public class FlyWheelSpeed extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	Robot.shooter.setFlyWheelSpeed(Robot.oi.getDriveThrottle());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,10 +32,12 @@ public class FlyWheelSpeed extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.shooter.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

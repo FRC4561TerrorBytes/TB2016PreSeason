@@ -49,10 +49,17 @@ public class OI {
 		}
 		return rotValue;
 	}
-	double flyWheelSpeed;
-	public double getFlyWheelSpeed(){
-		flyWheelSpeed = driveStick.getZ();
-		return flyWheelSpeed;
+	public double getDriveThrottle() {
+		return driveStick.getZ();
+	}
+	public double getFlyWheelRPS() {
+		return Robot.shooter.getFlyWheelRPS();
+	}
+	public double getFlyWheelSpeed() {
+		return Robot.shooter.getFlyWheelSpeed();
+	}
+	public double getLoaderSpeed() {
+		return Robot.loader.getBeltSpeed();
 	}
 	public boolean isTouringMode() {
 		return isTouringMode;

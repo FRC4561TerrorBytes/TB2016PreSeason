@@ -2,6 +2,7 @@
 package org.usfirst.frc.team4561.robot;
 
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4561.robot.subsystems.Loader;
 import org.usfirst.frc.team4561.robot.subsystems.SDLogging;
 import org.usfirst.frc.team4561.robot.subsystems.Shooter;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team4561.robot.subsystems.Shooter;
 
 /**
@@ -22,38 +24,50 @@ import org.usfirst.frc.team4561.robot.subsystems.Shooter;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	Command autonomousCommand;
-	public static final DriveTrain driveTrain = new DriveTrain();
+	
 	public static OI oi;
-	public static final SDLogging sdlogging = new SDLogging();
+	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Shooter shooter = new Shooter();
+	public static final Loader loader = new Loader();
+	public static final SDLogging sdlogging = new SDLogging();
+	//Command autonomousCommand; TODO: Fix auto
+	
+	private static Robot robotSingleton;
+	
+	public static Robot getInstance() {
+		return robotSingleton;
+	}
 	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
+		
+		robotSingleton = this;
 		oi = new OI();
-		// instantiate the command used for the autonomous period
-		autonomousCommand = new ArcadeDrive();
 		SmartDashboard.putData(driveTrain);
-		SmartDashboard.putData("Touring Mode", new EnterTouringMode());
+		SmartDashboard.putData(shooter);
+		SmartDashboard.putData(loader);
+		System.out.println("Robot Booted.");
 	}
 
 	public void autonomousInit() {
+		// instantiate the command used for the autonomous period
+		//autonomousCommand = new ArcadeDrive();
 		// schedule the autonomous command (example)
-		autonomousCommand.start();
+		//autonomousCommand.start();
 	}
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
+		//Scheduler.getInstance().run();
 	}
 
 	public void teleopInit() {
-		autonomousCommand.cancel();
+		//autonomousCommand.cancel();
 	}
 
 	/**
