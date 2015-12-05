@@ -5,6 +5,7 @@ import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -25,7 +26,11 @@ public class DriveTrain extends Subsystem {
 	
 	public DriveTrain() {
 		constructMotorControllers();
-	}
+		robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
+		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
+		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+	} 	
 	
 	public void initDefaultCommand() {
 		 setDefaultCommand(new ArcadeDrive());

@@ -14,9 +14,9 @@ public class SDLogging extends Subsystem {
 	public enum Key {
 		Drive("DB/String 0", "Drive: "),
 		Rotation("DB/String 1", "Rotation: "),
-		Throttle("DB/String 2", "Drive Throttle: "),
-		WheelRPS("DB/String 3", "Flywheel RPS: "),
-		WheelSpeed("DB/String 4", "Flywheel Speed (in/sec): ");
+		Throttle("DB/String 2", "Throttle: "),
+		WheelRPS("DB/String 3", "RPS: "),
+		WheelSpeed("DB/String 4", "Speed: ");
 		
 		private String key;
 		private String label;

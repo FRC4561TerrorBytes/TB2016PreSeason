@@ -30,7 +30,7 @@ public class Shooter extends PIDSubsystem {
 	private static final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS;
 	private static final double INCHES_PER_PULSE = WHEEL_CIRCUMFERENCE/PULSES_PER_REVOLUTION;
 	
-	
+	 
     // Initialize your subsystem here
     public Shooter() {
     	super(0,0,0);
@@ -65,12 +65,15 @@ public class Shooter extends PIDSubsystem {
     
     double rps;
     public double getFlyWheelRPS() {
+    	
     	rps = shooterEncoder.getRate() / WHEEL_CIRCUMFERENCE;
     	return rps;
+    	
     }
     double speed;
     public double getFlyWheelSpeed() {
     	speed = shooterEncoder.getRate();
+    	System.out.println(speed);
     	return speed;
     }
     protected double returnPIDInput() {
